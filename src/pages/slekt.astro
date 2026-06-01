@@ -1,0 +1,107 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import site from "../data/site.json";
+---
+
+<Layout title="Slektsgransking" description="Slektsgransking på Frosta — Frostabasen, kurs, konfirmantlister og historiske kilder.">
+  <Hero
+    title="Slektsgransking"
+    subtitle="Finn dine røtter på Frosta"
+    image="/images/tinghaugen-1945.jpg"
+  />
+
+  <section class="page-section">
+    <div class="container-wide">
+      <div class="mx-auto max-w-3xl">
+        <p class="text-lg leading-relaxed text-slate-600">
+          Frosta Historielag har bygget opp omfattende ressurser for deg som vil finne slektningene dine på Frosta og i Åsen. Enten du er nybegynner eller erfaren slektsgransker, har vi verktøyene du trenger.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-8 md:grid-cols-2">
+        <div class="card p-6">
+          <img
+            src="/images/frostabasen.jpg"
+            alt="Frostabasen"
+            class="mb-4 h-40 w-full rounded-lg object-cover"
+            loading="lazy"
+          />
+          <h3 class="font-serif text-xl font-semibold text-forest-800">Frostabasen</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            En omfattende digital kildebase med ca 10&thinsp;000 bilder, kart, slektsdata og dokumenter. Inneholder også mye materiale fra Åsen. Lenker deg til Frostabøkene.
+          </p>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="font-serif text-lg font-bold text-amber-600">kr 700,-</span>
+            <a href="/produkter/frostabasen" class="text-sm font-medium text-forest-600 hover:text-forest-800 transition-colors">
+              Les mer &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div class="card p-6">
+          <img
+            src="/images/kurs-slektsgransking.jpg"
+            alt="Kurs i slektsgransking"
+            class="mb-4 h-40 w-full rounded-lg object-cover"
+            loading="lazy"
+          />
+          <h3 class="font-serif text-xl font-semibold text-forest-800">Kurs og veiledning</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            Historielaget arrangerer kurs i slektsgransking. Lær hvordan du bruker Digitalarkivet, Nasjonalbiblioteket og Frostabasen for å finne slektninger — også de som flyttet ut.
+          </p>
+          <div class="mt-4">
+            <a href="/hva-skjer" class="text-sm font-medium text-forest-600 hover:text-forest-800 transition-colors">
+              Se kommende kurs &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 mx-auto max-w-3xl">
+        <div class="card p-6">
+          <h3 class="font-serif text-xl font-semibold text-forest-800">Historiske kilder</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            Vi har digitalisert konfirmantlister for Logtun kirke fra perioden 1752–1816. Dette er verdifulle primærkilder for slektsgransking.
+          </p>
+          <div class="mt-4">
+            <a href="/historie/samlinger" class="text-sm font-medium text-forest-600 hover:text-forest-800 transition-colors">
+              Se konfirmantlister &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 mx-auto max-w-3xl space-y-6">
+        <div class="card p-6">
+          <h3 class="font-serif text-xl font-semibold text-forest-800">Frostabøkene</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            13 bind med Frostas historie — gårder, slekter, hendelser og dagligliv. En uvurderlig kilde for alle som driver slektsgransking. Full serie kr {site.membership ? '4000,-' : '4000,-'}.
+          </p>
+          <div class="mt-4">
+            <a href="/produkter/frostabokene" class="text-sm font-medium text-forest-600 hover:text-forest-800 transition-colors">
+              Se alle bind &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-forest-800 page-section text-cream-50">
+    <div class="container-narrow text-center">
+      <h2 class="font-serif text-3xl font-bold">Trenger du hjelp?</h2>
+      <p class="mt-4 text-lg leading-relaxed text-cream-300">
+        Kontakt oss på kontoret eller kom innom en mandag — vi hjelper deg gjerne i gang med slektsgranskingen.
+      </p>
+      <div class="mt-6 flex flex-wrap justify-center gap-4">
+        <a href="mailto:frosta.historielag@gmail.com" class="btn-primary">
+          Send e-post
+        </a>
+        <a href="/bli-medlem" class="btn-secondary border-cream-300 text-cream-50 hover:bg-cream-50 hover:text-forest-800">
+          Bli medlem
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
