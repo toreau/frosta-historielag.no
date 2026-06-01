@@ -1,0 +1,63 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import { getCollection } from "astro:content";
+
+const frostabasen = await getCollection("products", ({ data }) =>
+  data.published && data.category === "digitalt"
+);
+const product = frostabasen[0];
+---
+
+<Layout title="Frostabasen" description="Frostabasen — en uvurderlig kildebase for slektsgransking og lokalhistorie på Frosta.">
+  <Hero
+    title="Frostabasen"
+    subtitle="Slektsgransking og lokalhistorie"
+    image="/images/frostabasen.jpg"
+  />
+
+  <section class="page-section">
+    <div class="container-narrow">
+      <div class="card overflow-visible p-8">
+        {product && (
+          <div class="flex items-center gap-4">
+            <span class="font-serif text-3xl font-bold text-amber-600">kr {product.data.price},-</span>
+            <span class="text-slate-500">inkl. mva</span>
+          </div>
+        )}
+
+        <div class="mt-6 prose prose-slate prose-lg max-w-none space-y-5 text-lg leading-relaxed text-slate-600">
+          <p>
+            <strong>Frostabasen versjon 3.2</strong> er en omfattende kildebase utviklet for slektsgransking og lokalhistorisk arbeid på Frosta. Basen inneholder også svært mye materiale fra Åsen.
+          </p>
+
+          <h3 class="font-serif text-xl font-semibold text-forest-700">Innhold</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Ca 8–10 000 historiske bilder</li>
+            <li>Kildeoversikt med referanser</li>
+            <li>Lenker til de fleste Frostabøkene</li>
+            <li>Kart og historiske dokumenter</li>
+            <li>Omfattende slektsdata</li>
+          </ul>
+
+          <p>
+            Frostabasen er et uvurderlig hjelpemiddel for alle som har interesse for slekt og lokalhistorie. Basen selges på kontoret vårt på Tun.
+          </p>
+
+          <p>
+            Se også <a href="https://frostabasen.no" class="text-forest-600 font-medium hover:underline">Frostabasen.no</a> for mer informasjon og demonstrasjon.
+          </p>
+        </div>
+
+        <div class="mt-8">
+          <a
+            href="mailto:frosta.historielag@gmail.com?subject=Frostabasen"
+            class="btn-primary"
+          >
+            Bestill Frostabasen
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

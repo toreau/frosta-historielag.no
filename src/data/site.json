@@ -1,0 +1,36 @@
+{
+  "name": "Frosta Historielag",
+  "tagline": "Historien er nøkkelen til å forstå framtiden",
+  "founded": 1924,
+  "email": "frosta.historielag@gmail.com",
+  "phone": "74 80 98 49",
+  "address": "Tun, Frostavegen 1722",
+  "postal": "7633 Frosta",
+  "vipps": "535765",
+  "account": "4459 45 30958",
+  "officeHours": "De fleste mandager fra 11.00-14.00",
+  "membership": {
+    "single": 150,
+    "family": 250
+  },
+  "nav": [
+    { "label": "Hjem", "href": "/" },
+    { "label": "Om oss", "href": "/om-oss" },
+    { "label": "Historie", "href": "/historie" },
+    { "label": "Hva skjer", "href": "/hva-skjer" },
+    { "label": "Produkter", "href": "/produkter" },
+    { "label": "Bildegalleri", "href": "/bildegalleri" },
+    { "label": "Bli medlem", "href": "/bli-medlem" }
+  ],
+  "board": [
+    { "role": "Leder", "name": "Ola Andreas Lian", "phone": "932 93 834" },
+    { "role": "Nestleder", "name": "Johan Ole Kjelstad", "phone": "477 00 413" },
+    { "role": "Kasserer", "name": "Roar Lindgaard", "phone": "932 99 680" },
+    { "role": "Sekretær", "name": "Anne Irene Hagerup", "phone": "913 62 416" },
+    { "role": "Styremedlem", "name": "Olav Skogen", "phone": "951 00 680" }
+  ],
+  "boardDeputies": [
+    { "name": "Knut Arne Rein", "phone": "952 49 428" },
+    { "name": "Frode Olsen", "phone": "901 24 781" }
+  ]
+}

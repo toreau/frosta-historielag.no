@@ -1,0 +1,65 @@
+---
+import site from "../data/site.json";
+---
+
+<footer class="border-t border-slate-200 bg-forest-900 text-cream-200">
+  <div class="container-wide py-16">
+    <div class="grid gap-12 md:grid-cols-3">
+      <div>
+        <h3 class="font-serif text-xl font-bold text-cream-50">Frosta Historielag</h3>
+        <p class="mt-3 text-sm leading-relaxed text-cream-300">
+          {site.tagline}
+        </p>
+        <p class="mt-2 text-sm text-cream-400">
+          Stiftet {site.founded}
+        </p>
+      </div>
+
+      <div>
+        <h3 class="font-serif text-lg font-semibold text-cream-50">Kontakt</h3>
+        <ul class="mt-4 space-y-2 text-sm text-cream-300">
+          <li>
+            <span class="block font-medium text-cream-200">Besøksadresse</span>
+            {site.address}<br />{site.postal}
+          </li>
+          <li>
+            <span class="block font-medium text-cream-200">Telefon</span>
+            <a href={`tel:${site.phone}`} class="hover:text-cream-50 transition-colors">
+              {site.phone}
+            </a>
+          </li>
+          <li>
+            <span class="block font-medium text-cream-200">E-post</span>
+            <a href={`mailto:${site.email}`} class="hover:text-cream-50 transition-colors break-all">
+              {site.email}
+            </a>
+          </li>
+          <li>
+            <span class="block font-medium text-cream-200">Åpent</span>
+            {site.officeHours}
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-serif text-lg font-semibold text-cream-50">Støtt oss</h3>
+        <ul class="mt-4 space-y-2 text-sm text-cream-300">
+          <li><span class="font-medium text-cream-200">Vipps:</span> #{site.vipps}</li>
+          <li><span class="font-medium text-cream-200">Kontonr:</span> {site.account}</li>
+        </ul>
+        <div class="mt-6">
+          <a
+            href="/bli-medlem"
+            class="btn-primary inline-flex text-sm"
+          >
+            Bli medlem
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-forest-800 pt-6 text-center text-xs text-cream-400">
+      &copy; {new Date().getFullYear()} Frosta Historielag. Alle rettigheter forbeholdt.
+    </div>
+  </div>
+</footer>

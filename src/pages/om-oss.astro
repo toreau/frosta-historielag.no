@@ -1,0 +1,97 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import site from "../data/site.json";
+---
+
+<Layout title="Om oss" description="Om Frosta Historielag — styre, kontaktinfo og historien vår.">
+  <Hero
+    title="Om oss"
+    subtitle="Frosta Historielag — stiftet 9. mars 1924"
+    image="/images/hero-om-oss.jpg"
+  />
+
+  <section class="page-section">
+    <div class="container-narrow">
+      <h2 class="font-serif text-3xl font-bold text-forest-800">Vår historie</h2>
+      <div class="mt-6 space-y-4 text-lg leading-relaxed text-slate-600">
+        <p>
+          Frosta Historielag ble stiftet <strong>9. mars 1924</strong> da «nogle faa mænd» møttes for å diskutere dannelsen av et historielag for Frosta.
+        </p>
+        <p>
+          Initiativtakeren var husmannen og lokalhistorikeren <strong>Hans A. Vold</strong> (1870–1962). Han ble også historielagets første formann — fra 1924 til 1935. Den samme Hans A. Vold tok på begynnelsen av 1900-tallet initiativ til å ta vare på gamle gjenstander som sto i fare for å forsvinne. Dette førte til opprettelsen av <strong>Frosta Bygdemuseum</strong> i 1908.
+        </p>
+        <p>
+          For sitt utrettelige arbeid som lokalhistoriker og slektsgransker fikk Hans A. Vold <strong>Kongens Fortjenstmedalje i gull</strong> i 1952.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream-100 page-section">
+    <div class="container-wide">
+      <h2 class="font-serif text-3xl font-bold text-forest-800 text-center">Styret</h2>
+      <p class="mt-2 text-center text-slate-600">Valgt på årsmøtet 2025</p>
+
+      <div class="mt-10 overflow-x-auto">
+        <table class="w-full max-w-2xl mx-auto text-left">
+          <thead>
+            <tr class="border-b-2 border-forest-200">
+              <th class="pb-3 font-serif text-lg font-semibold text-forest-800">Rolle</th>
+              <th class="pb-3 font-serif text-lg font-semibold text-forest-800">Navn</th>
+              <th class="pb-3 font-serif text-lg font-semibold text-forest-800">Telefon</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            {site.board.map((member) => (
+              <tr class="hover:bg-cream-50 transition-colors">
+                <td class="py-3 font-medium text-slate-600">{member.role}</td>
+                <td class="py-3 text-slate-800">{member.name}</td>
+                <td class="py-3 text-sm text-slate-500">{member.phone}</td>
+              </tr>
+            ))}
+            <tr>
+              <td class="py-3 font-medium text-slate-600" colspan="3">
+                <span class="font-semibold text-forest-700">Varamedlemmer:</span>
+                {" "}
+                {site.boardDeputies.map((d, i) => (
+                  <>{d.name} ({d.phone}){i < site.boardDeputies.length - 1 ? " / " : ""}</>
+                ))}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container-narrow">
+      <h2 class="font-serif text-3xl font-bold text-forest-800">Kontakt oss</h2>
+      <div class="mt-6 grid gap-8 sm:grid-cols-2">
+        <div>
+          <h3 class="font-serif text-xl font-semibold text-forest-700">Besøksadresse</h3>
+          <p class="mt-2 text-slate-600">
+            {site.address}<br />
+            {site.postal}
+          </p>
+          <p class="mt-2 text-sm text-amber-600 font-medium">
+            Åpent: {site.officeHours}
+          </p>
+        </div>
+        <div>
+          <h3 class="font-serif text-xl font-semibold text-forest-700">Kontaktinfo</h3>
+          <p class="mt-2 text-slate-600">
+            Telefon: <a href={`tel:${site.phone}`} class="text-forest-600 hover:underline">{site.phone}</a><br />
+            E-post: <a href={`mailto:${site.email}`} class="text-forest-600 hover:underline">{site.email}</a>
+          </p>
+          <h3 class="mt-4 font-serif text-xl font-semibold text-forest-700">Betalingsinfo</h3>
+          <p class="mt-2 text-slate-600">
+            Vipps: #{site.vipps}<br />
+            Kontonr: {site.account}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

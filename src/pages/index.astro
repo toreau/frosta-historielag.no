@@ -1,0 +1,144 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import EventCard from "../components/EventCard.astro";
+import site from "../data/site.json";
+import { getCollection } from "astro:content";
+
+const events = await getCollection("events", ({ data }) => data.published);
+events.sort((a, b) => b.data.date.localeCompare(a.data.date));
+const upcomingEvents = events.slice(0, 2);
+---
+
+<Layout title="Hjem" description={site.tagline}>
+  <Hero image="/images/tinghaugen-1945.jpg" />
+
+  <section class="page-section">
+    <div class="container-wide">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="font-serif text-3xl font-bold text-forest-800">Velkommen til Frosta Historielag</h2>
+        <p class="mt-6 text-lg leading-relaxed text-slate-600">
+          Frosta Historielag ble stiftet <strong>9. mars 1924</strong> og har i over 100 år arbeidet for å ta vare på og formidle Frostas rike historie. Vi gir ut bøker, arrangerer kurs og foredrag, driver slektsgransking gjennom <strong>Frostabasen</strong>, og forvalter et stort arkiv av fotografier og dokumenter.
+        </p>
+        <p class="mt-4 text-slate-600 leading-relaxed">
+          Initiativtakeren var husmannen og lokalhistorikeren <strong>Hans A. Vold</strong> (1870–1962), som også stiftet Frosta Bygdemuseum i 1908. For sitt utrettelige arbeid fikk han Kongens Fortjenstmedalje i gull i 1952.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream-100 page-section">
+    <div class="container-wide">
+      <div class="flex items-center justify-between mb-10">
+        <h2 class="font-serif text-3xl font-bold text-forest-800">Hva skjer</h2>
+        <a href="/hva-skjer" class="text-sm font-medium text-forest-600 hover:text-forest-800 transition-colors">
+          Se alle arrangementer &rarr;
+        </a>
+      </div>
+      <div class="grid gap-6 md:grid-cols-2">
+        {upcomingEvents.map((event) => (
+          <EventCard
+            title={event.data.title}
+            date={event.data.date}
+            time={event.data.time}
+            location={event.data.location}
+            description={event.body?.substring(0, 180) + "..." || ""}
+            image={event.data.image}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container-wide">
+      <h2 class="font-serif text-3xl font-bold text-forest-800 text-center">Våre produkter</h2>
+      <p class="mt-4 text-center text-slate-600">Historielaget tilbyr bøker, kalendere, smykker og Frostabasen for slektsgransking.</p>
+      <div class="mt-10 grid gap-8 md:grid-cols-3">
+        <a href="/produkter/frostabokene" class="card group block p-0">
+          <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+            <img
+              src="/images/frostaboka-bind-3.jpg"
+              alt="Frostabøkene"
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 sepia-[0.15]"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-5">
+            <h3 class="font-serif text-lg font-semibold text-forest-800">Frostabøkene</h3>
+            <p class="mt-2 text-sm text-slate-600">13 bind med lokalhistorie fra Frosta. Full serie kr 4000,-</p>
+          </div>
+        </a>
+        <a href="/produkter/frostabasen" class="card group block p-0">
+          <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+            <img
+              src="/images/frostabasen.jpg"
+              alt="Frostabasen"
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-5">
+            <h3 class="font-serif text-lg font-semibold text-forest-800">Frostabasen</h3>
+            <p class="mt-2 text-sm text-slate-600">Kildebase for slektsgransking med ~10 000 bilder. Kr 700,-</p>
+          </div>
+        </a>
+        <a href="/produkter/smykker" class="card group block p-0">
+          <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+            <img
+              src="/images/frostabrosje.jpg"
+              alt="Smykker"
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-5">
+            <h3 class="font-serif text-lg font-semibold text-forest-800">Smykker</h3>
+            <p class="mt-2 text-sm text-slate-600">Historiske smykker inspirert av funn fra Frosta.</p>
+          </div>
+        </a>
+      </div>
+      <div class="mt-8 text-center">
+        <a href="/produkter" class="btn-secondary">
+          Se alle produkter
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-forest-800 page-section text-cream-50">
+    <div class="container-narrow text-center">
+      <h2 class="font-serif text-3xl font-bold">Bli medlem</h2>
+      <p class="mt-4 text-lg leading-relaxed text-cream-300">
+        Støtt arbeidet med å ta vare på Frostas historie. Som medlem får du medlemsnytt og invitasjoner til arrangementer.
+      </p>
+      <div class="mt-6 flex items-center justify-center gap-8 text-center">
+        <div>
+          <p class="font-serif text-3xl font-bold text-amber-300">kr {site.membership.single},-</p>
+          <p class="text-sm text-cream-300">Enkeltmedlem / år</p>
+        </div>
+        <div>
+          <p class="font-serif text-3xl font-bold text-amber-300">kr {site.membership.family},-</p>
+          <p class="text-sm text-cream-300">Familie / år</p>
+        </div>
+      </div>
+      <div class="mt-8">
+        <a href="/bli-medlem" class="btn-primary text-lg">
+          Bli medlem
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section bg-cream-100">
+    <div class="container-narrow text-center">
+      <h2 class="font-serif text-3xl font-bold text-forest-800">Besøk oss</h2>
+      <p class="mt-4 text-lg leading-relaxed text-slate-600">
+        Vi holder til på <strong>Tun, Frostavegen 1722, 7633 Frosta</strong>. Kontoret er åpent de fleste mandager fra kl. 11.00–14.00.
+      </p>
+      <p class="mt-2 text-sm text-slate-500">
+        Ta kontakt med Roar Lindgaard (932 99 680) eller Johan Ole Kjelstad (477 00 413) hvis du ønsker å besøke oss utenfor kontortid.
+      </p>
+    </div>
+  </section>
+</Layout>

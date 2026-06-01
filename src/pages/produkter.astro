@@ -1,0 +1,76 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+---
+
+<Layout title="Produkter" description="Bøker, Frostabasen, kalendere, smykker og andre produkter fra Frosta Historielag.">
+  <Hero
+    title="Produkter"
+    subtitle="Bøker, kalendere, smykker og mer"
+    image="/images/hero-produkter.png"
+  />
+
+  <section class="page-section">
+    <div class="container-wide">
+      <p class="text-center text-lg text-slate-600 max-w-2xl mx-auto">
+        Alle produkter kan kjøpes på kontoret vårt på Tun, eller bestilles på e-post. Vi sender gjerne det du ønsker å kjøpe!
+      </p>
+
+      <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <a href="/produkter/frostabokene" class="card group block p-0">
+          <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+            <img src="/images/frostaboka-bind-3.jpg" alt="Frostabøkene" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 sepia-[0.15]" loading="lazy" />
+          </div>
+          <div class="p-5">
+            <h3 class="font-serif text-xl font-semibold text-forest-800">Frostabøkene</h3>
+            <p class="mt-2 text-sm text-slate-600">13 bind med Frostas historie. Enkeltbind fra kr 225,-. Full serie kr 4000,-</p>
+          </div>
+        </a>
+
+        <a href="/produkter/frostabasen" class="card group block p-0">
+          <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+            <img src="/images/frostabasen.jpg" alt="Frostabasen" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+          </div>
+          <div class="p-5">
+            <h3 class="font-serif text-xl font-semibold text-forest-800">Frostabasen</h3>
+            <p class="mt-2 text-sm text-slate-600">Kildebase for slektsgransking. Ca 10 000 bilder, kart og dokumenter. Kr 700,-</p>
+          </div>
+        </a>
+
+        <a href="/produkter/kalender" class="card group block p-0">
+          <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+            <img src="/images/kalender.jpg" alt="Frostakalender" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+          </div>
+          <div class="p-5">
+            <h3 class="font-serif text-xl font-semibold text-forest-800">Frostakalenderen</h3>
+            <p class="mt-2 text-sm text-slate-600">Årlig kalender med historiske bilder fra Frosta.</p>
+          </div>
+        </a>
+
+        <a href="/produkter/arbok" class="card group block p-0">
+          <div class="aspect-[4/3] flex items-center justify-center bg-forest-100">
+            <span class="font-serif text-4xl text-forest-400">Årbok</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-serif text-xl font-semibold text-forest-800">Årbok</h3>
+            <p class="mt-2 text-sm text-slate-600">Historielagets årbok med artikler om Frostas historie og kultur.</p>
+          </div>
+        </a>
+
+        <a href="/produkter/smykker" class="card group block p-0">
+          <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+            <img src="/images/frostabrosje.jpg" alt="Smykker" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+          </div>
+          <div class="p-5">
+            <h3 class="font-serif text-xl font-semibold text-forest-800">Smykker</h3>
+            <p class="mt-2 text-sm text-slate-600">Historiske smykker inspirert av arkeologiske funn fra Frosta.</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="mt-10 text-center">
+        <p class="text-slate-600">Bestill på <a href="mailto:frosta.historielag@gmail.com" class="text-forest-600 font-medium hover:underline">frosta.historielag@gmail.com</a></p>
+      </div>
+    </div>
+  </section>
+</Layout>

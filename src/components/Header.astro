@@ -1,0 +1,88 @@
+---
+import site from "../data/site.json";
+
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-slate-200/80 bg-cream-50/95 backdrop-blur-sm"
+  x-data="{ open: false }"
+>
+  <div class="container-wide flex h-16 items-center justify-between">
+    <a href="/" class="flex items-center">
+      <span class="inline-flex items-center rounded-lg bg-forest-800 px-3 py-1">
+        <img
+          src="/images/logo.png"
+          alt="Frosta Historielag"
+          class="h-9 w-auto"
+          loading="eager"
+        />
+      </span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-1">
+      {site.nav.map((item) => (
+        <a
+          href={item.href}
+          class={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+            currentPath === item.href
+              ? "bg-forest-100 text-forest-800"
+              : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <a
+      href="/bli-medlem"
+      class="btn-primary hidden text-sm lg:inline-flex"
+    >
+      Bli medlem
+    </a>
+
+    <button
+      class="lg:hidden rounded-md p-2 text-slate-600 hover:bg-slate-100"
+      aria-label="Meny"
+      x-on:click="open = !open"
+    >
+      <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg x-show="open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div
+    class="lg:hidden border-t border-slate-200 bg-cream-50"
+    x-show="open"
+    x-transition
+    x-cloak
+  >
+    <nav class="container-wide flex flex-col gap-1 py-3">
+      {site.nav.map((item) => (
+        <a
+          href={item.href}
+          class={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+            currentPath === item.href
+              ? "bg-forest-100 text-forest-800"
+              : "text-slate-600 hover:bg-slate-100"
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a
+        href="/bli-medlem"
+        class="btn-primary mt-2 justify-center text-sm"
+      >
+        Bli medlem
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>

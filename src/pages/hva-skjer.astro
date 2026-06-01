@@ -1,0 +1,55 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import EventCard from "../components/EventCard.astro";
+import { getCollection } from "astro:content";
+
+const events = await getCollection("events", ({ data }) => data.published);
+events.sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+
+<Layout title="Hva skjer" description="Arrangementer, kurs og aktiviteter i regi av Frosta Historielag.">
+  <Hero
+    title="Hva skjer"
+    subtitle="Arrangementer og aktiviteter"
+    image="/images/hero-hva-skjer.png"
+  />
+
+  <section class="page-section">
+    <div class="container-wide">
+      {events.length > 0 ? (
+        <div class="grid gap-8">
+          {events.map((event) => (
+            <EventCard
+              title={event.data.title}
+              date={event.data.date}
+              time={event.data.time}
+              location={event.data.location}
+              description={event.body || ""}
+              image={event.data.image}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-16">
+          <p class="text-lg text-slate-500 italic">Ingen kommende arrangementer akkurat nå.</p>
+          <p class="mt-2 text-slate-400">Følg med her for oppdateringer!</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="bg-forest-800 page-section text-cream-50">
+    <div class="container-narrow text-center">
+      <h2 class="font-serif text-3xl font-bold">Ønsker du å arrangere noe?</h2>
+      <p class="mt-4 text-lg leading-relaxed text-cream-300">
+        Har du ideer til kurs, foredrag eller andre arrangementer? Ta kontakt med oss!
+      </p>
+      <div class="mt-6">
+        <a href="mailto:frosta.historielag@gmail.com" class="btn-primary">
+          Send e-post
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

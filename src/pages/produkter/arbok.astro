@@ -1,0 +1,37 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+---
+
+<Layout title="Årbok" description="Frosta Historielags årbok med artikler om bygdas historie og kultur.">
+  <Hero
+    title="Årbok"
+    subtitle="Artikler om Frostas historie"
+  />
+
+  <section class="page-section">
+    <div class="container-narrow text-center">
+      <div class="flex items-center justify-center">
+        <div class="flex h-48 w-36 items-center justify-center rounded-lg bg-forest-100">
+          <span class="font-serif text-5xl text-forest-400 font-bold">Å</span>
+        </div>
+      </div>
+      <div class="mt-8 space-y-4 text-lg leading-relaxed text-slate-600">
+        <p>
+          Historielagets årbok inneholder artikler om Frostas historie, kulturminner, slektshistorie og lokalhistoriske emner. Årboka utgis årlig og sendes til alle medlemmer.
+        </p>
+        <p>
+          Eldre utgaver kan kjøpes på kontoret eller bestilles på e-post.
+        </p>
+      </div>
+      <div class="mt-8">
+        <a
+          href="mailto:frosta.historielag@gmail.com?subject=Årbok"
+          class="btn-primary"
+        >
+          Bestill årbok
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

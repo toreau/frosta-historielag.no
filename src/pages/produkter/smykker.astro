@@ -1,0 +1,38 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import ProductCard from "../../components/ProductCard.astro";
+import { getCollection } from "astro:content";
+
+const jewelry = await getCollection("products", ({ data }) =>
+  data.published && data.category === "smykke"
+);
+jewelry.sort((a, b) => a.data.price - b.data.price);
+---
+
+<Layout title="Smykker" description="Historiske smykker inspirert av arkeologiske funn fra Frosta.">
+  <Hero
+    title="Smykker"
+    subtitle="Historiske smykker fra Frosta"
+    image="/images/frostabrosje.jpg"
+  />
+
+  <section class="page-section">
+    <div class="container-wide">
+      <p class="text-lg text-slate-600 max-w-2xl">
+        Våre smykker er inspirert av arkeologiske funn fra Frosta og er laget av anerkjente norske gullsmeder. Hvert smykke har sin egen historie.
+      </p>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {jewelry.map((item) => (
+          <ProductCard
+            name={item.data.name}
+            description={item.body || ""}
+            price={item.data.price}
+            image={item.data.image}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

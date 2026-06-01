@@ -1,0 +1,38 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+---
+
+<Layout title="Frostakalenderen" description="Årlig kalender med historiske bilder fra Frosta.">
+  <Hero
+    title="Frostakalenderen"
+    subtitle="Historiske bilder — årets kalender"
+    image="/images/kalender.jpg"
+  />
+
+  <section class="page-section">
+    <div class="container-narrow text-center">
+      <img
+        src="/images/kalender.jpg"
+        alt="Frostakalenderen"
+        class="mx-auto max-w-md rounded-xl shadow-lg"
+      />
+      <div class="mt-8 space-y-4 text-lg leading-relaxed text-slate-600">
+        <p>
+          Hvert år gir Frosta Historielag ut en kalender med historiske bilder fra bygda. Kalenderen inneholder 25 gamle bilder med varierte temaer — idrett, landbruk, skole, dagligliv og mer.
+        </p>
+        <p>
+          Kalenderen kan kjøpes på kontoret vårt på Tun eller bestilles på e-post.
+        </p>
+      </div>
+      <div class="mt-8">
+        <a
+          href="mailto:frosta.historielag@gmail.com?subject=Kalender"
+          class="btn-primary"
+        >
+          Bestill kalender
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

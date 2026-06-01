@@ -1,0 +1,106 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+---
+
+<Layout title="Historie" description="Frostas rike historie — Tinghaugen, Logtun kirke, Tautra kloster og Frostatinget.">
+  <Hero
+    title="Historie"
+    subtitle="Fra Frostatingslagen til i dag"
+    image="/images/tinghaugen.jpg"
+  />
+
+  <section class="page-section">
+    <div class="container-narrow space-y-16">
+      <div>
+        <h2 class="font-serif text-3xl font-bold text-forest-800">Tinghaugen på Logtun</h2>
+        <div class="mt-6 space-y-5 text-lg leading-relaxed text-slate-600">
+          <p>
+            Tinghaugen er et av Norges viktigste historiske steder. Her lå <strong>Frostatinget</strong>, en av de eldste og viktigste lovgivende forsamlingene i Norge. Tingstedet var i bruk fra ca. år 900 til det ble flyttet til Trondheim på 1500-tallet.
+          </p>
+          <p>
+            Opptil 500 utsendinger møttes her i juni hvert år. På minnebautaen fra 1914 står det innskrevet: <em class="italic font-serif text-forest-700">«At lögum skal land vårt byggja, en eigi at ulögum øyda»</em> — Med lov skal landet vårt bygges, og ikke med ulov ødes.
+          </p>
+          <p>
+            Bautaen er omgitt av en stein fra hvert av de opprinnelig 12 fylkene som Frostatingslagen omfattet. Opprinnelig 8 trønderfylker, senere også Namdal, Nordmøre, Romsdal og Oppdal.
+          </p>
+        </div>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          <img
+            src="/images/tinghaugen-1935.jpg"
+            alt="Tinghaugen ca. 1935"
+            class="rounded-xl shadow-md sepia-[0.2]"
+            loading="lazy"
+          />
+          <img
+            src="/images/tinghaugen-1945.jpg"
+            alt="Tinghaugen 17. mai 1945"
+            class="rounded-xl shadow-md sepia-[0.2]"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div>
+        <h2 class="font-serif text-3xl font-bold text-forest-800">Logtun kirke</h2>
+        <div class="mt-6 space-y-5 text-lg leading-relaxed text-slate-600">
+          <p>
+            Logtun kirke er en middelalderkirke som ligger ved siden av Tinghaugen. Kirken var i bruk som sognekirke frem til 1860-tallet, da den nye Frosta kirke ble bygget.
+          </p>
+          <p>
+            Etter å ha stått til forfall i mange år, ble kirken restaurert og gjenåpnet i 1951. I dag er Logtun kirke et vakkert kulturminne og brukes fortsatt til spesielle anledninger.
+          </p>
+        </div>
+        <div class="mt-8">
+          <img
+            src="/images/logtun-kirke.jpg"
+            alt="Logtun kirke 2016"
+            class="rounded-xl shadow-md w-full max-w-2xl"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div>
+        <h2 class="font-serif text-3xl font-bold text-forest-800">Tautra kloster</h2>
+        <div class="mt-6 space-y-5 text-lg leading-relaxed text-slate-600">
+          <p>
+            Tautra kloster ble grunnlagt som et cistercienserkloster i 1207. Klosteret lå på øya Tautra i Trondheimsfjorden og var i drift frem til reformasjonen i 1537.
+          </p>
+          <p>
+            Ruinene av klosteret er fortsatt synlige i dag og er et populært utfartsmål. I moderne tid er det etablert et nytt cistercienserkloster like ved de gamle ruinene.
+          </p>
+        </div>
+        <div class="mt-8">
+          <img
+            src="/images/tautra-kloster.jpg"
+            alt="Tautra klosterruin"
+            class="rounded-xl shadow-md w-full max-w-2xl"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div>
+        <h2 class="font-serif text-3xl font-bold text-forest-800">Helleristningene ved Evenhus</h2>
+        <div class="mt-6 space-y-5 text-lg leading-relaxed text-slate-600">
+          <p>
+            Ved Evenhus på Frosta finner vi det største helleristningsfeltet på Frosta med rundt 100 figurer fra ca. 1500 f.Kr. De fleste figurene har tilknytning til fiske og fangst, og gir et fascinerende innblikk i livet for over 3000 år siden.
+          </p>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-200 pt-12">
+        <h2 class="font-serif text-3xl font-bold text-forest-800">Samlinger</h2>
+        <p class="mt-4 text-lg text-slate-600">
+          Vi har digitalisert en rekke historiske dokumenter, inkludert konfirmantlister for Logtun kirke fra perioden 1752–1816.
+        </p>
+        <div class="mt-6">
+          <a href="/historie/samlinger" class="btn-secondary">
+            Se konfirmantlister &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

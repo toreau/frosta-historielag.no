@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+
+const rapporter = [
+  { year: 2025, title: "Årsmelding 2025", href: "https://frosta-historielag.no/arsmelding-2025" },
+  { year: 2024, title: "Årsmelding 2024", href: "https://frosta-historielag.no/arsmelding-2024" },
+  { year: 2023, title: "Årsmelding 2023", href: "https://frosta-historielag.no/arsmelding-2023" },
+  { year: 2022, title: "Årsmelding 2022", href: "https://frosta-historielag.no/arsmote-2023" },
+];
+---
+
+<Layout title="Årsmeldinger" description="Årsmeldinger fra Frosta Historielag 2022–2025.">
+  <Hero
+    title="Årsmeldinger"
+    subtitle="Arkiv over historielagets årsmeldinger"
+  />
+
+  <section class="page-section">
+    <div class="container-narrow">
+      <p class="text-lg text-slate-600">
+        Her finner du historielagets årsmeldinger fra de siste årene. Årsmeldingene gir et sammendrag av aktiviteten i laget og legges frem på årsmøtet hvert år.
+      </p>
+
+      <div class="mt-10 space-y-3">
+        {rapporter.map((r) => (
+          <a
+            href={r.href}
+            class="card flex items-center justify-between p-5 hover:border-forest-300 no-underline"
+          >
+            <div>
+              <h3 class="font-serif text-lg font-semibold text-forest-800">{r.title}</h3>
+              <p class="text-sm text-slate-500">Årsmøte {r.year}</p>
+            </div>
+            <span class="text-forest-500 text-xl">&rarr;</span>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-12 rounded-xl bg-cream-100 p-6 text-center">
+        <p class="text-slate-600">
+          Årsmeldingene finnes også i trykt format. Ta kontakt for eldre utgaver.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
