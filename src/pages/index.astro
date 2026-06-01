@@ -11,7 +11,6 @@ const upcomingEvents = events.slice(0, 2);
 ---
 
 <Layout title="Hjem" description={site.tagline}>
-  <Hero image="/images/tinghaugen-1945.jpg" />
 
   <section class="page-section pb-8">
     <div class="container-wide">
@@ -86,7 +85,6 @@ const upcomingEvents = events.slice(0, 2);
             time={event.data.time}
             location={event.data.location}
             description={event.body?.substring(0, 180) + "..." || ""}
-            image={event.data.image}
           />
         ))}
       </div>

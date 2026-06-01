@@ -14,7 +14,6 @@ jewelry.sort((a, b) => a.data.price - b.data.price);
   <Hero
     title="Smykker"
     subtitle="Historiske smykker fra Frosta"
-    image="/images/frostabrosje.jpg"
   />
 
   <section class="page-section">
@@ -29,7 +28,6 @@ jewelry.sort((a, b) => a.data.price - b.data.price);
             name={item.data.name}
             description={item.body || ""}
             price={item.data.price}
-            image={item.data.image}
           />
         ))}
       </div>

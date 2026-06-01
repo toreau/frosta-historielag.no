@@ -14,7 +14,6 @@ books.sort((a, b) => a.data.price - b.data.price);
   <Hero
     title="Frostabøkene"
     subtitle="Lokalhistorie i 13 bind"
-    image="/images/frostaboka-bind-3.jpg"
   />
 
   <section class="page-section">
@@ -29,7 +28,6 @@ books.sort((a, b) => a.data.price - b.data.price);
             name={book.data.name}
             description={book.body || "Historielagets bok om Frostas historie."}
             price={book.data.price}
-            image={book.data.image}
           />
         ))}
       </div>
