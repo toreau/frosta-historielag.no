@@ -23,7 +23,7 @@ const photosJSON = JSON.stringify(
     get selected() {
       return this.selectedIndex !== null ? this.photos[this.selectedIndex] : null;
     },
-    open(index) { this.selectedIndex = index; },
+    open(index) { this.selectedIndex = index; $nextTick(() => $refs.lightbox.focus()); },
     next() { this.selectedIndex = (this.selectedIndex + 1) % this.photos.length; },
     prev() { this.selectedIndex = (this.selectedIndex - 1 + this.photos.length) % this.photos.length; },
     close() { this.selectedIndex = null; },
