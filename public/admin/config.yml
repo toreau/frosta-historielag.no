@@ -3,7 +3,7 @@ backend:
   repo: toreau/frosta-historielag.no
   branch: main
   base_url: https://frosta-historielag.pages.dev
-  auth_endpoint: auth
+  auth_endpoint: /auth
 site_url: https://frosta-historielag.pages.dev
 display_url: https://frosta-historielag.pages.dev
 
