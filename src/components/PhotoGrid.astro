@@ -70,14 +70,14 @@ const photosJSON = JSON.stringify(
       </svg>
     </button>
 
-    <div class="relative max-h-[90vh] max-w-[90vw]" x-on:click.stop>
+    <div class="absolute inset-16 flex items-center justify-center" x-on:click.stop>
       <img
         :src="selected?.src"
         :alt="selected?.alt"
-        class="max-h-[85vh] max-w-full rounded-lg object-contain"
+        class="max-h-full max-w-full object-contain"
       />
       <p
-        class="mt-3 text-center text-sm text-cream-200"
+        class="absolute bottom-14 left-0 right-0 text-center text-sm text-cream-200"
         x-text="selected?.caption"
         x-show="selected?.caption"
       ></p>
