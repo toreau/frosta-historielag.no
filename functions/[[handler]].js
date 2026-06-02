@@ -24,25 +24,43 @@ async function exchangeCode(code, id, secret) {
   return data.access_token;
 }
 
-function htmlResponse(body) {
-  return new Response(body, { headers: { "Content-Type": "text/html" } });
-}
+function callbackPage(type, detail) {
+  const success = type === "success";
+  const serialized = JSON.stringify(success ? { token: detail, provider: "github" } : { error: detail });
+  const prefix = success ? "success" : "error";
+  const heading = success ? "✅ Innlogging vellykket" : "❌ Innlogging feilet";
+  const message = success
+    ? "Du kan lukke dette vinduet."
+    : `<pre style="color:#b91c1c;max-width:100%;overflow-x:auto">${detail}</pre>`;
 
-function callbackPage(status, token) {
-  const serialized = JSON.stringify({ token, provider: "github" });
-  return htmlResponse(`<!doctype html>
-<html><head><script>
-  const receiveMessage = (message) => {
-    window.opener.postMessage(
-      'authorization:github:${status}:${serialized}',
-      '*'
-    );
-    window.removeEventListener("message", receiveMessage, false);
-  };
-  window.addEventListener("message", receiveMessage, false);
-  window.opener.postMessage("authorizing:github", "*");
-</script></head>
-<body><p>Authorizing…</p></body></html>`);
+  return new Response(
+    `<!doctype html>
+<html lang="no">
+<head><meta charset="UTF-8"><title>${heading}</title></head>
+<body style="font-family:system-ui,sans-serif;padding:2rem;text-align:center">
+  <h2>${heading}</h2>
+  <p>${message}</p>
+  <script>
+    console.log("Decap OAuth callback — ${prefix}:", ${JSON.stringify(detail)});
+    const postToken = () => {
+      window.opener.postMessage(
+        'authorization:github:${prefix}:${serialized.replace(/'/g, "\\'")}',
+        '*'
+      );
+    };
+    const receiveMessage = (msg) => {
+      if (msg.data === "authorizing:github") {
+        window.removeEventListener("message", receiveMessage);
+        postToken();
+      }
+    };
+    window.addEventListener("message", receiveMessage);
+    window.opener.postMessage("authorizing:github", "*");
+    setTimeout(() => { window.close(); }, 10000);
+  </script>
+</body></html>`,
+    { headers: { "Content-Type": "text/html; charset=UTF-8" } }
+  );
 }
 
 export async function onRequest({ request, env, next }) {
