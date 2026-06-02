@@ -22,18 +22,24 @@ collections:
     identifier_field: title
     editor:
       preview: false
+    sortable_fields:
+      - date
+      - title
     fields:
       - label: Tittel
         name: title
         widget: string
       - label: Dato
         name: date
-        widget: string
-        hint: F.eks. "10. mars 2026"
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: DD. MMMM YYYY
+        time_format: false
       - label: Tid
         name: time
         widget: string
         required: false
+        hint: F.eks. "kl. 19.00"
       - label: Sted
         name: location
         widget: string

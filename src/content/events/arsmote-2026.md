@@ -1,6 +1,6 @@
 ---
 title: Årsmøte 2026
-date: 26. februar 2026
+date: "2026-02-26"
 time: kl. 18.00
 location: Personalrommet, Frosta skole
 published: true

@@ -9,6 +9,16 @@ interface Props {
 }
 
 const { title, date, time, location, description, image } = Astro.props;
+
+const months = [
+  "januar", "februar", "mars", "april", "mai", "juni",
+  "juli", "august", "september", "oktober", "november", "desember",
+];
+const parts = date.split("-");
+const displayDate =
+  parts.length === 3
+    ? `${parseInt(parts[2])}. ${months[parseInt(parts[1]) - 1]} ${parts[0]}`
+    : date;
 ---
 
 <div class="card group flex flex-col overflow-hidden md:flex-row">
@@ -28,7 +38,7 @@ const { title, date, time, location, description, image } = Astro.props;
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
-        {date}
+        {displayDate}
       </span>
       {time && <span>{time}</span>}
       {location && <span>— {location}</span>}

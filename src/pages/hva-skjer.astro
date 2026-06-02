@@ -5,7 +5,7 @@ import EventCard from "../components/EventCard.astro";
 import { getCollection } from "astro:content";
 
 const events = await getCollection("events", ({ data }) => data.published);
-events.sort((a, b) => b.data.date.localeCompare(a.data.date));
+events.sort((a, b) => a.data.date.localeCompare(b.data.date));
 ---
 
 <Layout title="Hva skjer" description="Arrangementer, kurs og aktiviteter i regi av Frosta Historielag.">

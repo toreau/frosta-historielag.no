@@ -1,6 +1,6 @@
 ---
 title: "Nytt skilt ved Gullberget"
-date: "November 2025"
+date: "2025-11-01"
 published: true
 image: "/images/nytt-skilt-gullberget.jpg"
 ---

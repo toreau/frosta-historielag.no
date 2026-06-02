@@ -1,6 +1,6 @@
 ---
 title: "Kurs: Hvordan finne Frostinger som har flyttet ut?"
-date: "10. mars 2026"
+date: "2026-03-10"
 time: "kl. 19.00"
 location: "Frosta bibliotek"
 image: "/images/kurs-slektsgransking.jpg"
