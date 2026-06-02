@@ -5,7 +5,11 @@ const events = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/events" }),
   schema: z.object({
     title: z.string(),
-    date: z.string(),
+    date: z
+      .union([z.string(), z.date()])
+      .transform((val) =>
+        val instanceof Date ? val.toISOString().split("T")[0] : val
+      ),
     time: z.string().optional(),
     location: z.string().optional(),
     image: z.string().optional(),
