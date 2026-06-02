@@ -30,11 +30,11 @@ const photosJSON = JSON.stringify(
     --default-handle-color: #fff;
     --default-handle-width: 40px;
     outline: none;
-    width: 100%;
-    height: 100%;
   }
   img-comparison-slider img[slot="first"],
   img-comparison-slider img[slot="second"] {
+    width: 100% !important;
+    height: 100% !important;
     object-fit: contain !important;
   }
 </style>
@@ -130,18 +130,19 @@ const photosJSON = JSON.stringify(
     </button>
 
     <div class="absolute inset-[120px]" x-on:click.stop>
-      <template x-if="hasUpscaled() && showComparison">
-        <img-comparison-slider>
-          <img slot="first" :src="selected?.upscaledSrc" />
-          <img slot="second" :src="selected?.src" />
-        </img-comparison-slider>
-      </template>
-      <template x-if="!hasUpscaled() || !showComparison">
-        <img
-          :src="selected?.src"
-          :alt="selected?.alt"
-          class="h-full w-full object-contain"
-        />
+      <img-comparison-slider
+        x-show="hasUpscaled() && showComparison"
+        class="absolute inset-0"
+      >
+        <img slot="first" :src="selected?.upscaledSrc" />
+        <img slot="second" :src="selected?.src" />
+      </img-comparison-slider>
+      <img
+        x-show="!hasUpscaled() || !showComparison"
+        :src="selected?.src"
+        :alt="selected?.alt"
+        class="h-full w-full object-contain"
+      />
       </template>
     </div>
 
