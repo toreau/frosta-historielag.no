@@ -7,8 +7,7 @@ COUNT=0
 SKIPPED=0
 FAILED=0
 
-echo "🖼️  Batch upscaling gallery images (4x) with Upscayl CLI"
-echo ""
+echo "🖼️  Batch upscaling gallery images (true 2x) with Upscayl CLI"
 
 for img in \
   bygdemuseet-2011 \
@@ -41,8 +40,15 @@ for img in \
     continue
   fi
 
-  echo -n "  ⬆️  ${img} ... "
-  if "$CLI" run -s 2 -i "$input" -o "$output" > /dev/null 2>&1; then
+  w=$(sips -g pixelWidth "$input" | tail -1 | awk '{print $2}')
+  h=$(sips -g pixelHeight "$input" | tail -1 | awk '{print $2}')
+  w2=$((w * 2))
+  h2=$((h * 2))
+
+  echo -n "  ⬆️  ${img} (${w}x${h} → ${w2}x${h2}) ... "
+  if "$CLI" run -i "$input" -o /tmp/upscayl-tmp.jpg > /dev/null 2>&1; then
+    sips -z "$h2" "$w2" /tmp/upscayl-tmp.jpg --out "$output" > /dev/null 2>&1
+    rm -f /tmp/upscayl-tmp.jpg
     size=$(wc -c < "$output" | tr -d ' ')
     echo "✅ ($size bytes)"
     ((COUNT++)) || true
