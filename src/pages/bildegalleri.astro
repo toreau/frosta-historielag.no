@@ -5,26 +5,26 @@ import Hero from "../components/Hero.astro";
 import PhotoGrid from "../components/PhotoGrid.astro";
 
 const gamleBilder = [
-  { src: "/images/bygdemuseet-2011.jpg", alt: "Frosta Bygdemuseum", caption: "Bygdemuseet sommeren 2011" },
-  { src: "/images/klang-1985.jpg", alt: "Klang medaljemottakere", caption: "Klang — medaljemottakere 1985" },
-  { src: "/images/klang-1955.jpg", alt: "Klang ca 1955", caption: "Klang ca. 1955" },
-  { src: "/images/skogbrynet.jpg", alt: "Arbeid i Skogbrynet", caption: "Arbeid i Skogbrynet" },
-  { src: "/images/kvinnelaget-logtun.jpg", alt: "Kvinnelaget for Logtun kirke", caption: "Kvinnelaget for Logtun kirke" },
-  { src: "/images/neset-skole.jpg", alt: "Neset skole", caption: "Neset skole tidlig femtitall" },
-  { src: "/images/frostakameratene-1958.jpg", alt: "Frostakameratene", caption: "Frostakameratene ca. 1958" },
-  { src: "/images/herredsstyret-1929.jpg", alt: "Herredsstyret 1929-31", caption: "Herredsstyret 1929-31" },
-  { src: "/images/aungrenda-sykkel.jpg", alt: "Aungrenda på sykkeltur", caption: "Ungdommer på sykkeltur, Aungrenda" },
-  { src: "/images/oyanmoen-1923.jpg", alt: "Øyanmoen 1923", caption: "Øyanmoen 1923" },
-  { src: "/images/familie-hest.jpg", alt: "Familie på tur med hest", caption: "Familie på tur med hest" },
-  { src: "/images/asholmen-1914.jpg", alt: "Åsholmen før 1914", caption: "Åsholmen før 1914" },
-  { src: "/images/vintersoldater.jpg", alt: "Fem vintersoldater", caption: "Fem vintersoldater" },
-  { src: "/images/smaaland-1958.jpg", alt: "Småland 1958", caption: "Småland 1958" },
-  { src: "/images/mostad-kai-1949.jpg", alt: "Mostad kai 1949", caption: "Mostad kai 1949" },
-  { src: "/images/liavatnet-1950.jpg", alt: "Liavatnet ca 1950", caption: "Liavatnet ca. 1950" },
-  { src: "/images/holmberget-kai.jpg", alt: "Holmberget kai", caption: "Holmberget kai" },
-  { src: "/images/kirka-baeri.jpg", alt: "Kirka fra Bæri", caption: "Kirka sett fra Bæri" },
-  { src: "/images/varonn-1946.jpg", alt: "Våronn 1946", caption: "Våronn 1946" },
-  { src: "/images/kvitsandvik-1960.jpg", alt: "Kvitsandvik", caption: "Kvitsandvik ca. 1960" },
+  { src: "/images/bygdemuseet-2011.jpg", upscaledSrc: "/images/bygdemuseet-2011-upscaled.jpg", alt: "Frosta Bygdemuseum", caption: "Bygdemuseet sommeren 2011" },
+  { src: "/images/klang-1985.jpg", upscaledSrc: "/images/klang-1985-upscaled.jpg", alt: "Klang medaljemottakere", caption: "Klang — medaljemottakere 1985" },
+  { src: "/images/klang-1955.jpg", upscaledSrc: "/images/klang-1955-upscaled.jpg", alt: "Klang ca 1955", caption: "Klang ca. 1955" },
+  { src: "/images/skogbrynet.jpg", upscaledSrc: "/images/skogbrynet-upscaled.jpg", alt: "Arbeid i Skogbrynet", caption: "Arbeid i Skogbrynet" },
+  { src: "/images/kvinnelaget-logtun.jpg", upscaledSrc: "/images/kvinnelaget-logtun-upscaled.jpg", alt: "Kvinnelaget for Logtun kirke", caption: "Kvinnelaget for Logtun kirke" },
+  { src: "/images/neset-skole.jpg", upscaledSrc: "/images/neset-skole-upscaled.jpg", alt: "Neset skole", caption: "Neset skole tidlig femtitall" },
+  { src: "/images/frostakameratene-1958.jpg", upscaledSrc: "/images/frostakameratene-1958-upscaled.jpg", alt: "Frostakameratene", caption: "Frostakameratene ca. 1958" },
+  { src: "/images/herredsstyret-1929.jpg", upscaledSrc: "/images/herredsstyret-1929-upscaled.jpg", alt: "Herredsstyret 1929-31", caption: "Herredsstyret 1929-31" },
+  { src: "/images/aungrenda-sykkel.jpg", upscaledSrc: "/images/aungrenda-sykkel-upscaled.jpg", alt: "Aungrenda på sykkeltur", caption: "Ungdommer på sykkeltur, Aungrenda" },
+  { src: "/images/oyanmoen-1923.jpg", upscaledSrc: "/images/oyanmoen-1923-upscaled.jpg", alt: "Øyanmoen 1923", caption: "Øyanmoen 1923" },
+  { src: "/images/familie-hest.jpg", upscaledSrc: "/images/familie-hest-upscaled.jpg", alt: "Familie på tur med hest", caption: "Familie på tur med hest" },
+  { src: "/images/asholmen-1914.jpg", upscaledSrc: "/images/asholmen-1914-upscaled.jpg", alt: "Åsholmen før 1914", caption: "Åsholmen før 1914" },
+  { src: "/images/vintersoldater.jpg", upscaledSrc: "/images/vintersoldater-upscaled.jpg", alt: "Fem vintersoldater", caption: "Fem vintersoldater" },
+  { src: "/images/smaaland-1958.jpg", upscaledSrc: "/images/smaaland-1958-upscaled.jpg", alt: "Småland 1958", caption: "Småland 1958" },
+  { src: "/images/mostad-kai-1949.jpg", upscaledSrc: "/images/mostad-kai-1949-upscaled.jpg", alt: "Mostad kai 1949", caption: "Mostad kai 1949" },
+  { src: "/images/liavatnet-1950.jpg", upscaledSrc: "/images/liavatnet-1950-upscaled.jpg", alt: "Liavatnet ca 1950", caption: "Liavatnet ca. 1950" },
+  { src: "/images/holmberget-kai.jpg", upscaledSrc: "/images/holmberget-kai-upscaled.jpg", alt: "Holmberget kai", caption: "Holmberget kai" },
+  { src: "/images/kirka-baeri.jpg", upscaledSrc: "/images/kirka-baeri-upscaled.jpg", alt: "Kirka fra Bæri", caption: "Kirka sett fra Bæri" },
+  { src: "/images/varonn-1946.jpg", upscaledSrc: "/images/varonn-1946-upscaled.jpg", alt: "Våronn 1946", caption: "Våronn 1946" },
+  { src: "/images/kvitsandvik-1960.jpg", upscaledSrc: "/images/kvitsandvik-1960-upscaled.jpg", alt: "Kvitsandvik", caption: "Kvitsandvik ca. 1960" },
 ];
 ---
 
@@ -33,6 +33,9 @@ const gamleBilder = [
     title="Bildegalleri"
     subtitle="Gamle og nyere bilder fra Frosta"
   />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
 
   <section class="page-section">
     <div class="container-wide">

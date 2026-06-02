@@ -42,7 +42,7 @@ for img in \
   fi
 
   echo -n "  ⬆️  ${img} ... "
-  if "$CLI" run -i "$input" -o "$output" > /dev/null 2>&1; then
+  if "$CLI" run -s 2 -i "$input" -o "$output" > /dev/null 2>&1; then
     size=$(wc -c < "$output" | tr -d ' ')
     echo "✅ ($size bytes)"
     ((COUNT++)) || true

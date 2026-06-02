@@ -3,6 +3,7 @@ interface Photo {
   src: string;
   alt: string;
   caption?: string;
+  upscaledSrc?: string;
 }
 
 interface Props {
@@ -12,20 +13,72 @@ interface Props {
 const { photos } = Astro.props;
 
 const photosJSON = JSON.stringify(
-  photos.map((p) => ({ src: p.src, alt: p.alt, caption: p.caption || "" }))
+  photos.map((p) => ({
+    src: p.src,
+    alt: p.alt,
+    caption: p.caption || "",
+    upscaledSrc: p.upscaledSrc || null,
+  }))
 );
 ---
+
+<style is:global>
+  img-comparison-slider {
+    --divider-color: rgba(255, 255, 255, 0.5);
+    --divider-width: 2px;
+    --default-handle-opacity: 0.5;
+    --default-handle-color: #fff;
+    --default-handle-width: 40px;
+    outline: none;
+  }
+</style>
 
 <div
   x-data={`{
     photos: ${photosJSON},
     selectedIndex: null,
+    showComparison: false,
+    upscaledLoaded: false,
     get selected() {
       return this.selectedIndex !== null ? this.photos[this.selectedIndex] : null;
     },
-    open(index) { this.selectedIndex = index; $nextTick(() => $refs.lightbox.focus()); },
-    next() { this.selectedIndex = (this.selectedIndex + 1) % this.photos.length; },
-    prev() { this.selectedIndex = (this.selectedIndex - 1 + this.photos.length) % this.photos.length; },
+    hasUpscaled() {
+      return this.selected && this.selected.upscaledSrc;
+    },
+    open(index) {
+      this.selectedIndex = index;
+      this.showComparison = false;
+      this.upscaledLoaded = false;
+      $nextTick(() => $refs.lightbox.focus());
+      if (this.selected?.upscaledSrc) {
+        const preload = new Image();
+        preload.onload = () => { this.upscaledLoaded = true; this.showComparison = true; };
+        preload.onerror = () => { this.upscaledLoaded = false; };
+        preload.src = this.selected.upscaledSrc;
+      }
+    },
+    next() {
+      this.showComparison = false;
+      this.upscaledLoaded = false;
+      this.selectedIndex = (this.selectedIndex + 1) % this.photos.length;
+      $nextTick(() => { if (this.selected?.upscaledSrc) {
+        const preload = new Image();
+        preload.onload = () => { this.upscaledLoaded = true; this.showComparison = true; };
+        preload.onerror = () => { this.upscaledLoaded = false; };
+        preload.src = this.selected.upscaledSrc;
+      }});
+    },
+    prev() {
+      this.showComparison = false;
+      this.upscaledLoaded = false;
+      this.selectedIndex = (this.selectedIndex - 1 + this.photos.length) % this.photos.length;
+      $nextTick(() => { if (this.selected?.upscaledSrc) {
+        const preload = new Image();
+        preload.onload = () => { this.upscaledLoaded = true; this.showComparison = true; };
+        preload.onerror = () => { this.upscaledLoaded = false; };
+        preload.src = this.selected.upscaledSrc;
+      }});
+    },
     close() { this.selectedIndex = null; },
   }`}
   class="grid grid-cols-2 gap-1 sm:gap-2 md:grid-cols-3 lg:grid-cols-4"
@@ -71,11 +124,19 @@ const photosJSON = JSON.stringify(
     </button>
 
     <div class="absolute inset-[120px]" x-on:click.stop>
-      <img
-        :src="selected?.src"
-        :alt="selected?.alt"
-        class="h-full w-full object-contain"
-      />
+      <template x-if="hasUpscaled() && showComparison">
+        <img-comparison-slider>
+          <img slot="first" :src="selected?.upscaledSrc" />
+          <img slot="second" :src="selected?.src" />
+        </img-comparison-slider>
+      </template>
+      <template x-if="!hasUpscaled() || !showComparison">
+        <img
+          :src="selected?.src"
+          :alt="selected?.alt"
+          class="h-full w-full object-contain"
+        />
+      </template>
     </div>
 
     <p
