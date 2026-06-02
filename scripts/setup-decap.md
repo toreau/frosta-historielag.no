@@ -21,10 +21,11 @@ i Cloudflare Pages.
 
 1. Gå til Cloudflare Dashboard → Workers & Pages → `frosta-historielag`
 2. Velg **Settings** → **Environment variables**
-3. Legg til to variabler (begge som **Secret**):
+3. Legg til tre variabler (alle som **Secret**):
    - `GITHUB_CLIENT_ID` = Client ID fra steg 1
    - `GITHUB_CLIENT_SECRET` = Client Secret fra steg 1
-4. **Redeploy** prosjektet (Cloudflare trenger en ny deployment for å plukke opp env vars)
+   - `GITHUB_REPO_PRIVATE` = `1` (repoet er privat)
+4. **Redeploy** prosjektet (Cloudflare trenger en ny deployment for å plukke opp env vars + aktivere Functions)
 
 ## Steg 3: Test
 

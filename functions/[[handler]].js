@@ -45,53 +45,54 @@ function callbackPage(status, token) {
 <body><p>Authorizing…</p></body></html>`);
 }
 
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    const origin = url.origin;
-    const provider = url.searchParams.get("provider");
+export async function onRequest({ request, env, next }) {
+  const url = new URL(request.url);
+  const provider = url.searchParams.get("provider");
 
-    if (url.pathname === "/auth") {
-      if (provider !== "github") {
-        return new Response("Invalid provider", { status: 400 });
-      }
-      const redirectUri = `${origin}/callback?provider=github`;
-      const state = randomHex(4);
-      const authUrl =
-        `https://github.com/login/oauth/authorize` +
-        `?client_id=${encodeURIComponent(env.GITHUB_CLIENT_ID)}` +
-        `&redirect_uri=${encodeURIComponent(redirectUri)}` +
-        `&scope=public_repo,user` +
-        `&state=${state}`;
+  if (url.pathname === "/auth") {
+    if (provider !== "github") {
+      return new Response("Invalid provider", { status: 400 });
+    }
+    const redirectUri = `${url.origin}/callback?provider=github`;
+    const state = randomHex(4);
+    const repoIsPrivate =
+      env.GITHUB_REPO_PRIVATE !== undefined &&
+      env.GITHUB_REPO_PRIVATE !== "0";
+    const repoScope = repoIsPrivate ? "repo,user" : "public_repo,user";
+    const authUrl =
+      `https://github.com/login/oauth/authorize` +
+      `?client_id=${encodeURIComponent(env.GITHUB_CLIENT_ID)}` +
+      `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+      `&scope=${repoScope}` +
+      `&state=${state}`;
 
-      return new Response(null, {
-        status: 302,
-        headers: { Location: authUrl },
-      });
+    return new Response(null, {
+      status: 302,
+      headers: { Location: authUrl },
+    });
+  }
+
+  if (url.pathname === "/callback") {
+    if (provider !== "github") {
+      return new Response("Invalid provider", { status: 400 });
     }
 
-    if (url.pathname === "/callback") {
-      if (provider !== "github") {
-        return new Response("Invalid provider", { status: 400 });
-      }
-
-      const code = url.searchParams.get("code");
-      if (!code) {
-        return new Response("Missing code", { status: 400 });
-      }
-
-      try {
-        const token = await exchangeCode(
-          code,
-          env.GITHUB_CLIENT_ID,
-          env.GITHUB_CLIENT_SECRET
-        );
-        return callbackPage("success", token);
-      } catch (err) {
-        return callbackPage("error", String(err));
-      }
+    const code = url.searchParams.get("code");
+    if (!code) {
+      return new Response("Missing code", { status: 400 });
     }
 
-    return env.ASSETS.fetch(request);
-  },
-};
+    try {
+      const token = await exchangeCode(
+        code,
+        env.GITHUB_CLIENT_ID,
+        env.GITHUB_CLIENT_SECRET
+      );
+      return callbackPage("success", token);
+    } catch (err) {
+      return callbackPage("error", String(err));
+    }
+  }
+
+  return next();
+}
