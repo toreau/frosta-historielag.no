@@ -1,7 +1,9 @@
-# Sette opp Decap CMS (GitHub-innlogging)
+# Sette opp Decap CMS (GitHub-innlogging med OAuth)
 
-For at styremedlemmer skal kunne logge inn i Decap CMS på `/admin/`,
-må du opprette en GitHub OAuth App. Dette gjøres én gang og er gratis.
+Decap CMS krever en OAuth *proxy* for å håndtere GitHub-innlogging.
+Dette prosjektet bruker en Cloudflare Pages Function (`functions/[[handler]].js`)
+som OAuth-håndterer. Du må opprette en GitHub OAuth App og sette to miljøvariabler
+i Cloudflare Pages.
 
 ## Steg 1: Opprett GitHub OAuth App
 
@@ -10,28 +12,54 @@ må du opprette en GitHub OAuth App. Dette gjøres én gang og er gratis.
 3. Fyll ut:
    - **Application name**: Frosta Historielag CMS
    - **Homepage URL**: https://frosta-historielag.pages.dev
-   - **Authorization callback URL**: https://api.netlify.com/auth/done
+   - **Application callback URL**: https://frosta-historielag.pages.dev/callback
 4. Klikk **Register application**
 5. Klikk **Generate a new client secret**
 6. Kopier **Client ID** og **Client Secret** — du trenger dem i steg 2
 
-## Steg 2: Test
+## Steg 2: Sett miljøvariabler i Cloudflare Pages
 
-Gå til https://frosta-historielag.pages.dev/admin/ og klikk **Login with GitHub**.
+1. Gå til Cloudflare Dashboard → Workers & Pages → `frosta-historielag`
+2. Velg **Settings** → **Environment variables**
+3. Legg til to variabler (begge som **Secret**):
+   - `GITHUB_CLIENT_ID` = Client ID fra steg 1
+   - `GITHUB_CLIENT_SECRET` = Client Secret fra steg 1
+4. **Redeploy** prosjektet (Cloudflare trenger en ny deployment for å plukke opp env vars)
 
-Godkjenn tilgangen, så skal du være inne i admin-panelet.
+## Steg 3: Test
+
+1. Gå til https://frosta-historielag.pages.dev/admin/
+2. Klikk **Login with GitHub**
+3. Godkjenn tilgang
+4. Du skal nå se admin-panelet med Arrangementer, Produkter og Innstillinger
+
+## Slik fungerer det
+
+```
+Editor klikker "Login with GitHub" på /admin/
+  → popup åpner /auth (Pages Function)
+    → redirect til GitHub OAuth
+      → GitHub redirect til /callback (Pages Function)
+        → bytter code mot token (GitHub API)
+          → token sendes til popup → videre til admin-panelet ✅
+```
 
 ## Feilsøking
 
-- **"Failed to authenticate"** — Sjekk at callback URL i OAuth Appen er helt lik `https://api.netlify.com/auth/done`
-- **Blank side** — Åpne nettleserens konsoll (F12) og se etter JavaScript-feil
-- **Kan ikke lagre** — Sjekk at GitHub-brukeren din har skrivetilgang til repoet
+- **"Failed to authenticate"** — Sjekk at Client ID og Client Secret stemmer
+- **"Invalid provider"** — URL-en har feil `provider`-parameter
+- **"Missing code"** — GitHub redirectet uten authorization code
+- **Blank side på /admin/** — Åpne konsollen (F12), se etter JS-feil
+- **"Repository not found"** — Sjekk at GitHub-brukeren din har skrivetilgang til `toreau/frosta-historielag.no`
+- **Funksjonen kjører ikke** — Sjekk at `functions/[[handler]].js` finnes i repoet og at Cloudflare Pages Functions er aktivert
 
-## Hvordan det fungerer
+## Admin-panelets oppbygning
 
-Decap CMS er en ren frontend-app (ingen server). Når noen redigerer innhold:
+| Samling | Hva som kan redigeres | Lagres i |
+|---|---|---|
+| Arrangementer | Tittel, dato, tid, sted, bilde, beskrivelse | `src/content/events/*.md` |
+| Produkter | Navn, kategori, pris, bilde, beskrivelse | `src/content/products/*.md` |
+| Innstillinger | Kontaktinfo, styret, medlemspriser | `src/data/site.json` |
 
-1. Endringene blir til en Git-commit via GitHub API
-2. Committen pushes til `main`-branchen
-3. Cloudflare Pages oppdager ny commit og bygger siden på nytt
-4. Ferdig — endringen er live på ~1 minutt
+Endringer i admin-panelet blir til Git-commits på `main`-branchen.
+Cloudflare Pages bygger siden på nytt automatisk.
