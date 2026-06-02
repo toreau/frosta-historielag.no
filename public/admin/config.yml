@@ -1,0 +1,141 @@
+backend:
+  name: github
+  repo: toreau/frosta-historielag.no
+  branch: main
+
+site_url: https://frosta-historielag.pages.dev
+display_url: https://frosta-historielag.pages.dev
+
+locale: "no"
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: events
+    label: Arrangementer
+    label_singular: Arrangement
+    folder: src/content/events
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    editor:
+      preview: false
+    fields:
+      - label: Tittel
+        name: title
+        widget: string
+      - label: Dato
+        name: date
+        widget: string
+        hint: F.eks. "10. mars 2026"
+      - label: Tid
+        name: time
+        widget: string
+        required: false
+      - label: Sted
+        name: location
+        widget: string
+        required: false
+      - label: Bilde
+        name: image
+        widget: image
+        required: false
+      - label: Publisert
+        name: published
+        widget: boolean
+        default: true
+      - label: Beskrivelse
+        name: body
+        widget: markdown
+
+  - name: products
+    label: Produkter
+    label_singular: Produkt
+    folder: src/content/products
+    create: true
+    slug: "{{slug}}"
+    identifier_field: name
+    editor:
+      preview: false
+    fields:
+      - label: Navn
+        name: name
+        widget: string
+      - label: Kategori
+        name: category
+        widget: select
+        options:
+          - { label: Bok, value: bok }
+          - { label: Digitalt, value: digitalt }
+          - { label: Kalender, value: kalender }
+          - { label: Smykke, value: smykke }
+      - label: Pris (kr)
+        name: price
+        widget: number
+        value_type: int
+      - label: Bilde
+        name: image
+        widget: image
+        required: false
+      - label: Publisert
+        name: published
+        widget: boolean
+        default: true
+      - label: Beskrivelse
+        name: body
+        widget: markdown
+        required: false
+
+  - name: settings
+    label: Innstillinger
+    editor:
+      preview: false
+    files:
+      - label: Kontakt, styret og priser
+        name: site
+        file: src/data/site.json
+        fields:
+          - label: E-post
+            name: email
+            widget: string
+          - label: Telefon
+            name: phone
+            widget: string
+          - label: Besøksadresse
+            name: address
+            widget: string
+          - label: Postnummer og sted
+            name: postal
+            widget: string
+          - label: Vipps-nummer
+            name: vipps
+            widget: string
+          - label: Kontonummer
+            name: account
+            widget: string
+          - label: Åpningstider
+            name: officeHours
+            widget: string
+          - label: Medlemspriser
+            name: membership
+            widget: object
+            collapsed: false
+            fields:
+              - { label: Enkeltmedlem (kr/år), name: single, widget: number, value_type: int }
+              - { label: Familie (kr/år), name: family, widget: number, value_type: int }
+          - label: Styret
+            name: board
+            widget: list
+            collapsed: false
+            fields:
+              - { label: Rolle, name: role, widget: string }
+              - { label: Navn, name: name, widget: string }
+              - { label: Telefon, name: phone, widget: string }
+          - label: Varamedlemmer
+            name: boardDeputies
+            widget: list
+            collapsed: false
+            fields:
+              - { label: Navn, name: name, widget: string }
+              - { label: Telefon, name: phone, widget: string }

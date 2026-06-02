@@ -62,6 +62,13 @@ npm run generate-types  # wrangler types (Cloudflare)
 - Action: `https://formsubmit.co/frosta.historielag@gmail.com`
 - First submission triggers an activation email — someone must click it once.
 
+## Decap CMS (content editing for non-technical users)
+
+- Admin panel at `/admin/` — loads from `public/admin/index.html` + `public/admin/config.yml`.
+- Edits events (`src/content/events/`), products (`src/content/products/`), and site settings (`src/data/site.json`).
+- Changes committed via GitHub backend → Cloudflare auto-deploys.
+- Requires a GitHub OAuth App for login (one-time setup, instructions in `scripts/setup-decap.md`).
+
 ## Images
 
 - All images local in `public/images/`. Referenced as `/images/filename.jpg`.
