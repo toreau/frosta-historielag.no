@@ -10,20 +10,34 @@ interface Props {
 }
 
 const { photos } = Astro.props;
+
+const photosJSON = JSON.stringify(
+  photos.map((p) => ({ src: p.src, alt: p.alt, caption: p.caption || "" }))
+);
 ---
 
 <div
+  x-data={`{
+    photos: ${photosJSON},
+    selectedIndex: null,
+    get selected() {
+      return this.selectedIndex !== null ? this.photos[this.selectedIndex] : null;
+    },
+    open(index) { this.selectedIndex = index; },
+    next() { this.selectedIndex = (this.selectedIndex + 1) % this.photos.length; },
+    prev() { this.selectedIndex = (this.selectedIndex - 1 + this.photos.length) % this.photos.length; },
+    close() { this.selectedIndex = null; },
+  }`}
   class="grid grid-cols-2 gap-1 sm:gap-2 md:grid-cols-3 lg:grid-cols-4"
-  x-data="{ selected: null }"
 >
-  {photos.map((photo) => (
+  {photos.map((photo, i) => (
     <div class="group relative aspect-[4/3] cursor-pointer overflow-hidden bg-slate-200">
       <img
         src={photo.src}
         alt={photo.alt}
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         loading="lazy"
-        x-on:click={`selected = { src: '${photo.src}', alt: '${photo.alt}', caption: '${photo.caption || ""}' }`}
+        x-on:click={`open(${i})`}
       />
       {photo.caption && (
         <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 pt-8 opacity-0 transition-opacity group-hover:opacity-100">
@@ -35,11 +49,27 @@ const { photos } = Astro.props;
 
   <div
     class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4"
-    x-show="selected"
+    x-show="selectedIndex !== null"
     x-transition
-    x-on:click="selected = null"
+    x-on:click="close()"
+    x-on:keydown.left.prevent="prev()"
+    x-on:keydown.right.prevent="next()"
+    x-on:keydown.escape.prevent="close()"
     x-cloak
+    x-trap="selectedIndex !== null"
+    tabindex="0"
+    x-ref="lightbox"
   >
+    <button
+      class="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+      x-on:click.stop="prev()"
+      aria-label="Forrige bilde"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
     <div class="relative max-h-[90vh] max-w-[90vw]" x-on:click.stop>
       <img
         :src="selected?.src"
@@ -52,14 +82,30 @@ const { photos } = Astro.props;
         x-show="selected?.caption"
       ></p>
     </div>
+
     <button
-      class="absolute right-6 top-6 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
-      x-on:click="selected = null"
+      class="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+      x-on:click.stop="next()"
+      aria-label="Neste bilde"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+    <button
+      class="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+      x-on:click.stop="close()"
       aria-label="Lukk"
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
+
+    <span
+      class="absolute bottom-4 left-1/2 -translate-x-1/2 text-sm text-cream-300"
+      x-text="(selectedIndex !== null ? selectedIndex + 1 : 0) + ' / ' + photos.length"
+    ></span>
   </div>
 </div>
