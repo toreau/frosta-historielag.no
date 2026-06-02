@@ -33,7 +33,8 @@ const photosJSON = JSON.stringify(
     width: 100%;
     height: 100%;
   }
-  img-comparison-slider img {
+  img-comparison-slider img[slot="first"],
+  img-comparison-slider img[slot="second"] {
     object-fit: contain !important;
   }
 </style>
@@ -131,8 +132,8 @@ const photosJSON = JSON.stringify(
     <div class="absolute inset-[120px]" x-on:click.stop>
       <template x-if="hasUpscaled() && showComparison">
         <img-comparison-slider>
-          <img slot="first" :src="selected?.upscaledSrc" style="object-fit:contain" />
-          <img slot="second" :src="selected?.src" style="object-fit:contain" />
+          <img slot="first" :src="selected?.upscaledSrc" />
+          <img slot="second" :src="selected?.src" />
         </img-comparison-slider>
       </template>
       <template x-if="!hasUpscaled() || !showComparison">
