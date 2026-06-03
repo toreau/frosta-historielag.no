@@ -14,7 +14,7 @@ Denne kompletteringen ble 10 års arbeid med hele 8 bind pluss et registerbind!
 
 Men ikke nok med det: Både under arbeidet med Frostabøkene og etter at Frostabokprosjektet var avsluttet i 2009 fortsatte Roar aktivt i laget;
 
-Styremedlem i årene 1998 – 1999 og helt fra 2012 til d.d. – kasserer – 12 år.
+Styremedlem i årene 1998 – 1999 og helt fra 2012 til d.d. – kasserer.
 
 Han har ikke mindre enn 13 artikler i «Frosta – før og no» samt bidragsyter til årboka for Nord-Trøndelag Historielag. Likeså artikler i «Frostingen» og ikke minst bidrar han med bilde i lokalavisen vår annenhver uke.
 
