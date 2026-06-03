@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/Hero.astro";
 import { getCollection } from "astro:content";
+import site from "../../data/site.json";
 
 const frostabasen = await getCollection("products", ({ data }) =>
   data.published && data.category === "digitalt"
@@ -50,7 +51,7 @@ const product = frostabasen[0];
 
         <div class="mt-8">
           <a
-            href="mailto:frosta.historielag@gmail.com?subject=Frostabasen"
+            href={`mailto:${site.email}?subject=Frostabasen`}
             class="btn-primary"
           >
             Bestill Frostabasen

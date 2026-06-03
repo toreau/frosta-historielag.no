@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/Hero.astro";
+import site from "../../data/site.json";
 ---
 
 <Layout title="Årbok" description="Frosta Historielags årbok med artikler om bygdas historie og kultur.">
@@ -26,7 +27,7 @@ import Hero from "../../components/Hero.astro";
       </div>
       <div class="mt-8">
         <a
-          href="mailto:frosta.historielag@gmail.com?subject=Årbok"
+          href={`mailto:${site.email}?subject=Årbok`}
           class="btn-primary"
         >
           Bestill årbok

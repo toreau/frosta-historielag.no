@@ -6,6 +6,8 @@ interface Props {
   image?: string;
 }
 
+import site from "../data/site.json";
+
 const { name, description, price, image } = Astro.props;
 ---
 
@@ -27,7 +29,7 @@ const { name, description, price, image } = Astro.props;
     <div class="mt-4 flex items-center justify-between">
       <span class="font-serif text-xl font-bold text-amber-600">kr {price},-</span>
       <a
-        href={`mailto:frosta.historielag@gmail.com?subject=Bestilling: ${name}`}
+        href={`mailto:${site.email}?subject=Bestilling: ${name}`}
         class="text-sm font-medium text-forest-600 hover:text-forest-800 transition-colors"
       >
         Bestill &rarr;

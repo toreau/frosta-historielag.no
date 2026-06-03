@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/Hero.astro";
 import ProductCard from "../../components/ProductCard.astro";
 import { getCollection } from "astro:content";
+import site from "../../data/site.json";
 
 const books = await getCollection("products", ({ data }) =>
   data.published && data.category === "bok"
@@ -39,7 +40,7 @@ books.sort((a, b) => a.data.price - b.data.price);
           <li><strong>Full serie (alle 13 bind):</strong> kr 4000,-</li>
         </ul>
         <p class="mt-3 text-sm text-amber-600">
-          Bestill på <a href="mailto:frosta.historielag@gmail.com" class="font-medium underline">frosta.historielag@gmail.com</a>
+          Bestill på <a href={`mailto:${site.email}`} class="font-medium underline">{site.email}</a>
         </p>
       </div>
     </div>

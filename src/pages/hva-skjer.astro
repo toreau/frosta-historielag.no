@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import EventCard from "../components/EventCard.astro";
+import site from "../data/site.json";
 import { getCollection } from "astro:content";
 
 const events = await getCollection("events", ({ data }) => data.published);
@@ -44,7 +45,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
         Vi hjelper deg gjerne med planlegging og gjennomføring.
       </p>
       <div class="mt-6">
-        <a href="mailto:frosta.historielag@gmail.com" class="btn-primary">
+        <a href={`mailto:${site.email}`} class="btn-primary">
           Ta kontakt
         </a>
       </div>

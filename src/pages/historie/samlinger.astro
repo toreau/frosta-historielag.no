@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/Hero.astro";
+import site from "../../data/site.json";
 ---
 
 <Layout title="Konfirmanter 1752–1816" description="Digitaliserte konfirmantlister for Logtun kirke — slektsgransking på Frosta.">
@@ -54,7 +55,7 @@ import Hero from "../../components/Hero.astro";
           De fullstendige konfirmantlistene er tilgjengelige i vårt arkiv. Kontakt oss for å få tilsendt en kopi.
         </p>
         <div class="mt-6 flex flex-wrap justify-center gap-4">
-          <a href="mailto:frosta.historielag@gmail.com?subject=Konfirmantlister Frosta" class="btn-primary">
+          <a href={`mailto:${site.email}?subject=Konfirmantlister Frosta`} class="btn-primary">
             Be om kopi
           </a>
           <a href="/slekt" class="btn-secondary">

@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import site from "../data/site.json";
 ---
 
 <Layout title="Produkter" description="Bøker, Frostabasen, kalendere, smykker og andre produkter fra Frosta Historielag.">
@@ -68,7 +69,7 @@ import Hero from "../components/Hero.astro";
       </div>
 
       <div class="mt-10 text-center">
-        <p class="text-slate-600">Bestill på <a href="mailto:frosta.historielag@gmail.com" class="text-forest-600 font-medium hover:underline">frosta.historielag@gmail.com</a></p>
+        <p class="text-slate-600">Bestill på <a href={`mailto:${site.email}`} class="text-forest-600 font-medium hover:underline">{site.email}</a></p>
       </div>
     </div>
   </section>
