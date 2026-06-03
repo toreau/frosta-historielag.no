@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import { getCollection } from "astro:content";
+import site from "../data/site.json";
 
 import PhotoGrid from "../components/PhotoGrid.astro";
 
@@ -35,7 +36,7 @@ const gamleBilder = gallery.map((entry) => ({
         Historielaget har også en samling av historiske filmer fra Frosta.
       </p>
       <div class="mt-6">
-        <a href="/produkter/kalender" class="btn-primary">
+        <a href={`mailto:${site.email}`} class="btn-primary">
           Ta kontakt
         </a>
       </div>
