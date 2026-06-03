@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import CallToAction from "../components/CallToAction.astro";
 ---
 
 <Layout title="Historie" description="Frostas rike historie — fra Frostatingslagen og Tinghaugen til Logtun kirke, Tautra kloster og helleristningene ved Evenhus.">
@@ -91,17 +92,9 @@ import Hero from "../components/Hero.astro";
     </div>
   </section>
 
-  <section class="bg-forest-800 page-section text-cream-50">
-    <div class="container-narrow text-center">
-      <h2 class="font-serif text-3xl font-bold">Vil du st&oslash;tte arbeidet?</h2>
-      <p class="mt-4 text-lg leading-relaxed text-cream-300">
-        Historielaget drives av frivillige. Som medlem bidrar du til å ta vare på Frostas historie for fremtidige generasjoner.
-      </p>
-      <div class="mt-6">
-        <a href="/bli-medlem" class="btn-primary text-lg">
-          Bli medlem &rarr;
-        </a>
-      </div>
-    </div>
-  </section>
+  <CallToAction
+    heading="Vil du st&oslash;tte arbeidet?"
+    body="Historielaget drives av frivillige. Som medlem bidrar du til å ta vare på Frostas historie for fremtidige generasjoner."
+    buttons={[{ href: "/bli-medlem", label: "Bli medlem &rarr;" }]}
+  />
 </Layout>

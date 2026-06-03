@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import CallToAction from "../components/CallToAction.astro";
 import site from "../data/site.json";
 ---
 
@@ -87,20 +88,12 @@ import site from "../data/site.json";
     </div>
   </section>
 
-  <section class="bg-forest-800 page-section text-cream-50">
-    <div class="container-narrow text-center">
-      <h2 class="font-serif text-3xl font-bold">Trenger du hjelp?</h2>
-      <p class="mt-4 text-lg leading-relaxed text-cream-300">
-        Kontakt oss på kontoret eller kom innom en mandag — vi hjelper deg gjerne i gang med slektsgranskingen.
-      </p>
-      <div class="mt-6 flex flex-wrap justify-center gap-4">
-        <a href={`mailto:${site.email}`} class="btn-primary">
-          Send e-post
-        </a>
-        <a href="/bli-medlem" class="btn-secondary border-cream-300 text-cream-50 hover:bg-cream-50 hover:text-forest-800">
-          Bli medlem
-        </a>
-      </div>
-    </div>
-  </section>
+  <CallToAction
+    heading="Trenger du hjelp?"
+    body="Kontakt oss på kontoret eller kom innom en mandag — vi hjelper deg gjerne i gang med slektsgranskingen."
+    buttons={[
+      { href: `mailto:${site.email}`, label: "Send e-post" },
+      { href: "/bli-medlem", label: "Bli medlem", variant: "secondary" },
+    ]}
+  />
 </Layout>

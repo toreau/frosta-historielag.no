@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import EventCard from "../components/EventCard.astro";
+import CallToAction from "../components/CallToAction.astro";
 import site from "../data/site.json";
 import { getCollection } from "astro:content";
 
@@ -38,17 +39,9 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     </div>
   </section>
 
-  <section class="bg-forest-800 page-section text-cream-50">
-    <div class="container-narrow text-center">
-      <h2 class="font-serif text-3xl font-bold">Har du ideer til kurs eller foredrag?</h2>
-      <p class="mt-4 text-lg leading-relaxed text-cream-300">
-        Vi hjelper deg gjerne med planlegging og gjennomføring.
-      </p>
-      <div class="mt-6">
-        <a href={`mailto:${site.email}`} class="btn-primary">
-          Ta kontakt
-        </a>
-      </div>
-    </div>
-  </section>
+  <CallToAction
+    heading="Har du ideer til kurs eller foredrag?"
+    body="Vi hjelper deg gjerne med planlegging og gjennomføring."
+    buttons={[{ href: `mailto:${site.email}`, label: "Ta kontakt" }]}
+  />
 </Layout>

@@ -1,0 +1,53 @@
+---
+import site from "../data/site.json";
+
+interface CTAButton {
+  href: string;
+  label: string;
+  variant?: "primary" | "secondary";
+}
+
+interface Props {
+  heading: string;
+  body: string;
+  buttons: CTAButton[];
+  showPrices?: boolean;
+}
+
+const { heading, body, buttons, showPrices = false } = Astro.props;
+---
+
+<section class="bg-forest-800 page-section text-cream-50">
+  <div class="container-narrow text-center">
+    <h2 class="font-serif text-3xl font-bold">{heading}</h2>
+    <p class="mt-4 text-lg leading-relaxed text-cream-300">{body}</p>
+
+    {showPrices && (
+      <div class="mt-6 flex items-center justify-center gap-8 text-center">
+        <div>
+          <p class="font-serif text-3xl font-bold text-amber-300">kr {site.membership.single},-</p>
+          <p class="text-sm text-cream-300">Enkeltmedlem / år</p>
+        </div>
+        <div>
+          <p class="font-serif text-3xl font-bold text-amber-300">kr {site.membership.family},-</p>
+          <p class="text-sm text-cream-300">Familie / år</p>
+        </div>
+      </div>
+    )}
+
+    <div class="mt-6 flex flex-wrap justify-center gap-4">
+      {buttons.map((btn) => (
+        <a
+          href={btn.href}
+          class={
+            btn.variant === "secondary"
+              ? "btn-secondary border-cream-300 text-cream-50 hover:bg-cream-50 hover:text-forest-800"
+              : "btn-primary text-lg"
+          }
+        >
+          {btn.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import EventCard from "../components/EventCard.astro";
+import CallToAction from "../components/CallToAction.astro";
 import site from "../data/site.json";
 import { getCollection } from "astro:content";
 
@@ -142,27 +143,10 @@ const upcomingEvents = events.slice(0, 2);
     </div>
   </section>
 
-  <section class="bg-forest-800 page-section text-cream-50">
-    <div class="container-narrow text-center">
-      <h2 class="font-serif text-3xl font-bold">Bli medlem i dag</h2>
-      <p class="mt-4 text-lg leading-relaxed text-cream-300">
-        Støtt arbeidet med å ta vare på Frostas historie. Som medlem får du årboka, medlemsnytt og invitasjoner til arrangementer.
-      </p>
-      <div class="mt-6 flex items-center justify-center gap-8 text-center">
-        <div>
-          <p class="font-serif text-3xl font-bold text-amber-300">kr {site.membership.single},-</p>
-          <p class="text-sm text-cream-300">Enkeltmedlem / år</p>
-        </div>
-        <div>
-          <p class="font-serif text-3xl font-bold text-amber-300">kr {site.membership.family},-</p>
-          <p class="text-sm text-cream-300">Familie / år</p>
-        </div>
-      </div>
-      <div class="mt-8">
-        <a href="/bli-medlem" class="btn-primary text-lg">
-          Bli medlem
-        </a>
-      </div>
-    </div>
-  </section>
+  <CallToAction
+    heading="Bli medlem i dag"
+    body="Støtt arbeidet med å ta vare på Frostas historie. Som medlem får du årboka, medlemsnytt og invitasjoner til arrangementer."
+    buttons={[{ href: "/bli-medlem", label: "Bli medlem" }]}
+    showPrices
+  />
 </Layout>
