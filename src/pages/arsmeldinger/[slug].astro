@@ -1,0 +1,35 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const reports = await getCollection("reports");
+  return reports.map((r) => ({
+    params: { slug: r.id.replace(/\.md$/, "") },
+    props: { report: r },
+  }));
+}
+
+const { report } = Astro.props;
+---
+
+<Layout title={report.data.title} description={`${report.data.title} — Frosta Historielag`}>
+  <Hero title={report.data.title} subtitle={`Årsmøte ${report.data.year}`} />
+
+  <section class="page-section">
+    <div class="container-wide max-w-3xl">
+      <article class="prose prose-slate prose-lg max-w-none">
+        {report.body.split("\n\n").map((p) => (
+          <p class="mb-4 leading-relaxed text-slate-700">{p}</p>
+        ))}
+      </article>
+
+      <div class="mt-12 border-t border-slate-200 pt-6">
+        <a href="/arsmeldinger" class="text-sm font-medium text-forest-600 hover:text-forest-800 transition-colors">
+          &larr; Tilbake til årsmeldinger
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

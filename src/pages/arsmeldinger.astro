@@ -1,13 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import { getCollection } from "astro:content";
 
-const rapporter = [
-  { year: 2025, title: "Årsmelding 2025", href: "https://frosta-historielag.no/arsmelding-2025" },
-  { year: 2024, title: "Årsmelding 2024", href: "https://frosta-historielag.no/arsmelding-2024" },
-  { year: 2023, title: "Årsmelding 2023", href: "https://frosta-historielag.no/arsmelding-2023" },
-  { year: 2022, title: "Årsmelding 2022", href: "https://frosta-historielag.no/arsmote-2023" },
-];
+const rawReports = await getCollection("reports");
+const rapporter = rawReports
+  .map((r) => ({
+    slug: r.id.replace(/\.md$/, ""),
+    year: r.data.year,
+    title: r.data.title,
+  }))
+  .sort((a, b) => b.year - a.year);
 ---
 
 <Layout title="Årsmeldinger" description="Årsmeldinger fra Frosta Historielag 2022–2025.">
@@ -25,7 +28,7 @@ const rapporter = [
       <div class="mt-10 space-y-3">
         {rapporter.map((r) => (
           <a
-            href={r.href}
+            href={`/arsmeldinger/${r.slug}`}
             class="card flex items-center justify-between p-5 hover:border-forest-300 no-underline"
           >
             <div>
