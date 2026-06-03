@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/Hero.astro";
 import { getCollection } from "astro:content";
+import { marked } from "marked";
 
 export async function getStaticPaths() {
   const allPages = await getCollection("pages");
@@ -13,6 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { page } = Astro.props;
+const htmlContent = page.body ? marked.parse(page.body) : "";
 ---
 
 <Layout title={page.data.title} description={page.data.title + " — Frosta Historielag"}>
@@ -20,16 +22,9 @@ const { page } = Astro.props;
 
   <section class="page-section">
     <div class="container-wide max-w-3xl">
-      <article class="prose prose-slate prose-lg max-w-none">
-        {page.body.split("\n\n").map((p) => (
-          <p class="mb-4 leading-relaxed text-slate-700">{p}</p>
-        ))}
-      </article>
-
+      <article class="prose prose-slate prose-lg max-w-none" set:html={htmlContent} />
       <div class="mt-12 border-t border-slate-200 pt-6">
-        <a href="/historie" class="text-sm font-medium text-forest-600 hover:text-forest-800 transition-colors">
-          &larr; Tilbake til historie
-        </a>
+        <a href="/historie" class="text-sm font-medium text-forest-600 hover:text-forest-800 transition-colors">&larr; Tilbake til historie</a>
       </div>
     </div>
   </section>
