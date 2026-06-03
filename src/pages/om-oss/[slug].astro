@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
   const allPages = await getCollection("pages");
-  const pages = allPages.filter((p) => p.data.section === "historie");
+  const pages = allPages.filter((p) => p.data.section === "om-oss");
   return pages.map((p) => ({
     params: { slug: p.id.replace(/\.md$/, "") },
     props: { page: p },
@@ -27,8 +27,8 @@ const { page } = Astro.props;
       </article>
 
       <div class="mt-12 border-t border-slate-200 pt-6">
-        <a href="/historie" class="text-sm font-medium text-forest-600 hover:text-forest-800 transition-colors">
-          &larr; Tilbake til historie
+        <a href="/om-oss" class="text-sm font-medium text-forest-600 hover:text-forest-800 transition-colors">
+          &larr; Tilbake til Om oss
         </a>
       </div>
     </div>

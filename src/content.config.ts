@@ -52,6 +52,7 @@ const pages = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.string().optional(),
+    section: z.string().default("historie"),
     published: z.boolean().default(true),
   }),
 });

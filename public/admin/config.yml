@@ -138,6 +138,13 @@ collections:
         name: date
         widget: string
         required: false
+      - label: Seksjon
+        name: section
+        widget: select
+        default: historie
+        options:
+          - { label: Historie, value: historie }
+          - { label: Om oss, value: om-oss }
       - label: Publisert
         name: published
         widget: boolean
