@@ -116,6 +116,10 @@
     @apply overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md;
   }
 
+  .input-field {
+    @apply mt-1 block w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-800 shadow-sm focus:border-forest-500 focus:ring-2 focus:ring-forest-200 focus:outline-none transition-colors;
+  }
+
   .sepia-overlay {
     @apply relative;
   }
