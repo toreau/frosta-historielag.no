@@ -25,5 +25,3 @@ Hver mandag er Roar å finne på Tun der han er vert for et stadig økende antal
 Roar har lagt ned – og legger fortsatt ned – en utrolig arbeidsinnsats som både Historielaget og Frostasamfunnet nyter godt av.
 
 Vi har med det mye å takke Roar for.
-
-\-boj
