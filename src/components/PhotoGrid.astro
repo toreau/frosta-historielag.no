@@ -62,7 +62,7 @@ const photosJSON = JSON.stringify(
     x-ref="lightbox"
   >
     <button
-      class="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+      class="absolute left-2 sm:left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
       x-on:click.stop="prev()"
       aria-label="Forrige bilde"
     >
@@ -71,7 +71,7 @@ const photosJSON = JSON.stringify(
       </svg>
     </button>
 
-    <div class="absolute inset-[120px]" x-on:click.stop>
+    <div class="absolute inset-2 sm:inset-8 lg:inset-[120px]" x-on:click.stop>
       <img
         :src="selected?.src"
         :alt="selected?.alt"
@@ -81,13 +81,13 @@ const photosJSON = JSON.stringify(
     </div>
 
     <p
-      class="absolute bottom-14 left-[120px] right-[120px] text-center text-sm text-cream-200"
+      class="absolute bottom-14 left-2 right-2 sm:left-8 sm:right-8 lg:left-[120px] lg:right-[120px] text-center text-sm text-cream-200"
       x-text="selected?.caption"
       x-show="selected?.caption"
     ></p>
 
     <button
-      class="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+      class="absolute right-2 sm:right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
       x-on:click.stop="next()"
       aria-label="Neste bilde"
     >
@@ -97,7 +97,7 @@ const photosJSON = JSON.stringify(
     </button>
 
     <button
-      class="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+      class="absolute right-2 top-2 sm:right-4 sm:top-4 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
       x-on:click.stop="close()"
       aria-label="Lukk"
     >
