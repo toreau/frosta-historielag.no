@@ -1,0 +1,41 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import ProductCard from "../../components/ProductCard.astro";
+import site from "../../data/site.json";
+import { getCollection } from "astro:content";
+
+const books = await getCollection("products", ({ data }) =>
+  data.published && data.category === "annen-bok"
+);
+books.sort((a, b) => a.data.price - b.data.price);
+---
+
+<Layout title="Div. bøker" description="Diverse lokalhistoriske bøker fra Frosta Historielag.">
+  <Hero title="Div. bøker" subtitle="Andre lokalhistoriske bøker" />
+
+  <section class="page-section">
+    <div class="container-wide">
+      <p class="text-lg text-slate-600 max-w-2xl">
+        Frosta Historielag har mange gamle og fine bøker til salgs. Her er et lite utdrag. Stikk gjerne innom kontoret en mandag for kaffe, en god prat og for å se hva vi har.
+      </p>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {books.map((book) => (
+          <ProductCard
+            name={book.data.name}
+            description={book.body || ""}
+            price={book.data.price}
+            image={book.data.image}
+          />
+        ))}
+      </div>
+
+      <div class="mt-10 text-center">
+        <p class="text-slate-600">
+          Kan også bestilles på <a href={`mailto:${site.email}`} class="text-forest-600 font-medium hover:underline">e-post</a>. Se <a href="/produkter" class="text-forest-600 font-medium hover:underline">alle produkter</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
