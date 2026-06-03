@@ -21,7 +21,7 @@ const currentPath = Astro.url.pathname;
       </span>
     </a>
 
-    <nav class="hidden lg:flex items-center gap-1">
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Hovedmeny">
       {site.nav.map((item) => (
         <a
           href={item.href}
@@ -63,7 +63,7 @@ const currentPath = Astro.url.pathname;
     x-transition
     x-cloak
   >
-    <nav class="container-wide flex flex-col gap-1 py-3">
+    <nav class="container-wide flex flex-col gap-1 py-3" aria-label="Mobilmeny">
       {site.nav.map((item) => (
         <a
           href={item.href}
