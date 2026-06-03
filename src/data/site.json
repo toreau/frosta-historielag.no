@@ -17,6 +17,7 @@
     { "label": "Hjem", "href": "/" },
     { "label": "Om oss", "href": "/om-oss" },
     { "label": "Historie", "href": "/historie" },
+    { "label": "Årsmeldinger", "href": "/arsmeldinger" },
     { "label": "Slekt", "href": "/slekt" },
     { "label": "Hva skjer", "href": "/hva-skjer" },
     { "label": "Produkter", "href": "/produkter" },
