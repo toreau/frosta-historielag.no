@@ -51,7 +51,12 @@ const pages = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
   schema: z.object({
     title: z.string(),
-    date: z.string().optional(),
+    date: z
+      .union([z.string(), z.date()])
+      .transform((val) =>
+        val instanceof Date ? val.toISOString().split("T")[0] : val
+      )
+      .optional(),
     section: z.string().default("historie"),
     published: z.boolean().default(true),
   }),
