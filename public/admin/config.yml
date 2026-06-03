@@ -117,6 +117,34 @@ collections:
         widget: string
         required: false
 
+  - name: pages
+    label: Sider
+    label_singular: Side
+    folder: src/content/pages
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    editor:
+      preview: false
+    sortable_fields:
+      - date
+      - title
+    fields:
+      - label: Tittel
+        name: title
+        widget: string
+      - label: Dato
+        name: date
+        widget: string
+        required: false
+      - label: Publisert
+        name: published
+        widget: boolean
+        default: true
+      - label: Innhold
+        name: body
+        widget: markdown
+
   - name: settings
     label: Innstillinger
     editor:

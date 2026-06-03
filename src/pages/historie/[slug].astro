@@ -1,0 +1,35 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("pages");
+  return pages.map((p) => ({
+    params: { slug: p.id.replace(/\.md$/, "") },
+    props: { page: p },
+  }));
+}
+
+const { page } = Astro.props;
+---
+
+<Layout title={page.data.title} description={page.data.title + " — Frosta Historielag"}>
+  <Hero title={page.data.title} />
+
+  <section class="page-section">
+    <div class="container-wide max-w-3xl">
+      <article class="prose prose-slate prose-lg max-w-none">
+        {page.body.split("\n\n").map((p) => (
+          <p class="mb-4 leading-relaxed text-slate-700">{p}</p>
+        ))}
+      </article>
+
+      <div class="mt-12 border-t border-slate-200 pt-6">
+        <a href="/historie" class="text-sm font-medium text-forest-600 hover:text-forest-800 transition-colors">
+          &larr; Tilbake til historie
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

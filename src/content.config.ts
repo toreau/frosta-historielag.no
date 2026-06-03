@@ -47,4 +47,13 @@ const gallery = defineCollection({
   }),
 });
 
-export const collections = { events, products, reports, gallery };
+const pages = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.string().optional(),
+    published: z.boolean().default(true),
+  }),
+});
+
+export const collections = { events, products, reports, gallery, pages };
