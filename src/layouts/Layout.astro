@@ -10,6 +10,10 @@ interface Props {
 
 const { title, description } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const metaDescription =
+  description ||
+  "Frosta Historielag — stiftet 1924. Lokalhistorie, slektsgransking, Frostabøkene, Frostabasen, fotogalleri og arrangementer.";
+const ogImage = "https://frosta-historielag.pages.dev/images/tinghaugen-1945.jpg";
 ---
 
 <!doctype html>
@@ -18,8 +22,18 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} — Frosta Historielag</title>
-    <meta name="description" content={description || "Frosta Historielag — stiftet 1924. Lokalhistorie, slektsgransking, Frostabøkene, Frostabasen, fotogalleri og arrangementer."} />
+    <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={`${title} — Frosta Historielag`} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="nb_NO" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} — Frosta Historielag`} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
