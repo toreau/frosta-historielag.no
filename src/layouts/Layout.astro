@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import site from "../data/site.json";
 import "../styles/global.css";
 
 interface Props {
@@ -34,6 +35,23 @@ const ogImage = "https://frosta-historielag.pages.dev/images/tinghaugen-1945.jpg
     <meta name="twitter:title" content={`${title} — Frosta Historielag`} />
     <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": site.name,
+      "url": Astro.site,
+      "logo": Astro.site + "/images/logo.png",
+      "description": site.tagline,
+      "email": site.email,
+      "telephone": site.phone,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": site.address,
+        "addressLocality": site.postal,
+        "addressCountry": "NO"
+      },
+      "foundingDate": String(site.founded) + "-03-09"
+    })} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
