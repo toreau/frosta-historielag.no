@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/Hero.astro";
 import { getCollection } from "astro:content";
+import { renderMarkdown } from "../../lib/markdown";
 
 export async function getStaticPaths() {
   const reports = await getCollection("reports");
@@ -12,6 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { report } = Astro.props;
+const htmlContent = renderMarkdown(report.body);
 ---
 
 <Layout title={report.data.title} description={`${report.data.title} — Frosta Historielag`}>
@@ -19,12 +21,7 @@ const { report } = Astro.props;
 
   <section class="page-section">
     <div class="container-wide max-w-3xl">
-      <article class="prose prose-slate prose-lg max-w-none">
-        {report.body.split("\n\n").map((p) => (
-          <p class="mb-4 leading-relaxed text-slate-700">{p}</p>
-        ))}
-      </article>
-
+      <article class="space-y-4 text-lg leading-relaxed text-slate-700" set:html={htmlContent} />
       <div class="mt-12 border-t border-slate-200 pt-6">
         <a href="/arsmeldinger" class="text-sm font-medium text-forest-600 hover:text-forest-800 transition-colors">
           &larr; Tilbake til årsmeldinger
