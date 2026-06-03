@@ -6,6 +6,7 @@ interface Props {
 }
 
 const { title, subtitle, image } = Astro.props;
+import site from "../data/site.json";
 
 const segments = Astro.url.pathname.split("/").filter(Boolean);
 
@@ -49,9 +50,9 @@ function labelFor(seg: string): string {
         </h1>
       ) : (
         <h1 class="font-serif text-3xl font-bold leading-tight md:text-5xl [text-shadow:0_2px_8px_rgba(0,0,0,0.4)]">
-          Frosta Historielag
+          {site.name}
           <span class="mt-3 block font-sans text-lg font-normal italic text-cream-300 md:text-2xl [text-shadow:0_2px_6px_rgba(0,0,0,0.4)]">
-            Historien er nøkkelen til å forstå framtiden
+            {site.tagline}
           </span>
         </h1>
       )}
@@ -92,9 +93,9 @@ function labelFor(seg: string): string {
         </h1>
       ) : (
         <h1 class="font-serif text-3xl font-bold text-forest-800 md:text-4xl leading-tight">
-          Frosta Historielag
+          {site.name}
           <span class="ml-3 font-sans text-lg font-normal italic text-slate-500 align-middle">
-            Historien er nøkkelen til å forstå framtiden
+            {site.tagline}
           </span>
         </h1>
       )}
