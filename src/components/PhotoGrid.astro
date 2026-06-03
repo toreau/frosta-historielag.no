@@ -37,6 +37,7 @@ const photosJSON = JSON.stringify(
         alt={photo.alt}
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         loading="lazy"
+        width="400" height="300"
         x-on:click={`open(${i})`}
       />
       {photo.caption && (
@@ -75,6 +76,7 @@ const photosJSON = JSON.stringify(
         :src="selected?.src"
         :alt="selected?.alt"
         class="h-full w-full object-contain"
+        width="1000" height="666"
       />
     </div>
 
