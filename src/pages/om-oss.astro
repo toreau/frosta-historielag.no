@@ -129,28 +129,28 @@ import site from "../data/site.json";
     </div>
   </section>
 
-  <section class="page-section">
+  <section class="bg-forest-800 page-section text-cream-50">
     <div class="container-wide">
-      <h2 class="font-serif text-3xl font-bold text-forest-800">Kontakt oss</h2>
+      <h2 class="font-serif text-3xl font-bold text-cream-50">Kontakt oss</h2>
       <div class="mt-6 grid gap-8 sm:grid-cols-2">
         <div>
-          <h3 class="font-serif text-xl font-semibold text-forest-700">Besøksadresse</h3>
-          <p class="mt-2 text-slate-600">
+          <h3 class="font-serif text-xl font-semibold text-cream-200">Besøksadresse</h3>
+          <p class="mt-2 text-cream-300">
             {site.address}<br />
             {site.postal}
           </p>
-          <p class="mt-2 text-sm text-amber-600 font-medium">
+          <p class="mt-2 text-sm text-amber-300 font-medium">
             Åpent: {site.officeHours}
           </p>
         </div>
         <div>
-          <h3 class="font-serif text-xl font-semibold text-forest-700">Kontaktinfo</h3>
-          <p class="mt-2 text-slate-600">
-            Telefon: <a href={`tel:${site.phone}`} class="text-forest-600 hover:underline">{site.phone}</a><br />
-            E-post: <a href={`mailto:${site.email}`} class="text-forest-600 hover:underline">{site.email}</a>
+          <h3 class="font-serif text-xl font-semibold text-cream-200">Kontaktinfo</h3>
+          <p class="mt-2 text-cream-300">
+            Telefon: <a href={`tel:${site.phone}`} class="text-cream-200 hover:text-cream-50 underline">{site.phone}</a><br />
+            E-post: <a href={`mailto:${site.email}`} class="text-cream-200 hover:text-cream-50 underline">{site.email}</a>
           </p>
-          <h3 class="mt-4 font-serif text-xl font-semibold text-forest-700">Betalingsinfo</h3>
-          <p class="mt-2 text-slate-600">
+          <h3 class="mt-4 font-serif text-xl font-semibold text-cream-200">Betalingsinfo</h3>
+          <p class="mt-2 text-cream-300">
             Vipps: #{site.vipps}<br />
             Kontonr: {site.account}
           </p>
