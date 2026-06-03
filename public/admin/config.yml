@@ -94,6 +94,29 @@ collections:
         widget: markdown
         required: false
 
+  - name: gallery
+    label: Bildegalleri
+    label_singular: Bilde
+    folder: src/content/gallery
+    create: true
+    slug: "{{slug}}"
+    identifier_field: alt
+    editor:
+      preview: true
+    sortable_fields:
+      - title
+    fields:
+      - label: Bilde
+        name: src
+        widget: image
+      - label: Alternativ tekst
+        name: alt
+        widget: string
+      - label: Bildetekst
+        name: caption
+        widget: string
+        required: false
+
   - name: settings
     label: Innstillinger
     editor:

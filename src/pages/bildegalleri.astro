@@ -1,31 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import { getCollection } from "astro:content";
 
 import PhotoGrid from "../components/PhotoGrid.astro";
 
-const gamleBilder = [
-  { src: "/images/bygdemuseet-2011.jpg", alt: "Frosta Bygdemuseum", caption: "Bygdemuseet sommeren 2011" },
-  { src: "/images/klang-1985.jpg", alt: "Klang medaljemottakere", caption: "Klang — medaljemottakere 1985" },
-  { src: "/images/klang-1955.jpg", alt: "Klang ca 1955", caption: "Klang ca. 1955" },
-  { src: "/images/skogbrynet.jpg", alt: "Arbeid i Skogbrynet", caption: "Arbeid i Skogbrynet" },
-  { src: "/images/kvinnelaget-logtun.jpg", alt: "Kvinnelaget for Logtun kirke", caption: "Kvinnelaget for Logtun kirke" },
-  { src: "/images/neset-skole.jpg", alt: "Neset skole", caption: "Neset skole tidlig femtitall" },
-  { src: "/images/frostakameratene-1958.jpg", alt: "Frostakameratene", caption: "Frostakameratene ca. 1958" },
-  { src: "/images/herredsstyret-1929.jpg", alt: "Herredsstyret 1929-31", caption: "Herredsstyret 1929-31" },
-  { src: "/images/aungrenda-sykkel.jpg", alt: "Aungrenda på sykkeltur", caption: "Ungdommer på sykkeltur, Aungrenda" },
-  { src: "/images/oyanmoen-1923.jpg", alt: "Øyanmoen 1923", caption: "Øyanmoen 1923" },
-  { src: "/images/familie-hest.jpg", alt: "Familie på tur med hest", caption: "Familie på tur med hest" },
-  { src: "/images/asholmen-1914.jpg", alt: "Åsholmen før 1914", caption: "Åsholmen før 1914" },
-  { src: "/images/vintersoldater.jpg", alt: "Fem vintersoldater", caption: "Fem vintersoldater" },
-  { src: "/images/smaaland-1958.jpg", alt: "Småland 1958", caption: "Småland 1958" },
-  { src: "/images/mostad-kai-1949.jpg", alt: "Mostad kai 1949", caption: "Mostad kai 1949" },
-  { src: "/images/liavatnet-1950.jpg", alt: "Liavatnet ca 1950", caption: "Liavatnet ca. 1950" },
-  { src: "/images/holmberget-kai.jpg", alt: "Holmberget kai", caption: "Holmberget kai" },
-  { src: "/images/kirka-baeri.jpg", alt: "Kirka fra Bæri", caption: "Kirka sett fra Bæri" },
-  { src: "/images/varonn-1946.jpg", alt: "Våronn 1946", caption: "Våronn 1946" },
-  { src: "/images/kvitsandvik-1960.jpg", alt: "Kvitsandvik", caption: "Kvitsandvik ca. 1960" },
-];
+const gallery = await getCollection("gallery");
+
+const gamleBilder = gallery.map((entry) => ({
+  src: entry.data.src,
+  alt: entry.data.alt,
+  caption: entry.data.caption,
+}));
 ---
 
 <Layout title="Bildegalleri" description="Historiske og nyere bilder fra Frosta.">
