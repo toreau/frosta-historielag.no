@@ -141,9 +141,7 @@ Viser ellers til fullstendig regnskap for 2025.
 
 ## AVSLUTNING
 
-Styret mener vi kan se tilbake på et normalår med forskjellige aktiviteter. Vi har en uforløst oppgave i forhold til hvordan vi
-
-skal få sikker oppbevaring av viktige dokumenter for ettertiden. Håper det løser seg i løpet av nytt år.
+Styret mener vi kan se tilbake på et normalår med forskjellige aktiviteter. Vi har en uforløst oppgave i forhold til hvordan vi skal få sikker oppbevaring av viktige dokumenter for ettertiden. Håper det løser seg i løpet av nytt år.
 
 Stor takk til Roar Lindgaard og Johan Ole Kjelstad. Uten deres gratisinnsats ville ikke laget ha bestått i den form det har nå.
 
@@ -151,4 +149,4 @@ Takk også til medlemmer og andre som bidrar til at historielaget er levende og 
 
 Frosta, februar 2026
 
-STYRET
+**STYRET**
