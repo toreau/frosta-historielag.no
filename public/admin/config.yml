@@ -153,6 +153,34 @@ collections:
         name: body
         widget: markdown
 
+  - name: reports
+    label: Årsmeldinger
+    label_singular: Årsmelding
+    folder: src/content/reports
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    editor:
+      preview: false
+    sortable_fields:
+      - year
+      - title
+    fields:
+      - label: Tittel
+        name: title
+        widget: string
+      - label: År
+        name: year
+        widget: number
+        value_type: int
+      - label: Publisert
+        name: published
+        widget: boolean
+        default: true
+      - label: Innhold
+        name: body
+        widget: markdown
+
   - name: settings
     label: Innstillinger
     editor:
