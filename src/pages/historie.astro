@@ -2,6 +2,12 @@
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import CallToAction from "../components/CallToAction.astro";
+import { getCollection } from "astro:content";
+
+const historiePages = await getCollection("pages", ({ data }) =>
+  data.section === "historie" && data.published
+);
+historiePages.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""));
 ---
 
 <Layout title="Historie" description="Frostas rike historie — fra Frostatingslagen og Tinghaugen til Logtun kirke, Tautra kloster og helleristningene ved Evenhus.">
@@ -89,6 +95,25 @@ import CallToAction from "../components/CallToAction.astro";
           </div>
         </div>
       </div>
+
+      {historiePages.length > 0 && (
+        <div class="border-t border-slate-200 pt-16">
+          <h2 class="font-serif text-3xl font-bold text-forest-800 text-center">Flere artikler</h2>
+          <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {historiePages.map((p) => (
+              <a
+                href={`/historie/${p.id.replace(/\.md$/, "")}`}
+                class="card p-5 hover:border-forest-300 transition-colors no-underline"
+              >
+                <h3 class="font-serif text-lg font-semibold text-forest-800">{p.data.title}</h3>
+                {p.data.date && (
+                  <p class="mt-1 text-xs text-slate-500">{p.data.date}</p>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
 
     <div
