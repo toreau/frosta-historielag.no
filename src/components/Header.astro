@@ -1,5 +1,6 @@
 ---
 import site from "../data/site.json";
+import Search from "./Search.astro";
 
 const currentPath = Astro.url.pathname;
 ---
@@ -36,12 +37,15 @@ const currentPath = Astro.url.pathname;
       ))}
     </nav>
 
-    <a
-      href="/bli-medlem"
-      class="btn-primary hidden text-sm lg:inline-flex"
-    >
-      Bli medlem
-    </a>
+    <div class="hidden lg:flex items-center gap-3">
+      <Search />
+      <a
+        href="/bli-medlem"
+        class="btn-primary text-sm"
+      >
+        Bli medlem
+      </a>
+    </div>
 
     <button
       class="lg:hidden rounded-md p-2 text-slate-600 hover:bg-slate-100"
@@ -83,6 +87,25 @@ const currentPath = Astro.url.pathname;
         Bli medlem
       </a>
     </nav>
+  </div>
+
+  <!-- Mobile search -->
+  <div class="lg:hidden border-t border-slate-200 bg-cream-50" x-data="{ searchOpen: false }">
+    <div class="container-wide py-2">
+      <div x-show="searchOpen" x-cloak class="py-1">
+        <Search />
+      </div>
+      <button
+        x-show="!searchOpen"
+        class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-slate-600 hover:bg-slate-100"
+        x-on:click="searchOpen = true"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        Søk
+      </button>
+    </div>
   </div>
 </header>
 
