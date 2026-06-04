@@ -66,10 +66,10 @@
           })
         );
 
-        // Exact-match post-filter for queries ≥ 4 characters.
+        // Exact-match post-filter for queries ≥ 3 characters.
         // Pagefind's Norwegian stemmer is too aggressive for a small site —
-        // "dagbladet" stems to "dag" and returns irrelevant pages.
-        const filtered = query.length >= 4
+        // "aur" stems into individual letters and matches "A" / "å" everywhere.
+        const filtered = query.length >= 3
           ? items.filter((item) => {
               const q = query.toLowerCase();
               return (
