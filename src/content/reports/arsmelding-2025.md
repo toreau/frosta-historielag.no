@@ -33,11 +33,11 @@ Johan Petter Skogseth
 
 Kalenderkomite : Bjørn Olav Juberg samt Roar Lindgaard som i tillegg har bidratt.
 
-ÅRSMØTET
+## ÅRSMØTET
 
 Ble holdt på skolens kantine 20. februar i samarbeid med Fortidsminneforeningen
 
-STYRET
+## STYRET
 
 Det har i perioden vært holdt 6 styremøter og behandla 40 saker
 
@@ -47,7 +47,7 @@ Mye ble kasta og resten ble lagra på Tun.
 
 Varamedlemmene har hatt anledning til å møte på alle styremøtene.
 
-REPRESENTASJON
+## REPRESENTASJON
 
 Historielaget har i løpet av året vært representert i ulike sammenhenger her i bygda bl.annet utvandrerjubilet. Vi har deltatt på møte i IKA
 
@@ -67,11 +67,11 @@ Ansvar for vaktlista hadde Hjørdis Fjæran.
 
 Takk til alle som stilte opp som selgere for historielaget på denne måten.
 
-OPPGAVER I 2025
+## OPPGAVER I 2025
 
 I 2025 ble det et roligere år. Kan jo ikke feire oss selv hvert år.
 
-FROSTABASEN
+## FROSTABASEN
 
 Finn Karlsen fortsetter å legge ned mye arbeid for denne verktøykista.
 
@@ -79,19 +79,17 @@ Med ujevne mellomrom holder Finn Karlsen oppfriskningskurs i bruken av basen
 
 Frostabasen kjøpes på en minnebrikke som installeres på en PC.
 
-KALENDER FOR 2026
+## KALENDER FOR 2026
 
 Kalender med bilder kom også i år. Denne gang viet musikk og sang og 100 årsjubilantene KLANG og Arntzen bakeri.
 
-TØRKHUSET VED SKOGTRØA
+## TØRKHUSET VED SKOGTRØA
 
 Det er gjort noe vedlikehold. Det sørget Johan Ole og Dagfinn Vinge for.
 
-KULTURMINNEDAGENE
+## KULTURMINNEDAGENE
 
-Vi inviterte også i år 6. trinnet ved Frosta skole til å besøke Jørgenhiet og Tørkhuset ved Skogtrøa.
-
-16. september møtte elever og lærere opp ved trafoen. Vi gikk først til til Jørgenhiet.
+Vi inviterte også i år 6. trinnet ved Frosta skole til å besøke Jørgenhiet og Tørkhuset ved Skogtrøa. 1. september møtte elever og lærere opp ved trafoen. Vi gikk først til til Jørgenhiet.
 
 Som tidligere år ble det brukt noe tid til refleksjon om hvordan det kunne være å bo under ei berghylle.
 
@@ -99,43 +97,39 @@ Etter besøket gikk vi til Tørkhuset for å se på og prøve litt hvordan bakin
 
 Takk til Anne Hagerup, Lilly Eriksen og Johan Ole Kjelstad
 
-Historielagets leder hadde ansvar for opplegget
+Historielagets leder hadde ansvar for opplegget.
 
-Tilbakemeldingene fra skolen var utelukkende positive !
+Tilbakemeldingene fra skolen var utelukkende positive!
 
-Eksemplariske skoleelever som lyttet og spurte !
+Eksemplariske skoleelever som lyttet og spurte!
 
 Utpå høsten arrangerte historielaget tur til Ekne og Kjell Ivar Haltviks historiske bilsamling og restaureringsarbeider.
 
 Litt dårlig oppmøte. Takk til Haltvik for at vi fikk komme på besøk.
 
-FROSTADAGEN
+## FROSTADAGEN
 
 Historielaget hadde egen stand. Fikk solgt en del minnebrikker av Frostabasen. Johan Ole stod for underholdninga.
 
-BILDER I FROSTINGEN
+## BILDER I FROSTINGEN
 
 Annenhver uke har historielaget ved Roar Lindgaard et bilde i Frostingen, gjerne med opplysninger om tid og sted.
 
-BILDEVISNINGER PÅ TUNET
+## BILDEVISNINGER PÅ TUNET
 
 Johan Ole Kjelstad har med jevne mellomrom vært på Frostatunet og vist bilder fra Frosta. Meget populært innslag.
 
-KONTORET VÅRT
+## KONTORET VÅRT
 
-Kontoret vårt er vårt faste holdepunkt og møteplass. Vi prøver å holde åpent hver mandag, og mange ser innom oss både
-
-for å slå av en prat, drikke kaffe og noen for å handle av varene våre. Historielaget driver også slektsforskning og finne ut
-
-av personer på gamle bilder m.m.
+Kontoret vårt er vårt faste holdepunkt og møteplass. Vi prøver å holde åpent hver mandag, og mange ser innom oss både for å slå av en prat, drikke kaffe og noen for å handle av varene våre. Historielaget driver også slektsforskning og finne ut av personer på gamle bilder m.m.
 
 Styret har som mål å holde kontoret åpent på mandager, og håper at besøkende vil fortsette å komme.
 
-INNBINDING AV FROSTINGEN
+## INNBINDING AV FROSTINGEN
 
 Årgang 2024 ble innbundet. Vi har alle årgangene fra 1919 tom 2024 komplett. Kulturmidler fra kommunen dekket utgiftene.
 
-ØKONOMI
+## ØKONOMI
 
 Total omsetning i løpet av året kr. 214596,- (2024 : kr. 329961,-) Den største inntektsposten var et etterslep fra UKL på kr. 80000,-
 
@@ -145,7 +139,7 @@ Avdrag på lån til kommunen er betalt med kr. 30000,-
 
 Viser ellers til fullstendig regnskap for 2025.
 
-AVSLUTNING
+## AVSLUTNING
 
 Styret mener vi kan se tilbake på et normalår med forskjellige aktiviteter. Vi har en uforløst oppgave i forhold til hvordan vi
 
@@ -155,22 +149,6 @@ Stor takk til Roar Lindgaard og Johan Ole Kjelstad. Uten deres gratisinnsats vil
 
 Takk også til medlemmer og andre som bidrar til at historielaget er levende og aktivt her på Frosta.
 
-Frosta februar 2026
+Frosta, februar 2026
 
 STYRET
-
-Vi har åpent på Historielagets kontor på Tun
-
-De fleste mandager fra 11.00-14.00
-
-Tun, Frostavegen 1722
-
-7633 Frosta
-
-74 80 98 49
-
-rosta.historielag@gmail.com
-
-Vipps: #535765
-
-Kto.nr. 4459 45 30958
