@@ -1,18 +1,17 @@
 ---
-title: "Årsmelding 2025"
+title: Årsmelding 2025
 year: 2025
 published: true
 ---
-
 Frosta historielag har i 2025 hatt 77 betalende enkeltmedlemmer og 40×2 betalende familiemedlemmer, til sammen 157 medlemmer.
 
 Dette er en nedgang på 33 medlemmer I forhold til 2024.
 
 Vi har et ønske om at flest mulig oppgir epostadresser slik at vi lettere kan komme i kontakt med medlemmene våre.
 
-TILLITSVALGTE
+## TILLITSVALGTE
 
-STYRET:
+### STYRET:
 
 LEDER: Ola Andreas Lian
 
@@ -24,7 +23,7 @@ MØTESEKRETÆR: Anne Irene Hagerup
 
 STYREMEDLEM: Olav Skogen
 
-VARAMAELEMMER: Knut Arne Rein og Frode Olsen
+VARAMEDLEMMER: Knut Arne Rein og Frode Olsen
 
 Revisorer : Lars Eilif Flægstad og John Anders Viktil
 
