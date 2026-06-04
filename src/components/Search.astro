@@ -16,6 +16,7 @@
     </svg>
     <input
       id="search-input"
+      x-ref="searchInput"
       type="text"
       placeholder="Søk på siden..."
       class="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-800 placeholder-slate-400 shadow-sm transition-colors focus:border-forest-500 focus:ring-2 focus:ring-forest-200 focus:outline-none"
@@ -55,7 +56,7 @@
         }
 
         const items = await Promise.all(
-          search.results.slice(0, 8).map(async (r) => {
+          search.results.slice(0, 12).map(async (r) => {
             const data = await r.data();
             return {
               url: data.url,
@@ -65,7 +66,27 @@
           })
         );
 
-        results.innerHTML = items
+        // Exact-match post-filter for queries ≥ 4 characters.
+        // Pagefind's Norwegian stemmer is too aggressive for a small site —
+        // "dagbladet" stems to "dag" and returns irrelevant pages.
+        const filtered = query.length >= 4
+          ? items.filter((item) => {
+              const q = query.toLowerCase();
+              return (
+                item.title.toLowerCase().includes(q) ||
+                item.excerpt.toLowerCase().includes(q)
+              );
+            })
+          : items;
+
+        if (!filtered.length) {
+          results.innerHTML =
+            '<p class="px-4 py-3 text-sm text-slate-500 italic">Ingen treff for «' + query + '»</p>';
+          results.classList.remove("hidden");
+          return;
+        }
+
+        results.innerHTML = filtered
           .map(
             (item) => `
             <a href="${item.url}"
