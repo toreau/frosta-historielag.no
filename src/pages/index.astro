@@ -87,6 +87,7 @@ const upcomingEvents = events.slice(0, 2);
             time={event.data.time}
             location={event.data.location}
             description={event.body?.substring(0, 180) + "..." || ""}
+            image={event.data.image}
           />
         ))}
       </div>

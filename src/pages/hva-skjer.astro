@@ -27,6 +27,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
               time={event.data.time}
               location={event.data.location}
               description={event.body || ""}
+              image={event.data.image}
             />
           ))}
         </div>

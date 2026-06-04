@@ -29,6 +29,7 @@ books.sort((a, b) => a.data.price - b.data.price);
             name={book.data.name}
             description={book.body || "Historielagets bok om Frostas historie."}
             price={book.data.price}
+            image={book.data.image}
           />
         ))}
       </div>
