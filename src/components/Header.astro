@@ -22,12 +22,54 @@ const currentPath = Astro.url.pathname;
       </span>
     </a>
 
-    <nav class="hidden lg:flex items-center gap-1" aria-label="Hovedmeny">
-      {site.nav.map((item) => (
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Hovedmeny" x-data="{ omossOpen: false }">
+      <a
+        href="/"
+        class={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+          currentPath === "/"
+            ? "bg-slate-100 text-slate-900"
+            : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+        }`}
+      >
+        Hjem
+      </a>
+
+      <!-- Om oss dropdown -->
+      <div
+        class="relative"
+        x-on:mouseenter="omossOpen = true"
+        x-on:mouseleave="omossOpen = false"
+        x-on:click.outside="omossOpen = false"
+      >
+        <button
+          class={`rounded-md px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 ${
+            currentPath.startsWith("/om-oss") || currentPath.startsWith("/historie") || currentPath.startsWith("/arsmeldinger")
+              ? "bg-slate-100 text-slate-900"
+              : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+          }`}
+        >
+          Om oss
+          <svg x-bind:class="omossOpen && 'rotate-180'" class="h-3 w-3 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div
+          x-show="omossOpen"
+          x-transition
+          x-cloak
+          class="absolute left-0 top-full mt-1 min-w-[180px] rounded-lg border border-slate-200 bg-white py-1 shadow-lg"
+        >
+          <a href="/om-oss" class={`block px-4 py-2 text-sm transition-colors ${currentPath === "/om-oss" ? "bg-forest-50 text-forest-700" : "text-slate-600 hover:bg-slate-50"}`}>Om laget</a>
+          <a href="/historie" class={`block px-4 py-2 text-sm transition-colors ${currentPath.startsWith("/historie") ? "bg-forest-50 text-forest-700" : "text-slate-600 hover:bg-slate-50"}`}>Historie</a>
+          <a href="/arsmeldinger" class={`block px-4 py-2 text-sm transition-colors ${currentPath.startsWith("/arsmeldinger") ? "bg-forest-50 text-forest-700" : "text-slate-600 hover:bg-slate-50"}`}>Årsmeldinger</a>
+        </div>
+      </div>
+
+      {site.nav.filter(item => item.href !== "/" && item.href !== "/om-oss" && item.href !== "/historie" && item.href !== "/arsmeldinger" && item.href !== "/bli-medlem").map((item) => (
         <a
           href={item.href}
           class={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-            (item.href === "/" ? currentPath === "/" : currentPath.startsWith(item.href))
+            currentPath.startsWith(item.href)
               ? "bg-slate-100 text-slate-900"
               : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
           }`}
@@ -35,6 +77,16 @@ const currentPath = Astro.url.pathname;
           {item.label}
         </a>
       ))}
+      <a
+        href="/bli-medlem"
+        class={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+          currentPath.startsWith("/bli-medlem")
+            ? "bg-slate-100 text-slate-900"
+            : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+        }`}
+      >
+        Bli medlem
+      </a>
     </nav>
 
     <div class="hidden lg:flex items-center gap-3">
@@ -75,8 +127,39 @@ const currentPath = Astro.url.pathname;
     x-transition
     x-cloak
   >
-    <nav class="container-wide flex flex-col gap-1 py-3" aria-label="Mobilmeny">
-      {site.nav.map((item) => (
+    <nav class="container-wide flex flex-col gap-1 py-3" aria-label="Mobilmeny" x-data="{ mobOmossOpen: false }">
+      <a
+        href="/"
+        class={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+          currentPath === "/"
+            ? "bg-forest-100 text-forest-800"
+            : "text-slate-600 hover:bg-slate-100"
+        }`}
+      >
+        Hjem
+      </a>
+
+      <!-- Mobile Om oss accordion -->
+      <button
+        class={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+          currentPath.startsWith("/om-oss") || currentPath.startsWith("/historie") || currentPath.startsWith("/arsmeldinger")
+            ? "bg-forest-100 text-forest-800"
+            : "text-slate-600 hover:bg-slate-100"
+        }`}
+        x-on:click="mobOmossOpen = !mobOmossOpen"
+      >
+        Om oss
+        <svg x-bind:class="mobOmossOpen && 'rotate-180'" class="h-3 w-3 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <div x-show="mobOmossOpen" x-cloak class="ml-4 flex flex-col gap-1 border-l-2 border-forest-200 pl-3">
+        <a href="/om-oss" class={`rounded-md px-3 py-1.5 text-sm transition-colors ${currentPath === "/om-oss" ? "text-forest-700 font-medium" : "text-slate-600 hover:bg-slate-100"}`}>Om laget</a>
+        <a href="/historie" class={`rounded-md px-3 py-1.5 text-sm transition-colors ${currentPath.startsWith("/historie") ? "text-forest-700 font-medium" : "text-slate-600 hover:bg-slate-100"}`}>Historie</a>
+        <a href="/arsmeldinger" class={`rounded-md px-3 py-1.5 text-sm transition-colors ${currentPath.startsWith("/arsmeldinger") ? "text-forest-700 font-medium" : "text-slate-600 hover:bg-slate-100"}`}>Årsmeldinger</a>
+      </div>
+
+      {site.nav.filter(item => item.href !== "/" && item.href !== "/om-oss" && item.href !== "/historie" && item.href !== "/arsmeldinger" && item.href !== "/bli-medlem").map((item) => (
         <a
           href={item.href}
           class={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
