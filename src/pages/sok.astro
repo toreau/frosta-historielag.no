@@ -1,0 +1,115 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+---
+
+<Layout title="Søk" description="Søk på Frosta Historielags nettsider.">
+  <Hero title="Søk" />
+
+  <section class="page-section">
+    <div class="container-narrow">
+      <div id="search-page">
+        <p id="search-loading" class="text-center text-slate-500">Søker...</p>
+        <div id="search-page-results" class="hidden"></div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+
+<script is:inline>
+  async function initSearchPage() {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("q")?.trim();
+    const resultsEl = document.getElementById("search-page-results");
+    const loadingEl = document.getElementById("search-loading");
+
+    if (!query) {
+      loadingEl.textContent = "Skriv inn et søkeord i adressefeltet (?q=...)";
+      return;
+    }
+
+    document.title = `Søk: ${query} — Frosta Historielag`;
+
+    try {
+      const pagefind = await import("/pagefind/pagefind.js");
+      await pagefind.options({ baseUrl: "/" });
+
+      const search = await pagefind.search(query);
+      if (!search || !search.results.length) {
+        loadingEl.classList.add("hidden");
+        resultsEl.classList.remove("hidden");
+        resultsEl.innerHTML =
+          `<p class="text-center text-lg text-slate-500 italic">Ingen treff for «${query}»</p>
+           <div class="mt-8 text-center">
+             <a href="/" class="btn-secondary">Gå til forsiden</a>
+           </div>`;
+        return;
+      }
+
+      const items = await Promise.all(
+        search.results.map(async (r) => {
+          const data = await r.data();
+          return {
+            url: data.url,
+            title: data.meta?.title || data.url,
+            excerpt: data.excerpt || "",
+          };
+        })
+      );
+
+      loadingEl.classList.add("hidden");
+      resultsEl.classList.remove("hidden");
+
+      const titleEl = document.createElement("h2");
+      titleEl.className =
+        "font-serif text-2xl font-bold text-forest-800 mb-2";
+      titleEl.textContent = `Søk: ${query}`;
+      resultsEl.appendChild(titleEl);
+
+      const countEl = document.createElement("p");
+      countEl.className = "text-sm text-slate-500 mb-8";
+      countEl.textContent = `${items.length} treff`;
+      resultsEl.appendChild(countEl);
+
+      const list = document.createElement("div");
+      list.className = "space-y-6";
+      list.innerHTML = items
+        .map(
+          (item) => `
+          <a href="${item.url}"
+            class="card block p-5 hover:border-forest-300 transition-colors no-underline"
+          >
+            <span class="block font-serif text-lg font-semibold text-forest-800">
+              ${item.title.replace(" — Frosta Historielag", "")}
+            </span>
+            <span class="mt-1 block text-sm text-slate-500">
+              ${item.excerpt}
+            </span>
+            <span class="mt-1.5 block text-xs text-forest-600">
+              ${item.url}
+            </span>
+          </a>`
+        )
+        .join("");
+      resultsEl.appendChild(list);
+
+      const footer = document.createElement("div");
+      footer.className = "mt-10 text-center";
+      footer.innerHTML =
+        '<a href="/" class="btn-secondary">Gå til forsiden</a>';
+      resultsEl.appendChild(footer);
+    } catch (err) {
+      loadingEl.textContent = "Kunne ikke laste søk. Prøv igjen senere.";
+      console.warn("Search page init failed:", err);
+    }
+  }
+
+  initSearchPage();
+</script>
+
+<style is:inline>
+  .pagefind-ui__search-input { display: none; }
+  .pagefind-ui__drawer { display: none; }
+</style>
