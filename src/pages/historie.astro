@@ -76,10 +76,22 @@ historiePages.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""
 
       <div>
         <h2 class="font-serif text-3xl font-bold text-forest-800">Hva forteller helleristningene ved Evenhus?</h2>
-        <div class="mt-6 space-y-4 text-lg leading-relaxed text-slate-600">
-          <p>
-            Ved Evenhus finner vi det <strong>største helleristningsfeltet på Frosta</strong> med rundt 100 figurer fra ca. 1500 f.Kr. De fleste figurene har tilknytning til fiske og fangst, og gir et fascinerende innblikk i livet for over 3&thinsp;500 år siden.
-          </p>
+        <div class="mt-6 grid gap-6 md:grid-cols-3">
+          <div class="md:col-span-1 space-y-4 text-lg leading-relaxed text-slate-600">
+            <p>
+              Ved Evenhus finner vi det <strong>største helleristningsfeltet på Frosta</strong> med rundt 100 figurer fra ca. 1500 f.Kr. De fleste figurene har tilknytning til fiske og fangst, og gir et fascinerende innblikk i livet for over 3&thinsp;500 år siden.
+            </p>
+          </div>
+          <div class="md:col-span-2 space-y-4">
+            <div>
+              <Image src="/images/evenhus-helleristninger-1.jpg" alt="Helleristningene ved Evenhus — hovedfeltet med båter og hvalfigurer" width={1000} height={726} class="rounded-xl shadow-md w-full cursor-pointer" loading="lazy" x-on:click="lightbox = '/images/evenhus-helleristninger-1.jpg'" />
+              <p class="mt-1 text-xs text-slate-400">Hovedfeltet med båter og sjødyr. Foto: Theodor Petersen, CC0, Wikimedia Commons.</p>
+            </div>
+            <div>
+              <Image src="/images/evenhus-helleristninger-2.jpg" alt="Helleristningene ved Evenhus — nisefigurer" width={1000} height={667} class="rounded-xl shadow-md w-full cursor-pointer" loading="lazy" x-on:click="lightbox = '/images/evenhus-helleristninger-2.jpg'" />
+              <p class="mt-1 text-xs text-slate-400">Sjødyrene som er avbildet er trolig niser. Foto: Line Birgitte Moe, CC BY-SA, Wikimedia Commons.</p>
+            </div>
+          </div>
         </div>
       </div>
 
