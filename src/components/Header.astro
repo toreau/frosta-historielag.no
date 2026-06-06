@@ -1,8 +1,15 @@
 ---
 import site from "../data/site.json";
 import Search from "./Search.astro";
+import Image from "./Image.astro";
 
 const currentPath = Astro.url.pathname;
+
+const dropdownPaths = ["/om-oss", "/historie", "/arsmeldinger"];
+const specialPaths = ["/", "/bli-medlem"];
+const mainNavItems = site.nav.filter(item =>
+  !dropdownPaths.includes(item.href) && !specialPaths.includes(item.href)
+);
 ---
 
 <header
@@ -12,12 +19,12 @@ const currentPath = Astro.url.pathname;
   <div class="container-wide flex h-16 items-center justify-between">
     <a href="/" class="flex items-center">
       <span class="inline-flex items-center rounded-lg bg-forest-800 px-3 py-1">
-        <img
+        <Image
           src="/images/logo-small.png"
           alt="Frosta Historielag"
           class="h-9 w-auto"
           loading="eager"
-          width="328" height="108"
+          width={328} height={108}
         />
       </span>
     </a>
@@ -65,7 +72,7 @@ const currentPath = Astro.url.pathname;
         </div>
       </div>
 
-      {site.nav.filter(item => item.href !== "/" && item.href !== "/om-oss" && item.href !== "/historie" && item.href !== "/arsmeldinger" && item.href !== "/bli-medlem").map((item) => (
+      {mainNavItems.map((item) => (
         <a
           href={item.href}
           class={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
@@ -171,11 +178,11 @@ const currentPath = Astro.url.pathname;
         <a href="/arsmeldinger" class={`rounded-md px-3 py-1.5 text-sm transition-colors ${currentPath.startsWith("/arsmeldinger") ? "text-forest-700 font-medium" : "text-slate-600 hover:bg-slate-100"}`}>Årsmeldinger</a>
       </div>
 
-      {site.nav.filter(item => item.href !== "/" && item.href !== "/om-oss" && item.href !== "/historie" && item.href !== "/arsmeldinger" && item.href !== "/bli-medlem").map((item) => (
+      {mainNavItems.map((item) => (
         <a
           href={item.href}
           class={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-            currentPath === item.href
+            currentPath.startsWith(item.href)
               ? "bg-forest-100 text-forest-800"
               : "text-slate-600 hover:bg-slate-100"
           }`}
@@ -212,3 +219,4 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.14.1/dist/cdn.min.js"></script>

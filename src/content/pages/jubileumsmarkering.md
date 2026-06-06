@@ -2,6 +2,7 @@
 title: "Jubileumsmarkering"
 date: "2024-03-09"
 published: true
+section: "om-oss"
 ---
 
 Jubileumsmarkering i Magnushallen, Frost

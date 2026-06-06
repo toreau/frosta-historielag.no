@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import Image from "../components/Image.astro";
 import site from "../data/site.json";
 ---
 
@@ -26,12 +27,12 @@ import site from "../data/site.json";
           </p>
         </div>
         <div class="md:col-span-1">
-          <img
+          <Image
             src="/images/hans-a-vold.jpg"
             alt="Hans A. Vold"
             class="rounded-xl shadow-md sepia-[0.15] w-full"
             loading="lazy"
-            width="864" height="1200"
+            width={864} height={1200}
           />
           <p class="mt-2 text-center text-sm text-slate-500 italic">Hans A. Vold (1870–1962)</p>
           <p class="text-center text-xs text-slate-400">Stifter av Frosta Historielag og Frosta Bygdemuseum</p>
@@ -79,7 +80,7 @@ import site from "../data/site.json";
       </p>
 
       <div class="mt-6 flex justify-center">
-        <img
+        <Image
           src="/images/ildsjelprisen-2023.jpg"
           alt="Ildsjelprisen"
           class="rounded-xl shadow-md max-w-sm w-full"

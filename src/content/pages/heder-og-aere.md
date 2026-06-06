@@ -2,6 +2,7 @@
 title: "Heder og ære"
 date: "2024"
 published: true
+section: "om-oss"
 ---
 
 Heder og ære

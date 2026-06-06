@@ -7,14 +7,15 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, ogImage } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 const metaDescription =
   description ||
   "Frosta Historielag — stiftet 1924. Lokalhistorie, slektsgransking, Frostabøkene, Frostabasen, fotogalleri og arrangementer.";
-const ogImage = "https://frosta-historielag.pages.dev/images/tinghaugen-1945-upscaled.jpg";
+const resolvedOgImage = ogImage || "https://frosta-historielag.pages.dev/images/tinghaugen-1945-upscaled.jpg";
 ---
 
 <!doctype html>
@@ -28,13 +29,13 @@ const ogImage = "https://frosta-historielag.pages.dev/images/tinghaugen-1945-ups
     <meta property="og:title" content={`${title} — Frosta Historielag`} />
     <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={resolvedOgImage} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="nb_NO" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${title} — Frosta Historielag`} />
     <meta name="twitter:description" content={metaDescription} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={resolvedOgImage} />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",

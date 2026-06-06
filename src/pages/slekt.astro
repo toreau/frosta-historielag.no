@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import Image from "../components/Image.astro";
 import CallToAction from "../components/CallToAction.astro";
 import site from "../data/site.json";
 ---
@@ -21,7 +22,7 @@ import site from "../data/site.json";
 
       <div class="mt-12 grid gap-8 md:grid-cols-2">
         <div class="card p-6">
-          <img
+          <Image
             src="/images/frostabasen.jpg"
             alt="Frostabasen"
             class="mb-4 h-40 w-full rounded-lg object-cover"
@@ -40,7 +41,7 @@ import site from "../data/site.json";
         </div>
 
         <div class="card p-6">
-          <img
+          <Image
             src="/images/kurs-slektsgransking.jpg"
             alt="Kurs i slektsgransking"
             class="mb-4 h-40 w-full rounded-lg object-cover"

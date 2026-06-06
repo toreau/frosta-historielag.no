@@ -8,6 +8,8 @@ interface Props {
   image?: string;
 }
 
+import Image from "./Image.astro";
+
 const { title, date, time, location, description, image } = Astro.props;
 
 const months = [
@@ -24,12 +26,12 @@ const displayDate =
 <div class="card group flex flex-col overflow-hidden md:flex-row">
   {image && (
     <div class="md:w-56 shrink-0 overflow-hidden bg-slate-100">
-      <img
+      <Image
         src={image}
         alt={title}
         class="h-48 w-full object-cover md:h-full transition-transform duration-500 group-hover:scale-105 sepia-[0.15]"
         loading="lazy"
-        width="800" height="450"
+        width={800} height={450}
       />
     </div>
   )}

@@ -2,6 +2,7 @@
 title: "Ordførerens tale til jubilanten"
 date: "2024"
 published: true
+section: "om-oss"
 ---
 
 Tale Frosta Historielag 100-års jubileumsmarkering lørdag 16.mars 2024

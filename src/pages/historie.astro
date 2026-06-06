@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import Image from "../components/Image.astro";
 import CallToAction from "../components/CallToAction.astro";
 import { getCollection } from "astro:content";
 
@@ -37,8 +38,8 @@ historiePages.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""
             <p class="text-sm text-slate-500">— Med lov skal landet vårt bygges, og ikke med ulov ødes. Innskrift på minnebautaen fra 1914.</p>
           </div>
           <div class="md:col-span-2 space-y-4">
-            <img src="/images/tinghaugen-1935.jpg" alt="Tinghaugen ca. 1935" width="527" height="318" class="rounded-xl shadow-md sepia-[0.2] w-full cursor-pointer" loading="lazy" x-on:click="lightbox = '/images/tinghaugen-1935.jpg'" />
-            <img src="/images/tinghaugen-1945-upscaled.jpg" alt="Tinghaugen 17. mai 1945" width="1000" height="630" class="rounded-xl shadow-md sepia-[0.2] w-full cursor-pointer" loading="lazy" x-on:click="lightbox = '/images/tinghaugen-1945-upscaled.jpg'" />
+            <Image src="/images/tinghaugen-1935.jpg" alt="Tinghaugen ca. 1935" width={527} height={318} class="rounded-xl shadow-md sepia-[0.2] w-full cursor-pointer" loading="lazy" x-on:click="lightbox = '/images/tinghaugen-1935.jpg'" />
+            <Image src="/images/tinghaugen-1945-upscaled.jpg" alt="Tinghaugen 17. mai 1945" width={1000} height={630} class="rounded-xl shadow-md sepia-[0.2] w-full cursor-pointer" loading="lazy" x-on:click="lightbox = '/images/tinghaugen-1945-upscaled.jpg'" />
           </div>
         </div>
       </div>
@@ -55,7 +56,7 @@ historiePages.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""
             </p>
           </div>
           <div class="md:col-span-2">
-            <img src="/images/logtun-kirke.jpg" alt="Logtun kirke 2016" width="1000" height="625" class="rounded-xl shadow-md w-full cursor-pointer" loading="lazy" x-on:click="lightbox = '/images/logtun-kirke.jpg'" />
+            <Image src="/images/logtun-kirke.jpg" alt="Logtun kirke 2016" width={1000} height={625} class="rounded-xl shadow-md w-full cursor-pointer" loading="lazy" x-on:click="lightbox = '/images/logtun-kirke.jpg'" />
           </div>
         </div>
       </div>
@@ -70,7 +71,7 @@ historiePages.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""
             Ruinene av klosteret er fortsatt synlige i dag og er et populært utfartsmål. I moderne tid er det etablert et <strong>nytt cistercienserkloster</strong> like ved de gamle ruinene.
           </p>
         </div>
-        <img src="/images/tautra-kloster.jpg" alt="Tautra klosterruin" width="1000" height="646" class="mt-6 rounded-xl shadow-md w-full max-w-2xl cursor-pointer" loading="lazy" x-on:click="lightbox = '/images/tautra-kloster.jpg'" />
+        <Image src="/images/tautra-kloster.jpg" alt="Tautra klosterruin" width={1000} height={646} class="mt-6 rounded-xl shadow-md w-full max-w-2xl cursor-pointer" loading="lazy" x-on:click="lightbox = '/images/tautra-kloster.jpg'" />
       </div>
 
       <div>

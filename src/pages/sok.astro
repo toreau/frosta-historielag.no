@@ -59,6 +59,27 @@ import Hero from "../components/Hero.astro";
         })
       );
 
+      const filtered = query.length >= 3
+        ? items.filter((item) => {
+            const q = query.toLowerCase();
+            return (
+              item.title.toLowerCase().includes(q) ||
+              item.excerpt.toLowerCase().includes(q)
+            );
+          })
+        : items;
+
+      if (!filtered.length) {
+        loadingEl.classList.add("hidden");
+        resultsEl.classList.remove("hidden");
+        resultsEl.innerHTML =
+          `<p class="text-center text-lg text-slate-500 italic">Ingen treff for «${query}»</p>
+           <div class="mt-8 text-center">
+             <a href="/" class="btn-secondary">Gå til forsiden</a>
+           </div>`;
+        return;
+      }
+
       loadingEl.classList.add("hidden");
       resultsEl.classList.remove("hidden");
 
@@ -70,12 +91,12 @@ import Hero from "../components/Hero.astro";
 
       const countEl = document.createElement("p");
       countEl.className = "text-sm text-slate-500 mb-8";
-      countEl.textContent = `${items.length} treff`;
+      countEl.textContent = `${filtered.length} treff`;
       resultsEl.appendChild(countEl);
 
       const list = document.createElement("div");
       list.className = "space-y-6";
-      list.innerHTML = items
+      list.innerHTML = filtered
         .map(
           (item) => `
           <a href="${item.url}"

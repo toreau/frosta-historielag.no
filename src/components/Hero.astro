@@ -7,6 +7,7 @@ interface Props {
 
 const { title, subtitle, image } = Astro.props;
 import site from "../data/site.json";
+import Image from "./Image.astro";
 
 const segments = Astro.url.pathname.split("/").filter(Boolean);
 
@@ -34,13 +35,13 @@ function labelFor(seg: string): string {
 
 {image ? (
   <section class="relative flex min-h-[30vh] items-center justify-center overflow-hidden bg-forest-900">
-    <img
+    <Image
       src={image}
       alt=""
       class="absolute inset-0 h-full w-full object-cover opacity-45 sepia-[0.25]"
       loading="eager"
       fetchpriority="high"
-      width="1600" height="400"
+      width={1600} height={400}
     />
     <div class="absolute inset-0 bg-gradient-to-t from-forest-950/60 via-forest-950/20 to-transparent" />
     <div class="container-narrow relative z-10 py-12 text-center text-cream-50">
@@ -80,7 +81,7 @@ function labelFor(seg: string): string {
                   {labelFor(seg)}
                 </a>
               ) : (
-                <span class="text-slate-600">{labelFor(seg)}</span>
+                <span class="text-slate-600">{title || labelFor(seg)}</span>
               )}
             </span>
           ))}

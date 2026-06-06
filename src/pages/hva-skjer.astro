@@ -6,8 +6,13 @@ import CallToAction from "../components/CallToAction.astro";
 import site from "../data/site.json";
 import { getCollection } from "astro:content";
 
-const events = await getCollection("events", ({ data }) => data.published);
-events.sort((a, b) => a.data.date.localeCompare(b.data.date));
+const today = new Date().toISOString().split("T")[0];
+
+const allEvents = await getCollection("events", ({ data }) => data.published);
+allEvents.sort((a, b) => a.data.date.localeCompare(b.data.date));
+
+const upcoming = allEvents.filter((e) => e.data.date >= today);
+const past = allEvents.filter((e) => e.data.date < today);
 ---
 
 <Layout title="Hva skjer" description="Arrangementer, kurs og aktiviteter i regi av Frosta Historielag.">
@@ -18,18 +23,40 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
 
   <section class="page-section">
     <div class="container-wide">
-      {events.length > 0 ? (
-        <div class="grid gap-8">
-          {events.map((event) => (
-            <EventCard
-              title={event.data.title}
-              date={event.data.date}
-              time={event.data.time}
-              location={event.data.location}
-              description={event.body || ""}
-              image={event.data.image}
-            />
-          ))}
+      {upcoming.length > 0 ? (
+        <div class="space-y-10">
+          <div>
+            <h2 class="font-serif text-2xl font-bold text-forest-800 mb-6">Kommende arrangementer</h2>
+            <div class="grid gap-8">
+              {upcoming.map((event) => (
+                <EventCard
+                  title={event.data.title}
+                  date={event.data.date}
+                  time={event.data.time}
+                  location={event.data.location}
+                  description={event.body || ""}
+                  image={event.data.image}
+                />
+              ))}
+            </div>
+          </div>
+          {past.length > 0 && (
+            <div>
+              <h2 class="font-serif text-2xl font-bold text-forest-800 mb-6">Tidligere arrangementer</h2>
+              <div class="grid gap-8">
+                {past.map((event) => (
+                  <EventCard
+                    title={event.data.title}
+                    date={event.data.date}
+                    time={event.data.time}
+                    location={event.data.location}
+                    description={event.body || ""}
+                    image={event.data.image}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <div class="text-center py-16">

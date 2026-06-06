@@ -1,7 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/Hero.astro";
-import site from "../../data/site.json";
+import ProductCard from "../../components/ProductCard.astro";
+import { getCollection } from "astro:content";
+
+const calendars = await getCollection("products", ({ data }) =>
+  data.published && data.category === "kalender"
+);
+calendars.sort((a, b) => a.data.price - b.data.price);
 ---
 
 <Layout title="Frostakalenderen" description="Årlig kalender med historiske bilder fra Frosta.">
@@ -11,27 +17,20 @@ import site from "../../data/site.json";
   />
 
   <section class="page-section">
-    <div class="container-narrow text-center">
-      <img
-        src="/images/kalender.jpg"
-        alt="Frostakalenderen"
-        class="mx-auto max-w-md rounded-xl shadow-lg"
-      />
-      <div class="mt-8 space-y-4 text-lg leading-relaxed text-slate-600">
-        <p>
-          Hvert år gir Frosta Historielag ut en kalender med historiske bilder fra bygda. Kalenderen inneholder 25 gamle bilder med varierte temaer — idrett, landbruk, skole, dagligliv og mer.
-        </p>
-        <p>
-          Kalenderen kan kjøpes på kontoret vårt på Tun eller bestilles på e-post.
-        </p>
-      </div>
-      <div class="mt-8">
-        <a
-          href={`mailto:${site.email}?subject=Kalender`}
-          class="btn-primary"
-        >
-          Bestill kalender
-        </a>
+    <div class="container-wide">
+      <p class="text-lg text-slate-600 max-w-2xl">
+        Hvert år gir Frosta Historielag ut en kalender med historiske bilder fra bygda. Kalenderen inneholder gamle bilder med varierte temaer — idrett, landbruk, skole, dagligliv og mer.
+      </p>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {calendars.map((cal) => (
+          <ProductCard
+            name={cal.data.name}
+            description={cal.body || "Kalender med historiske bilder fra Frosta."}
+            price={cal.data.price}
+            image={cal.data.image}
+          />
+        ))}
       </div>
     </div>
   </section>

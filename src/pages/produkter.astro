@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import Image from "../components/Image.astro";
 import site from "../data/site.json";
 ---
 
@@ -19,7 +20,7 @@ import site from "../data/site.json";
       <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         <a href="/produkter/frostabokene" class="card group block p-0">
           <div class="aspect-[4/3] overflow-hidden bg-slate-100">
-            <img src="/images/frostaboka-bind-11.jpg" alt="Frostabøkene" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 sepia-[0.15]" loading="lazy" width="400" height="536" />
+            <Image src="/images/frostaboka-bind-11.jpg" alt="Frostabøkene" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 sepia-[0.15]" loading="lazy" width={400} height={536} />
           </div>
           <div class="p-5">
             <h3 class="font-serif text-xl font-semibold text-forest-800">Frostabøkene</h3>
@@ -29,7 +30,7 @@ import site from "../data/site.json";
 
         <a href="/produkter/frostabasen" class="card group block p-0">
           <div class="aspect-[4/3] overflow-hidden bg-slate-100">
-            <img src="/images/frostabasen.jpg" alt="Frostabasen" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" width="1576" height="815" />
+            <Image src="/images/frostabasen.jpg" alt="Frostabasen" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" width={1576} height={815} />
           </div>
           <div class="p-5">
             <h3 class="font-serif text-xl font-semibold text-forest-800">Frostabasen</h3>
@@ -39,7 +40,7 @@ import site from "../data/site.json";
 
         <a href="/produkter/kalender" class="card group block p-0">
           <div class="aspect-[4/3] overflow-hidden bg-slate-100">
-            <img src="/images/kalender.jpg" alt="Frostakalender" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" width="1024" height="796" />
+            <Image src="/images/kalender.jpg" alt="Frostakalender" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" width={1024} height={796} />
           </div>
           <div class="p-5">
             <h3 class="font-serif text-xl font-semibold text-forest-800">Frostakalenderen</h3>
@@ -59,7 +60,7 @@ import site from "../data/site.json";
 
         <a href="/produkter/smykker" class="card group block p-0">
           <div class="aspect-[4/3] overflow-hidden bg-slate-100">
-            <img src="/images/frostabrosje.jpg" alt="Smykker" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" width="210" height="200" />
+            <Image src="/images/frostabrosje.jpg" alt="Smykker" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" width={210} height={200} />
           </div>
           <div class="p-5">
             <h3 class="font-serif text-xl font-semibold text-forest-800">Smykker</h3>

@@ -1,4 +1,6 @@
 ---
+import Image from "./Image.astro";
+
 interface Photo {
   src: string;
   alt: string;
@@ -31,14 +33,13 @@ const photosJSON = JSON.stringify(
   class="grid grid-cols-2 gap-1 sm:gap-2 md:grid-cols-3 lg:grid-cols-4"
 >
   {photos.map((photo, i) => (
-    <div class="group relative aspect-[4/3] cursor-pointer overflow-hidden bg-slate-200">
-      <img
+    <div x-on:click={`open(${i})`} class="group relative aspect-[4/3] cursor-pointer overflow-hidden bg-slate-200">
+      <Image
         src={photo.src}
         alt={photo.alt}
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         loading="lazy"
-        width="400" height="300"
-        x-on:click={`open(${i})`}
+        width={400} height={300}
       />
       {photo.caption && (
         <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 pt-8 opacity-0 transition-opacity group-hover:opacity-100">

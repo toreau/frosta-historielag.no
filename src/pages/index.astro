@@ -6,9 +6,13 @@ import CallToAction from "../components/CallToAction.astro";
 import site from "../data/site.json";
 import { getCollection } from "astro:content";
 
-const events = await getCollection("events", ({ data }) => data.published);
-events.sort((a, b) => b.data.date.localeCompare(a.data.date));
-const upcomingEvents = events.slice(0, 2);
+const today = new Date().toISOString().split("T")[0];
+
+const allEvents = await getCollection("events", ({ data }) => data.published);
+const upcomingEvents = allEvents
+  .filter((e) => e.data.date >= today)
+  .sort((a, b) => a.data.date.localeCompare(b.data.date))
+  .slice(0, 2);
 ---
 
 <Layout title="Hjem" description={site.tagline}>
@@ -80,16 +84,23 @@ const upcomingEvents = events.slice(0, 2);
         </a>
       </div>
       <div class="grid gap-6 md:grid-cols-2">
-        {upcomingEvents.map((event) => (
-          <EventCard
-            title={event.data.title}
-            date={event.data.date}
-            time={event.data.time}
-            location={event.data.location}
-            description={event.body?.substring(0, 180) + "..." || ""}
-            image={event.data.image}
-          />
-        ))}
+        {upcomingEvents.length > 0 ? (
+          upcomingEvents.map((event) => (
+            <EventCard
+              title={event.data.title}
+              date={event.data.date}
+              time={event.data.time}
+              location={event.data.location}
+              description={event.body?.substring(0, 180) + "..." || ""}
+              image={event.data.image}
+            />
+          ))
+        ) : (
+          <div class="md:col-span-2 text-center py-8">
+            <p class="text-lg text-slate-500 italic">Ingen kommende arrangementer akkurat nå.</p>
+            <p class="mt-1 text-slate-400">Følg med her for oppdateringer!</p>
+          </div>
+        )}
       </div>
     </div>
   </section>
