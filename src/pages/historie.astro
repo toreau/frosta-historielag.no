@@ -130,6 +130,7 @@ historiePages.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""
         alt=""
         class="max-h-full max-w-full object-contain"
         x-on:click.stop
+        loading="lazy"
       />
       <button
         class="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
