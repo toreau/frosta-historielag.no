@@ -117,9 +117,13 @@ historiePages.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""
       )}
     </div>
 
-    <div
-      class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-12"
-      x-show="lightbox"
+  {/*
+    Inline lightbox — intentionally simpler than PhotoGrid's gallery lightbox.
+    Handles standalone embedded images (no prev/next navigation needed).
+  */}
+  <div
+    class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-12"
+    x-show="lightbox"
       x-transition
       x-on:click="lightbox = null"
       x-on:keydown.escape.window="lightbox = null"

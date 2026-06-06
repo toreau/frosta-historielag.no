@@ -13,6 +13,7 @@ async function main() {
   });
 
   let converted = 0;
+  let skipped = 0;
   let saved = 0;
 
   for (const file of images) {
@@ -20,8 +21,18 @@ async function main() {
     const output = input.replace(/\.(jpg|jpeg|png)$/i, ".webp");
 
     const inputStat = await stat(input);
-    const inputSize = inputStat.size;
 
+    try {
+      const outStat = await stat(output);
+      if (outStat.mtime >= inputStat.mtime) {
+        skipped++;
+        continue;
+      }
+    } catch {
+      // output doesn't exist yet, proceed with conversion
+    }
+
+    const inputSize = inputStat.size;
     await sharp(input).webp({ quality: QUALITY }).toFile(output);
 
     const outputStat = await stat(output);
@@ -33,7 +44,7 @@ async function main() {
   }
 
   const savedMB = (saved / (1024 * 1024)).toFixed(1);
-  console.log(`\nConverted ${converted} images. Saved ${savedMB} MB.`);
+  console.log(`\nConverted ${converted}, skipped ${skipped}. Saved ${savedMB} MB.`);
 }
 
 main().catch((err) => {

@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && npx pagefind --site dist",
+    "build": "node scripts/convert-webp.mjs && astro build && npx pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "generate-types": "wrangler types"
@@ -18,14 +18,14 @@
     "astro": "^6.4.2",
     "isomorphic-dompurify": "^3.16.0",
     "marked": "^18.0.4",
-    "tailwindcss": "^4.3.0",
-    "wrangler": "^4.95.0"
+    "tailwindcss": "^4.3.0"
   },
   "overrides": {
     "vite": "^7"
   },
   "devDependencies": {
     "pagefind": "^1.5.2",
-    "sharp": "^0.34.5"
+    "sharp": "^0.34.5",
+    "wrangler": "^4.98.0"
   }
 }

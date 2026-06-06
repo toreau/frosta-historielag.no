@@ -2,6 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import site from "../data/site.json";
+
+const showSuccess = Astro.url.searchParams.get("success") === "1";
 ---
 
 <Layout title="Bli medlem" description="Bli medlem i Frosta Historielag og støtt arbeidet med lokalhistorie.">
@@ -12,6 +14,13 @@ import site from "../data/site.json";
 
   <section class="page-section">
     <div class="container-wide">
+      {showSuccess && (
+        <div class="mb-12 rounded-xl border-2 border-forest-200 bg-forest-50 p-8 text-center">
+          <p class="font-serif text-2xl font-bold text-forest-700">Takk for din innmelding!</p>
+          <p class="mt-2 text-slate-600">Vi tar kontakt så snart som mulig.</p>
+        </div>
+      )}
+
       <div class="grid gap-12 lg:grid-cols-2">
         <div>
           <h2 class="font-serif text-3xl font-bold text-forest-800">Medlemskap</h2>
@@ -61,6 +70,7 @@ import site from "../data/site.json";
           >
             <input type="hidden" name="_subject" value="Ny medlemsinnmelding — Frosta Historielag" />
             <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value="https://frosta-historielag.pages.dev/bli-medlem?success=1" />
             <input type="text" name="_honey" style="display:none" />
 
             <div>
