@@ -3,7 +3,7 @@ import site from "../data/site.json";
 import Search from "./Search.astro";
 import Image from "./Image.astro";
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 
 const dropdownPaths = ["/om-oss", "/historie", "/arsmeldinger"];
 const specialPaths = ["/", "/bli-medlem"];
@@ -68,8 +68,8 @@ const mainNavItems = site.nav.filter(item =>
           class="absolute left-0 top-full mt-1 min-w-[180px] rounded-lg border border-slate-200 bg-white py-1 shadow-lg"
         >
           <a href="/om-oss" class={`block px-4 py-2 text-sm transition-colors ${currentPath === "/om-oss" ? "bg-forest-50 text-forest-700" : "text-slate-600 hover:bg-slate-50"}`} aria-current={currentPath === "/om-oss" ? "page" : undefined}>Om laget</a>
-          <a href="/historie" class={`block px-4 py-2 text-sm transition-colors ${currentPath.startsWith("/historie") ? "bg-forest-50 text-forest-700" : "text-slate-600 hover:bg-slate-50"}`} aria-current={currentPath.startsWith("/historie") ? "page" : undefined}>Historie</a>
-          <a href="/arsmeldinger" class={`block px-4 py-2 text-sm transition-colors ${currentPath.startsWith("/arsmeldinger") ? "bg-forest-50 text-forest-700" : "text-slate-600 hover:bg-slate-50"}`} aria-current={currentPath.startsWith("/arsmeldinger") ? "page" : undefined}>Årsmeldinger</a>
+          <a href="/historie" class={`block px-4 py-2 text-sm transition-colors ${currentPath.startsWith("/historie") ? "bg-forest-50 text-forest-700" : "text-slate-600 hover:bg-slate-50"}`} aria-current={currentPath === "/historie" ? "page" : undefined}>Historie</a>
+          <a href="/arsmeldinger" class={`block px-4 py-2 text-sm transition-colors ${currentPath.startsWith("/arsmeldinger") ? "bg-forest-50 text-forest-700" : "text-slate-600 hover:bg-slate-50"}`} aria-current={currentPath === "/arsmeldinger" ? "page" : undefined}>Årsmeldinger</a>
         </div>
       </div>
 
@@ -81,7 +81,7 @@ const mainNavItems = site.nav.filter(item =>
               ? "bg-slate-100 text-slate-900"
               : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
           }`}
-          aria-current={currentPath.startsWith(item.href) ? "page" : undefined}
+          aria-current={currentPath === item.href ? "page" : undefined}
         >
           {item.label}
         </a>
@@ -93,7 +93,7 @@ const mainNavItems = site.nav.filter(item =>
             ? "bg-slate-100 text-slate-900"
             : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
         }`}
-        aria-current={currentPath.startsWith("/bli-medlem") ? "page" : undefined}
+        aria-current={currentPath === "/bli-medlem" ? "page" : undefined}
       >
         Bli medlem
       </a>
@@ -178,8 +178,8 @@ const mainNavItems = site.nav.filter(item =>
       </button>
       <div x-show="mobOmossOpen" x-cloak class="ml-4 flex flex-col gap-1 border-l-2 border-forest-200 pl-3">
         <a href="/om-oss" class={`rounded-md px-3 py-1.5 text-sm transition-colors ${currentPath === "/om-oss" ? "text-forest-700 font-medium" : "text-slate-600 hover:bg-slate-100"}`} aria-current={currentPath === "/om-oss" ? "page" : undefined}>Om laget</a>
-        <a href="/historie" class={`rounded-md px-3 py-1.5 text-sm transition-colors ${currentPath.startsWith("/historie") ? "text-forest-700 font-medium" : "text-slate-600 hover:bg-slate-100"}`} aria-current={currentPath.startsWith("/historie") ? "page" : undefined}>Historie</a>
-        <a href="/arsmeldinger" class={`rounded-md px-3 py-1.5 text-sm transition-colors ${currentPath.startsWith("/arsmeldinger") ? "text-forest-700 font-medium" : "text-slate-600 hover:bg-slate-100"}`} aria-current={currentPath.startsWith("/arsmeldinger") ? "page" : undefined}>Årsmeldinger</a>
+        <a href="/historie" class={`rounded-md px-3 py-1.5 text-sm transition-colors ${currentPath.startsWith("/historie") ? "text-forest-700 font-medium" : "text-slate-600 hover:bg-slate-100"}`} aria-current={currentPath === "/historie" ? "page" : undefined}>Historie</a>
+        <a href="/arsmeldinger" class={`rounded-md px-3 py-1.5 text-sm transition-colors ${currentPath.startsWith("/arsmeldinger") ? "text-forest-700 font-medium" : "text-slate-600 hover:bg-slate-100"}`} aria-current={currentPath === "/arsmeldinger" ? "page" : undefined}>Årsmeldinger</a>
       </div>
 
       {mainNavItems.map((item) => (
@@ -190,7 +190,7 @@ const mainNavItems = site.nav.filter(item =>
               ? "bg-forest-100 text-forest-800"
               : "text-slate-600 hover:bg-slate-100"
           }`}
-          aria-current={currentPath.startsWith(item.href) ? "page" : undefined}
+          aria-current={currentPath === item.href ? "page" : undefined}
         >
           {item.label}
         </a>
@@ -224,3 +224,4 @@ const mainNavItems = site.nav.filter(item =>
 </header>
 
 <script defer src="/js/alpine.min.js"></script>
+<script defer src="/js/alpine-focus.min.js"></script>
