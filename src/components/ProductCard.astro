@@ -21,11 +21,13 @@ const { name, description, price, image } = Astro.props;
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 sepia-[0.15]"
         loading="lazy"
         width={400} height={300}
+        widths={[480]}
+        sizes="400px"
       />
     </div>
   )}
   <div class="p-5">
-    <h2 class="font-serif text-lg font-semibold text-forest-800">{name}</h2>
+    <h3 class="font-serif text-lg font-semibold text-forest-800">{name}</h3>
     <p class="mt-2 text-sm leading-relaxed text-slate-600">{description}</p>
     <div class="mt-4 flex items-center justify-between">
       <span class="font-serif text-xl font-bold text-amber-600">kr {price},-</span>

@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 ---
 
-<Layout title="Søk" description="Søk på Frosta Historielags nettsider.">
+<Layout title="Søk" description="Søk på Frosta Historielags nettsider." robots="noindex, follow">
   <Hero title="Søk" />
 
   <section class="page-section">
@@ -18,12 +18,14 @@ import Hero from "../components/Hero.astro";
 
 <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
 
-<script is:inline>
-  async function initSearchPage() {
+<script>
+  import { executeSearch } from "../lib/search";
+
+  (async function () {
     const params = new URLSearchParams(window.location.search);
     const query = params.get("q")?.trim();
-    const resultsEl = document.getElementById("search-page-results");
-    const loadingEl = document.getElementById("search-loading");
+    const resultsEl = document.getElementById("search-page-results")!;
+    const loadingEl = document.getElementById("search-loading")!;
 
     if (!query) {
       loadingEl.textContent = "Skriv inn et søkeord i adressefeltet (?q=...)";
@@ -33,43 +35,8 @@ import Hero from "../components/Hero.astro";
     document.title = `Søk: ${query} — Frosta Historielag`;
 
     try {
-      const pagefind = await import("/pagefind/pagefind.js");
-      await pagefind.options({ baseUrl: "/" });
-
-      const search = await pagefind.search(query);
-      if (!search || !search.results.length) {
-        loadingEl.classList.add("hidden");
-        resultsEl.classList.remove("hidden");
-        resultsEl.innerHTML =
-          `<p class="text-center text-lg text-slate-500 italic">Ingen treff for «${query}»</p>
-           <div class="mt-8 text-center">
-             <a href="/" class="btn-secondary">Gå til forsiden</a>
-           </div>`;
-        return;
-      }
-
-      const items = await Promise.all(
-        search.results.map(async (r) => {
-          const data = await r.data();
-          return {
-            url: data.url,
-            title: data.meta?.title || data.url,
-            excerpt: data.excerpt || "",
-          };
-        })
-      );
-
-      const filtered = query.length >= 3
-        ? items.filter((item) => {
-            const q = query.toLowerCase();
-            return (
-              item.title.toLowerCase().includes(q) ||
-              item.excerpt.toLowerCase().includes(q)
-            );
-          })
-        : items;
-
-      if (!filtered.length) {
+      const items = await executeSearch(query, undefined);
+      if (!items.length) {
         loadingEl.classList.add("hidden");
         resultsEl.classList.remove("hidden");
         resultsEl.innerHTML =
@@ -91,12 +58,12 @@ import Hero from "../components/Hero.astro";
 
       const countEl = document.createElement("p");
       countEl.className = "text-sm text-slate-500 mb-8";
-      countEl.textContent = `${filtered.length} treff`;
+      countEl.textContent = `${items.length} treff`;
       resultsEl.appendChild(countEl);
 
       const list = document.createElement("div");
       list.className = "space-y-6";
-      list.innerHTML = filtered
+      list.innerHTML = items
         .map(
           (item) => `
           <a href="${item.url}"
@@ -125,9 +92,7 @@ import Hero from "../components/Hero.astro";
       loadingEl.textContent = "Kunne ikke laste søk. Prøv igjen senere.";
       console.warn("Search page init failed:", err);
     }
-  }
-
-  initSearchPage();
+  })();
 </script>
 
 <style is:inline>

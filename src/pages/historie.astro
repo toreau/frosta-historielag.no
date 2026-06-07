@@ -143,6 +143,7 @@ historiePages.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""
       x-transition
       x-on:click="lightbox = null"
       x-on:keydown.escape.window="lightbox = null"
+      x-trap="lightbox"
       x-cloak
     >
       <img
@@ -170,3 +171,5 @@ historiePages.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""
     buttons={[{ href: "/bli-medlem", label: "Bli medlem &rarr;" }]}
   />
 </Layout>
+
+<script defer src="/js/alpine-focus.min.js"></script>

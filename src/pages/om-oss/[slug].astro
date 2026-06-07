@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/Hero.astro";
 import { getCollection } from "astro:content";
-import { renderMarkdown } from "../../lib/markdown";
+import { renderMarkdown, getExcerpt } from "../../lib/markdown";
 
 export async function getStaticPaths() {
   const allPages = await getCollection("pages");
@@ -17,7 +17,7 @@ const { page } = Astro.props;
 const htmlContent = renderMarkdown(page.body);
 ---
 
-<Layout title={page.data.title} description={page.data.title + " — Frosta Historielag"}>
+<Layout title={page.data.title} description={getExcerpt(page.body) || page.data.title + " — Frosta Historielag"}>
   <Hero title={page.data.title} />
 
   <section class="page-section">

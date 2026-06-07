@@ -71,6 +71,18 @@
 @layer base {
   [x-cloak] { display: none !important; }
 
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   html {
     font-family: var(--font-sans);
     color: var(--color-slate-800);
@@ -105,7 +117,7 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 rounded-lg bg-amber-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-amber-600;
+    @apply inline-flex items-center gap-2 rounded-lg bg-amber-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-amber-800;
   }
 
   .btn-secondary {

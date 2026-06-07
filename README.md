@@ -1,43 +1,35 @@
-# Astro Starter Kit: Minimal
+# Frosta Historielag
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Nettside for Frosta Historielag — stiftet 1924. Lokalhistorie, slektsgransking, Frostabokene, Frostabasen, fotogalleri og arrangementer.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+**Nettsted:** [frosta-historielag.pages.dev](https://frosta-historielag.pages.dev)
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+## Teknisk
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Bygget med [Astro 6](https://astro.build) + [Tailwind CSS v4](https://tailwindcss.com) som en statisk side.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Distribuert pa [Cloudflare Pages](https://pages.cloudflare.com) — automatisk deploy ved push til `main`.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Kommandoer
 
-Any static assets, like images, can be placed in the `public/` directory.
+| Kommando | Beskrivelse |
+|---|---|
+| `npm run dev` | Lokal utviklingsserver |
+| `npm run build` | Bygg statisk side til `dist/` |
+| `npm run preview` | Forhandsvis bygget side |
+| `npm run generate-types` | wrangler types (Cloudflare) |
 
-## 🧞 Commands
+## Innholdsredigering
 
-All commands are run from the root of the project, from a terminal:
+Ikke-tekniske brukere kan redigere innhold via **Decap CMS** pa `/admin/`. CMS-et lagrer endringer direkte til GitHub, og Cloudflare bygger siden pa nytt automatisk.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+For oppsett av GitHub OAuth, se `scripts/setup-decap.md`.
 
-## 👀 Want to learn more?
+## Bilder
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Alle bilder ligger i `public/images/`
+- `scripts/convert-webp.mjs` konverterer JPG/PNG til WebP og genererer responsive varianter (480w, 960w, 1440w)
+- `scripts/download-images.sh` laster ned bilder fra gammel WordPress-server
+- `scripts/image-map.txt` inneholder URL-til-filnavn-mappingen

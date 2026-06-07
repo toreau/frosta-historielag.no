@@ -7,19 +7,32 @@ interface Props {
   width?: number;
   height?: number;
   fetchpriority?: "high" | "low" | "auto";
+  widths?: number[];
+  sizes?: string;
 }
 
-const { src, alt, ...attrs } = Astro.props;
+const { src, alt, widths, sizes, ...attrs } = Astro.props;
 const ext = src.split(".").pop()?.toLowerCase();
 const webpSrc = ext && ["jpg", "jpeg", "png"].includes(ext)
   ? src.replace(new RegExp(`\\.${ext}$`, "i"), ".webp")
   : null;
+
+function srcsetWebp(): string {
+  const base = webpSrc!.replace(/\.webp$/, "");
+  const parts = widths!.map((w) => `${base}-${w}w.webp ${w}w`);
+  parts.push(webpSrc!);
+  return parts.join(", ");
+}
 ---
 
 {
   webpSrc ? (
     <picture>
-      <source srcset={webpSrc} type="image/webp" />
+      {widths && sizes ? (
+        <source srcset={srcsetWebp()} sizes={sizes} type="image/webp" />
+      ) : (
+        <source srcset={webpSrc} type="image/webp" />
+      )}
       <img src={src} alt={alt} {...attrs} />
     </picture>
   ) : (

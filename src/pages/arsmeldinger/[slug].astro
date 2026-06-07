@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/Hero.astro";
 import { getCollection } from "astro:content";
-import { renderMarkdown } from "../../lib/markdown";
+import { renderMarkdown, getExcerpt } from "../../lib/markdown";
 
 export async function getStaticPaths() {
   const reports = await getCollection("reports");
@@ -16,7 +16,7 @@ const { report } = Astro.props;
 const htmlContent = renderMarkdown(report.body);
 ---
 
-<Layout title={report.data.title} description={`${report.data.title} — Frosta Historielag`}>
+<Layout title={report.data.title} description={getExcerpt(report.body) || `${report.data.title} — Frosta Historielag`}>
   <Hero title={report.data.title} subtitle={`Årsmøte ${report.data.year}`} />
 
   <section class="page-section">

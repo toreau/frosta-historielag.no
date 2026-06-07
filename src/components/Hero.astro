@@ -63,6 +63,8 @@ const breadcrumbJsonLd = segments.length > 0 ? {
       loading="eager"
       fetchpriority="high"
       width={1600} height={400}
+      widths={[480, 960, 1440]}
+      sizes="100vw"
     />
     <div class="absolute inset-0 bg-gradient-to-t from-forest-950/60 via-forest-950/20 to-transparent" />
     <div class="container-narrow relative z-10 py-12 text-center text-cream-50">
@@ -89,7 +91,7 @@ const breadcrumbJsonLd = segments.length > 0 ? {
   <section class="border-b border-slate-200 bg-white">
     <div class="container-wide py-8 md:py-10">
       {segments.length > 0 && (
-        <nav class="mb-3 flex items-center gap-1.5 text-sm text-slate-400" aria-label="Brødsmuler">
+        <nav class="mb-3 flex items-center gap-1.5 text-sm text-slate-500" aria-label="Brødsmuler">
           <a href="/" class="hover:text-forest-600 transition-colors">Hjem</a>
           {segments.map((seg, i) => (
             <span class="flex items-center gap-1.5">

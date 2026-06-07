@@ -30,3 +30,19 @@ export function renderMarkdown(body: string): string {
     ALLOWED_ATTR,
   });
 }
+
+export function getExcerpt(body: string, maxLength: number = 155): string {
+  if (!body) return "";
+  const plain = body
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, "")
+    .replace(/`{1,3}[^`]*`{1,3}/g, "")
+    .replace(/^>\s?/gm, "")
+    .replace(/\n{2,}/g, " ")
+    .trim();
+  if (plain.length <= maxLength) return plain;
+  return plain.substring(0, maxLength).replace(/\s+\S*$/, "") + "…";
+}

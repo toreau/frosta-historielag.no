@@ -40,6 +40,8 @@ const photosJSON = JSON.stringify(
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         loading="lazy"
         width={400} height={300}
+        widths={[480]}
+        sizes="(max-width: 640px) 50vw, 300px"
       />
       {photo.caption && (
         <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 pt-8 opacity-0 transition-opacity group-hover:opacity-100">
@@ -114,3 +116,5 @@ const photosJSON = JSON.stringify(
     ></span>
   </div>
 </div>
+
+<script defer src="/js/alpine-focus.min.js"></script>

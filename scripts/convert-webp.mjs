@@ -45,6 +45,47 @@ async function main() {
 
   const savedMB = (saved / (1024 * 1024)).toFixed(1);
   console.log(`\nConverted ${converted}, skipped ${skipped}. Saved ${savedMB} MB.`);
+
+  const WIDTHS = [480, 960, 1440];
+  let resized = 0;
+  let resizeSkipped = 0;
+
+  for (const file of images) {
+    const webpFile = file.replace(/\.(jpg|jpeg|png)$/i, ".webp");
+    const webpPath = join(IMG_DIR, webpFile);
+
+    let sourceWidth;
+    try {
+      const meta = await sharp(webpPath).metadata();
+      sourceWidth = meta.width;
+    } catch {
+      continue;
+    }
+    if (!sourceWidth) continue;
+
+    for (const w of WIDTHS) {
+      const target = Math.min(w, sourceWidth);
+      const variant = webpPath.replace(/\.webp$/, `-${w}w.webp`);
+
+      try {
+        const outStat = await stat(variant);
+        const inStat = await stat(webpPath);
+        if (outStat.mtime >= inStat.mtime) {
+          resizeSkipped++;
+          continue;
+        }
+      } catch {
+        // variant doesn't exist yet
+      }
+
+      await sharp(webpPath).resize(target).webp({ quality: QUALITY }).toFile(variant);
+      resized++;
+    }
+  }
+
+  if (resized > 0) {
+    console.log(`Responsive: generated ${resized} variants, skipped ${resizeSkipped}.`);
+  }
 }
 
 main().catch((err) => {

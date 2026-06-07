@@ -1,0 +1,9 @@
+{
+  "name": "Frosta Historielag",
+  "short_name": "Historielag",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fefdf6",
+  "theme_color": "#2f402a",
+  "lang": "nb-NO"
+}

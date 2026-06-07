@@ -19,6 +19,7 @@
       x-ref="searchInput"
       type="text"
       placeholder="Søk på siden..."
+      aria-label="Søk på siden"
       class="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-800 placeholder-slate-400 shadow-sm transition-colors focus:border-forest-500 focus:ring-2 focus:ring-forest-200 focus:outline-none"
     />
   </div>
@@ -28,107 +29,68 @@
 
 <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
 
-<script is:inline>
-  async function initSearch() {
-    try {
-      const pagefind = await import("/pagefind/pagefind.js");
-      await pagefind.options({ baseUrl: "/" });
+<script>
+  import { executeSearch } from "../lib/search";
 
-      const input = document.getElementById("search-input");
-      const results = document.getElementById("search-results");
+  (async function () {
+    const input = document.getElementById("search-input") as HTMLInputElement;
+    const results = document.getElementById("search-results") as HTMLElement;
+    if (!input || !results) return;
 
-      if (!input || !results) return;
+    input.addEventListener("input", async () => {
+      const query = input.value.trim();
+      if (query.length < 2) {
+        results.innerHTML = "";
+        results.classList.add("hidden");
+        return;
+      }
 
-      input.addEventListener("input", async () => {
-        const query = input.value.trim();
-        if (query.length < 2) {
-          results.innerHTML = "";
-          results.classList.add("hidden");
-          return;
-        }
-
-        const search = await pagefind.search(query);
-        if (!search || !search.results.length) {
-          results.innerHTML =
-            '<p class="px-4 py-3 text-sm text-slate-500 italic">Ingen treff</p>';
-          results.classList.remove("hidden");
-          return;
-        }
-
-        const items = await Promise.all(
-          search.results.slice(0, 12).map(async (r) => {
-            const data = await r.data();
-            return {
-              url: data.url,
-              title: data.meta?.title || data.url,
-              excerpt: data.excerpt || "",
-            };
-          })
-        );
-
-        // Exact-match post-filter for queries ≥ 3 characters.
-        // Pagefind's Norwegian stemmer is too aggressive for a small site —
-        // "aur" stems into individual letters and matches "A" / "å" everywhere.
-        const filtered = query.length >= 3
-          ? items.filter((item) => {
-              const q = query.toLowerCase();
-              return (
-                item.title.toLowerCase().includes(q) ||
-                item.excerpt.toLowerCase().includes(q)
-              );
-            })
-          : items;
-
-        if (!filtered.length) {
-          results.innerHTML =
-            '<p class="px-4 py-3 text-sm text-slate-500 italic">Ingen treff for «' + query + '»</p>';
-          results.classList.remove("hidden");
-          return;
-        }
-
-        results.innerHTML = filtered
-          .map(
-            (item) => `
-            <a href="${item.url}"
-              class="block border-b border-slate-100 px-4 py-3 transition-colors hover:bg-cream-50 last:border-b-0"
-            >
-              <span class="block text-sm font-medium text-forest-700">
-                ${item.title.replace(" — Frosta Historielag", "")}
-              </span>
-              <span class="mt-0.5 block text-xs text-slate-500">
-                ${item.excerpt}
-              </span>
-            </a>`
-          )
-          .join("");
-
+      const items = await executeSearch(query);
+      if (!items.length) {
+        results.innerHTML =
+          '<p class="px-4 py-3 text-sm text-slate-500 italic">Ingen treff</p>';
         results.classList.remove("hidden");
-      });
+        return;
+      }
 
-      document.addEventListener("click", (e) => {
-        const searchEl = document.getElementById("search");
-        if (searchEl && !searchEl.contains(e.target)) {
-          results.classList.add("hidden");
+      results.innerHTML = items
+        .map(
+          (item) => `
+        <a href="${item.url}"
+          class="block border-b border-slate-100 px-4 py-3 transition-colors hover:bg-cream-50 last:border-b-0"
+        >
+          <span class="block text-sm font-medium text-forest-700">
+            ${item.title.replace(" — Frosta Historielag", "")}
+          </span>
+          <span class="mt-0.5 block text-xs text-slate-500">
+            ${item.excerpt}
+          </span>
+        </a>`
+        )
+        .join("");
+
+      results.classList.remove("hidden");
+    });
+
+    document.addEventListener("click", (e) => {
+      const searchEl = document.getElementById("search");
+      if (searchEl && !searchEl.contains(e.target as Node)) {
+        results.classList.add("hidden");
+      }
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        results.classList.add("hidden");
+        input.blur();
+      } else if (e.key === "Enter") {
+        const query = input.value.trim();
+        if (query.length >= 2) {
+          window.location.href = "/sok?q=" + encodeURIComponent(query);
         }
-      });
-
-      input.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          results.classList.add("hidden");
-          input.blur();
-        } else if (e.key === "Enter") {
-          const query = input.value.trim();
-          if (query.length >= 2) {
-            window.location.href = "/sok?q=" + encodeURIComponent(query);
-          }
-        }
-      });
-    } catch (err) {
-      console.warn("Pagefind search init failed:", err);
-    }
-  }
-
-  initSearch();
+      }
+    });
+  })();
 </script>
 
 <style is:inline>
