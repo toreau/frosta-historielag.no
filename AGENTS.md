@@ -16,7 +16,7 @@ npm run generate-types  # wrangler types (Cloudflare)
 - Config lives at `src/content.config.ts` (NOT `src/content/config.ts`).
 - Collections require explicit loaders: `glob({ pattern: "**/*.md", base: "./src/content/events" })`.
 - `entry.render()` does NOT exist. Use `entry.body` for raw markdown string.
-- Content lives in `src/content/{events,products,reports}/**.md`.
+- Content lives in `src/content/{events,gallery,pages,products,reports}/**.md`.
 
 ## Tailwind v4 — CSS-first config
 
@@ -52,7 +52,7 @@ npm run generate-types  # wrangler types (Cloudflare)
 
 ## Alpine.js
 
-- Loaded via CDN in `Header.astro` (`<script defer>`).
+- Loaded from local `public/js/alpine.min.js` + `alpine-focus.min.js` in `Header.astro`.
 - Used for: mobile menu toggle (Header) and gallery lightbox (PhotoGrid).
 - `[x-cloak] { display: none !important; }` is in `global.css`.
 
@@ -77,5 +77,5 @@ npm run generate-types  # wrangler types (Cloudflare)
 
 ## Norwegian content
 
-- All UI text is Norwegian Bokmål. `<html lang="no">`.
+- All UI text is Norwegian Bokmål. `<html lang="nb-NO">`.
 - Norwegian characters (æøå) are used in file paths, content, and labels.
