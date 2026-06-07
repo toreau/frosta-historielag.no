@@ -140,4 +140,7 @@
     content: "";
     @apply pointer-events-none absolute inset-0 bg-sepia/15 mix-blend-multiply;
   }
+
+  .pagefind-ui__search-input { display: none; }
+  .pagefind-ui__drawer { display: none; }
 }

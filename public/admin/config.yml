@@ -7,7 +7,7 @@ backend:
 site_url: https://frosta-historielag.pages.dev
 display_url: https://frosta-historielag.pages.dev
 
-locale: "no"
+locale: "nb_NO"
 
 media_folder: public/images
 public_folder: /images

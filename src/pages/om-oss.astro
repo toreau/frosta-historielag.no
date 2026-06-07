@@ -3,6 +3,12 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Image from "../components/Image.astro";
 import site from "../data/site.json";
+import { getCollection } from "astro:content";
+
+const omOssPages = await getCollection("pages", ({ data }) =>
+  data.section === "om-oss" && data.published
+);
+omOssPages.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""));
 ---
 
 <Layout title="Om oss" description="Om Frosta Historielag — styre, kontaktinfo og historien vår.">
@@ -78,6 +84,25 @@ import site from "../data/site.json";
       <p class="mt-6 text-center text-sm text-slate-500">
         Utnevnt i forbindelse med Historielagets 100-årsjubileum 16. mars 2024.
       </p>
+
+      {omOssPages.length > 0 && (
+        <div class="mt-8 border-t border-slate-200 pt-8">
+          <h3 class="font-serif text-xl font-semibold text-forest-800 text-center">Flere artikler</h3>
+          <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {omOssPages.map((p) => (
+              <a
+                href={`/om-oss/${p.id.replace(/\.md$/, "")}`}
+                class="card p-4 hover:border-forest-300 transition-colors no-underline"
+              >
+                <span class="font-serif font-semibold text-forest-800">{p.data.title}</span>
+                {p.data.date && (
+                  <span class="mt-1 block text-xs text-slate-500">{p.data.date}</span>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div class="mt-6 flex justify-center">
         <Image
