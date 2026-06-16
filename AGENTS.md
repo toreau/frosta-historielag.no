@@ -6,7 +6,7 @@ Static site for a Norwegian local history society. Deployed on Cloudflare Pages.
 
 ```bash
 npm run dev          # local dev server
-npm run build        # static build → dist/
+npm run build        # convert-webp.mjs → astro build → pagefind index → dist/
 npm run preview      # preview built site
 npm run generate-types  # wrangler types (Cloudflare)
 ```
@@ -17,6 +17,7 @@ npm run generate-types  # wrangler types (Cloudflare)
 - Collections require explicit loaders: `glob({ pattern: "**/*.md", base: "./src/content/events" })`.
 - `entry.render()` does NOT exist. Use `entry.body` for raw markdown string.
 - Content lives in `src/content/{events,gallery,pages,products,reports}/**.md`.
+- Key schema fields: `section` on `pages` routes to `/historie/` or `/om-oss/`; `category` on `products` routes to subpages; `published` (boolean, default `true`) gates visibility.
 
 ## Tailwind v4 — CSS-first config
 
@@ -24,6 +25,13 @@ npm run generate-types  # wrangler types (Cloudflare)
 - Custom colors: `forest`, `amber`, `cream`, `slate`, `sepia` — each with shade scale 50–950.
 - Custom fonts: `font-serif` (Playfair Display), `font-sans` (Inter) — both loaded from Google Fonts in `Layout.astro`.
 - Vite plugin: `@tailwindcss/vite` configured in `astro.config.mjs`.
+
+## Utility libraries (`src/lib/`)
+
+| File | Purpose |
+|---|---|
+| `markdown.ts` | `renderMarkdown()` — parses markdown via `marked` (GFM + line breaks), sanitizes HTML with DOMPurify. `getExcerpt()` — strips markdown for meta descriptions. |
+| `search.ts` | `executeSearch()` — lazy-loads Pagefind, searches, post-filters results (queries >= 3 chars). Used by `Search.astro` and `sok.astro`. |
 
 ## Cloudflare deployment
 
@@ -44,11 +52,15 @@ npm run generate-types  # wrangler types (Cloudflare)
 | `ProductCard.astro` | Card with image, name, price, mailto link |
 | `EventCard.astro` | Horizontal card with date, time, location, description |
 | `PhotoGrid.astro` | Gallery grid with Alpine.js lightbox |
+| `CallToAction.astro` | Reusable CTA section. Props: `heading`, `body`, `buttons[]`, `showPrices` |
+| `Image.astro` | Optimized `<img>` — `<picture>` wrapper with WebP + responsive `srcset` variants |
+| `Search.astro` | Pagefind-powered search input with results dropdown, Norwegian labels |
 
 ## Site data
 
 - `src/data/site.json` — all shared data: nav items, contact info, board members, membership prices, Vipps/account numbers.
 - Nav is driven by `site.nav` array. Adding a page = add to `nav` array + create the `.astro` file.
+- Product subpages (`produkter/arbok`, `div-boker`, `frostabokene`, `frostabasen`, `kalender`, `smykker`) filter products by the `category` frontmatter field.
 
 ## Alpine.js
 
@@ -68,10 +80,17 @@ npm run generate-types  # wrangler types (Cloudflare)
 - Edits events (`src/content/events/`), products (`src/content/products/`), and site settings (`src/data/site.json`).
 - Changes committed via GitHub backend → Cloudflare auto-deploys.
 - Requires a GitHub OAuth App for login (one-time setup, instructions in `scripts/setup-decap.md`).
+- `functions/[[handler]].js` — Cloudflare Pages function that proxies GitHub OAuth (`/auth` → GitHub authorize → `/callback` → token exchange). Requires `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` env vars.
+
+## Cloudflare static assets
+
+- `public/_headers` — Cache-Control: images/pagefind 1yr immutable, favicon 1wk, and `Content-Security-Policy` header.
+- `public/_redirects` — Trailing-slash redirects for `/slekt`, `/historie`, `/produkter`.
 
 ## Images
 
 - All images local in `public/images/`. Referenced as `/images/filename.jpg`.
+- `scripts/convert-webp.mjs` — idempotent WebP converter (sharp); also generates responsive variants at 480w, 960w, 1440w.
 - `scripts/download-images.sh` — idempotent downloader from old WordPress server (reads `scripts/image-map.txt`).
 - `scripts/update-references.sh` — update image URLs in source after download.
 
