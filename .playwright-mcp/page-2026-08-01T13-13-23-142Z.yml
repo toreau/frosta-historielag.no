@@ -1,0 +1,126 @@
+- generic [active] [ref=f10e1]:
+  - link "Hopp til hovedinnhold" [ref=f10e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=f10e3]:
+    - generic [ref=f10e4]:
+      - link [ref=f10e5] [cursor=pointer]:
+        - /url: /
+        - img "Frosta Historielag" [ref=f10e8]
+      - navigation "Hovedmeny" [ref=f10e9]:
+        - link "Hjem" [ref=f10e10] [cursor=pointer]:
+          - /url: /
+        - button "Om oss" [ref=f10e12]
+        - link "Slekt" [ref=f10e15] [cursor=pointer]:
+          - /url: /slekt
+        - link "Hva skjer" [ref=f10e16] [cursor=pointer]:
+          - /url: /hva-skjer
+        - link "Produkter" [ref=f10e17] [cursor=pointer]:
+          - /url: /produkter
+        - link "Bildegalleri" [ref=f10e18] [cursor=pointer]:
+          - /url: /bildegalleri
+        - link "Bli medlem" [ref=f10e19] [cursor=pointer]:
+          - /url: /bli-medlem
+      - generic [ref=f10e20]:
+        - button "Åpne søk" [ref=f10e21]
+        - link "Bli medlem" [ref=f10e24] [cursor=pointer]:
+          - /url: /bli-medlem
+  - main [ref=f10e25]:
+    - heading "Frosta Historielag Historien er nøkkelen til å forstå framtiden" [level=1] [ref=f10e29]:
+      - text: Frosta Historielag
+      - generic [ref=f10e30]: Historien er nøkkelen til å forstå framtiden
+    - generic [ref=f10e33]:
+      - link "Bli medlem Enkeltmedlem kr 150,- • Familie kr 250,- Meld deg inn →" [ref=f10e34] [cursor=pointer]:
+        - /url: /bli-medlem
+        - generic [ref=f10e39]:
+          - heading "Bli medlem" [level=3] [ref=f10e40]
+          - paragraph [ref=f10e41]: Enkeltmedlem kr 150,- • Familie kr 250,-
+        - generic [ref=f10e42]: Meld deg inn →
+      - link "Kjøp produkter Frostabøkene, Frostabasen, kalender, smykker Se alle produkter →" [ref=f10e43] [cursor=pointer]:
+        - /url: /produkter
+        - generic [ref=f10e48]:
+          - heading "Kjøp produkter" [level=3] [ref=f10e49]
+          - paragraph [ref=f10e50]: Frostabøkene, Frostabasen, kalender, smykker
+        - generic [ref=f10e51]: Se alle produkter →
+      - link "Slektsgransking Finn dine røtter — Frostabasen, kurs og kilder Start slektsgransking →" [ref=f10e52] [cursor=pointer]:
+        - /url: /slekt
+        - generic [ref=f10e57]:
+          - heading "Slektsgransking" [level=3] [ref=f10e58]
+          - paragraph [ref=f10e59]: Finn dine røtter — Frostabasen, kurs og kilder
+        - generic [ref=f10e60]: Start slektsgransking →
+    - generic [ref=f10e62]:
+      - generic [ref=f10e63]:
+        - heading "Hva skjer" [level=2] [ref=f10e64]
+        - link "Se alle arrangementer →" [ref=f10e65] [cursor=pointer]:
+          - /url: /hva-skjer
+      - generic [ref=f10e67]:
+        - paragraph [ref=f10e68]: Ingen kommende arrangementer akkurat nå.
+        - paragraph [ref=f10e69]: Følg med her for oppdateringer!
+    - generic [ref=f10e72]:
+      - generic [ref=f10e73]:
+        - heading "Besøk oss" [level=2] [ref=f10e74]
+        - paragraph [ref=f10e75]:
+          - text: Vi holder til på
+          - strong [ref=f10e76]: Tun, Frostavegen 1722, 7633 Frosta
+          - text: .
+        - generic [ref=f10e77]:
+          - generic [ref=f10e81]:
+            - strong [ref=f10e82]: "Åpent:"
+            - text: De fleste mandager fra 11.00-14.00
+          - link "74 80 98 49" [ref=f10e86] [cursor=pointer]:
+            - /url: tel:74 80 98 49
+          - link "frosta.historielag@gmail.com" [ref=f10e90] [cursor=pointer]:
+            - /url: mailto:frosta.historielag@gmail.com
+        - link "Ta kontakt" [ref=f10e92] [cursor=pointer]:
+          - /url: mailto:frosta.historielag@gmail.com
+      - generic [ref=f10e93]:
+        - heading "Om Frosta Historielag" [level=2] [ref=f10e94]
+        - paragraph [ref=f10e95]:
+          - text: Frosta Historielag ble stiftet
+          - strong [ref=f10e96]: 9. mars 1924
+          - text: og har i over 100 år arbeidet for å ta vare på og formidle Frostas rike historie. Vi gir ut bøker, arrangerer kurs og foredrag, driver slektsgransking og forvalter et stort arkiv av fotografier og dokumenter.
+        - link "Les mer om oss →" [ref=f10e98] [cursor=pointer]:
+          - /url: /om-oss
+    - generic [ref=f10e100]:
+      - heading "Bli medlem i dag" [level=2] [ref=f10e101]
+      - paragraph [ref=f10e102]: Støtt arbeidet med å ta vare på Frostas historie. Som medlem får du årboka, medlemsnytt og invitasjoner til arrangementer.
+      - generic [ref=f10e103]:
+        - generic [ref=f10e104]:
+          - paragraph [ref=f10e105]: kr 150,-
+          - paragraph [ref=f10e106]: Enkeltmedlem / år
+        - generic [ref=f10e107]:
+          - paragraph [ref=f10e108]: kr 250,-
+          - paragraph [ref=f10e109]: Familie / år
+      - link "Bli medlem" [ref=f10e111] [cursor=pointer]:
+        - /url: /bli-medlem
+  - contentinfo [ref=f10e112]:
+    - generic [ref=f10e113]:
+      - generic [ref=f10e114]:
+        - generic [ref=f10e115]:
+          - heading "Frosta Historielag" [level=3] [ref=f10e116]
+          - paragraph [ref=f10e117]: Historien er nøkkelen til å forstå framtiden
+          - paragraph [ref=f10e118]: Stiftet 1924
+        - generic [ref=f10e119]:
+          - heading "Kontakt" [level=3] [ref=f10e120]
+          - list [ref=f10e121]:
+            - listitem [ref=f10e122]:
+              - generic [ref=f10e123]: Besøksadresse
+              - text: Tun, Frostavegen 17227633 Frosta
+            - listitem [ref=f10e124]:
+              - generic [ref=f10e125]: Telefon
+              - link "74 80 98 49" [ref=f10e126] [cursor=pointer]:
+                - /url: tel:74 80 98 49
+            - listitem [ref=f10e127]:
+              - generic [ref=f10e128]: E-post
+              - link "frosta.historielag@gmail.com" [ref=f10e129] [cursor=pointer]:
+                - /url: mailto:frosta.historielag@gmail.com
+            - listitem [ref=f10e130]:
+              - generic [ref=f10e131]: Åpent
+              - text: De fleste mandager fra 11.00-14.00
+        - generic [ref=f10e132]:
+          - heading "Støtt oss" [level=3] [ref=f10e133]
+          - list [ref=f10e134]:
+            - listitem [ref=f10e135]: "Vipps: #535765"
+            - listitem [ref=f10e136]: "Kontonr: 4459 45 30958"
+          - link "Bli medlem" [ref=f10e138] [cursor=pointer]:
+            - /url: /bli-medlem
+      - generic [ref=f10e139]: © 2026 Frosta Historielag. Alle rettigheter forbeholdt.

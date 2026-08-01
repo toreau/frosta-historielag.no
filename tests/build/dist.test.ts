@@ -33,6 +33,21 @@ describe("build output exists", () => {
     expect(existsSync(path.join(DIST, "admin/decap-cms.js"))).toBe(true);
   });
 
+  it("CSP is delivered via meta tags, never via _headers", () => {
+    const headers = readFileSync(path.join(DIST, "_headers"), "utf8");
+    expect(headers).not.toContain("Content-Security-Policy");
+
+    const admin = readFileSync(path.join(DIST, "admin/index.html"), "utf8");
+    expect(admin).toContain('http-equiv="Content-Security-Policy"');
+    expect(admin).toContain("connect-src 'self' https://api.github.com");
+
+    for (const page of ["index.html", "404.html"]) {
+      const html = readFileSync(path.join(DIST, page), "utf8");
+      expect(html).toContain('http-equiv="Content-Security-Policy"');
+      expect(html).toContain("form-action https://formsubmit.co");
+    }
+  });
+
   it("Cloudflare headers and redirects are copied", () => {
     expect(existsSync(path.join(DIST, "_headers"))).toBe(true);
     expect(existsSync(path.join(DIST, "_redirects"))).toBe(true);

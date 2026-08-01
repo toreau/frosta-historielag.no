@@ -98,7 +98,7 @@ npm run generate-types  # wrangler types (Cloudflare)
 
 ## Cloudflare static assets
 
-- `public/_headers` — Cache-Control: images/pagefind 1yr immutable, favicon 1wk, and `Content-Security-Policy` header. `/admin/*` gets a relaxed override (GitHub API in `connect-src`).
+- `public/_headers` — Cache-Control only (images/pagefind 1yr immutable, favicon 1wk). NO `Content-Security-Policy` here: Cloudflare merges duplicate header rules across matching paths and browsers AND multiple CSPs, which re-blocked `api.github.com` on `/admin/*`. CSP is delivered via `<meta http-equiv="Content-Security-Policy">`: strict in `src/layouts/Layout.astro` (all Astro pages), relaxed (GitHub API in `connect-src`) in `public/admin/index.html`. Note: meta CSP ignores `frame-ancestors` (clickjacking defense dropped deliberately).
 - `public/_redirects` — Trailing-slash redirects for `/slekt`, `/historie`, `/produkter`.
 
 ## Images
