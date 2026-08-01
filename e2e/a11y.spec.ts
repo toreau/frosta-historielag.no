@@ -14,7 +14,7 @@ test.describe("accessibility (axe)", () => {
         .analyze();
 
       const serious = results.violations.filter((v) =>
-        ["serious", "critical"].includes(v.impact)
+        v.impact === "serious" || v.impact === "critical"
       );
 
       expect(

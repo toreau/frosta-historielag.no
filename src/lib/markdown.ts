@@ -22,7 +22,7 @@ const ALLOWED_ATTR = [
   "allow", "allowfullscreen", "frameborder",
 ];
 
-export function renderMarkdown(body: string): string {
+export function renderMarkdown(body: string | undefined): string {
   if (!body) return "";
   const html = marked.parse(body) as string;
   return DOMPurify.sanitize(html, {
@@ -44,7 +44,7 @@ export function stripMarkdown(body: string): string {
     .trim();
 }
 
-export function getExcerpt(body: string, maxLength: number = 155): string {
+export function getExcerpt(body: string | undefined, maxLength: number = 155): string {
   if (!body) return "";
   const plain = stripMarkdown(body);
   if (plain.length <= maxLength) return plain;

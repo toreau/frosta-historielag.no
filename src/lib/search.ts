@@ -8,6 +8,8 @@ let pagefindInstance: any;
 
 async function getPagefind() {
   if (!pagefindInstance) {
+    // @ts-expect-error — /pagefind/* is generated into dist/ at build time
+    // (pagefind CLI) and kept external via astro.config.mjs rollupOptions.
     pagefindInstance = await import("/pagefind/pagefind.js");
     await pagefindInstance.options({ baseUrl: "/" });
   }

@@ -19,7 +19,7 @@ test.describe("homepage", () => {
     await expect(page.getByRole("heading", { name: "Besøk oss" })).toBeVisible();
 
     await page.evaluate(() => {
-      const hero = document.querySelector("img[fetchpriority='high']");
+      const hero = document.querySelector<HTMLImageElement>("img[fetchpriority='high']");
       return hero ? hero.complete && hero.naturalWidth > 0 : false;
     }).then((ok) => expect(ok).toBe(true));
 
