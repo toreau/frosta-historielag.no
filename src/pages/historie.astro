@@ -145,6 +145,9 @@ historiePages.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""
       x-on:keydown.escape.window="lightbox = null"
       x-trap="lightbox"
       x-cloak
+      role="dialog"
+      aria-modal="true"
+      aria-label="Bildevisning"
     >
       <img
         :src="lightbox"

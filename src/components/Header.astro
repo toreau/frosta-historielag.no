@@ -48,13 +48,18 @@ const mainNavItems = site.nav.filter(item =>
         x-on:mouseenter="omossOpen = true"
         x-on:mouseleave="omossOpen = false"
         x-on:click.outside="omossOpen = false"
+        x-on:keydown.escape="omossOpen = false"
       >
         <button
+          type="button"
           class={`rounded-md px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 ${
             currentPath.startsWith("/om-oss") || currentPath.startsWith("/historie") || currentPath.startsWith("/arsmeldinger")
               ? "bg-slate-100 text-slate-900"
               : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
           }`}
+          aria-haspopup="true"
+          :aria-expanded="omossOpen ? 'true' : 'false'"
+          x-on:click="omossOpen = true"
         >
           Om oss
           <svg x-bind:class="omossOpen && 'rotate-180'" class="h-3 w-3 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -164,11 +169,14 @@ const mainNavItems = site.nav.filter(item =>
 
       <!-- Mobile Om oss accordion -->
       <button
+        type="button"
         class={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium transition-colors ${
           currentPath.startsWith("/om-oss") || currentPath.startsWith("/historie") || currentPath.startsWith("/arsmeldinger")
             ? "bg-forest-100 text-forest-800"
             : "text-slate-600 hover:bg-slate-100"
         }`}
+        aria-haspopup="true"
+        :aria-expanded="mobOmossOpen ? 'true' : 'false'"
         x-on:click="mobOmossOpen = !mobOmossOpen"
       >
         Om oss

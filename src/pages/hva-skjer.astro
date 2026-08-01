@@ -5,6 +5,7 @@ import EventCard from "../components/EventCard.astro";
 import CallToAction from "../components/CallToAction.astro";
 import site from "../data/site.json";
 import { getCollection } from "astro:content";
+import { stripMarkdown } from "../lib/markdown";
 
 const today = new Date().toISOString().split("T")[0];
 
@@ -23,45 +24,46 @@ const past = allEvents.filter((e) => e.data.date < today);
 
   <section class="page-section">
     <div class="container-wide">
-      {upcoming.length > 0 ? (
-        <div class="space-y-10">
-          <div>
-            <h2 class="font-serif text-2xl font-bold text-forest-800 mb-6">Kommende arrangementer</h2>
-            <div class="grid gap-8">
-              {upcoming.map((event) => (
-                <EventCard
-                  title={event.data.title}
-                  date={event.data.date}
-                  time={event.data.time}
-                  location={event.data.location}
-                  description={event.body || ""}
-                  image={event.data.image}
-                />
-              ))}
-            </div>
+      {upcoming.length > 0 && (
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-forest-800 mb-6">Kommende arrangementer</h2>
+          <div class="grid gap-8">
+            {upcoming.map((event) => (
+              <EventCard
+                title={event.data.title}
+                date={event.data.date}
+                time={event.data.time}
+                location={event.data.location}
+                description={stripMarkdown(event.body || "")}
+                image={event.data.image}
+              />
+            ))}
           </div>
-          {past.length > 0 && (
-            <div>
-              <h2 class="font-serif text-2xl font-bold text-forest-800 mb-6">Tidligere arrangementer</h2>
-              <div class="grid gap-8">
-                {past.map((event) => (
-                  <EventCard
-                    title={event.data.title}
-                    date={event.data.date}
-                    time={event.data.time}
-                    location={event.data.location}
-                    description={event.body || ""}
-                    image={event.data.image}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
         </div>
-      ) : (
+      )}
+
+      {upcoming.length === 0 && (
         <div class="text-center py-16">
           <p class="text-lg text-slate-500 italic">Ingen kommende arrangementer akkurat nå.</p>
-          <p class="mt-2 text-slate-400">Følg med her for oppdateringer!</p>
+          <p class="mt-2 text-slate-500">Følg med her for oppdateringer!</p>
+        </div>
+      )}
+
+      {past.length > 0 && (
+        <div class={upcoming.length > 0 ? "mt-10" : ""}>
+          <h2 class="font-serif text-2xl font-bold text-forest-800 mb-6">Tidligere arrangementer</h2>
+          <div class="grid gap-8">
+            {past.map((event) => (
+              <EventCard
+                title={event.data.title}
+                date={event.data.date}
+                time={event.data.time}
+                location={event.data.location}
+                description={stripMarkdown(event.body || "")}
+                image={event.data.image}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>

@@ -6,7 +6,7 @@ import { renderMarkdown, getExcerpt } from "../../lib/markdown";
 
 export async function getStaticPaths() {
   const reports = await getCollection("reports");
-  return reports.map((r) => ({
+  return reports.filter((r) => r.data.published).map((r) => ({
     params: { slug: r.id.replace(/\.md$/, "") },
     props: { report: r },
   }));

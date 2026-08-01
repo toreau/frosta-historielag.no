@@ -2,8 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import site from "../data/site.json";
-
-const showSuccess = Astro.url.searchParams.get("success") === "1";
 ---
 
 <Layout title="Bli medlem" description="Bli medlem i Frosta Historielag og støtt arbeidet med lokalhistorie.">
@@ -14,12 +12,10 @@ const showSuccess = Astro.url.searchParams.get("success") === "1";
 
   <section class="page-section">
     <div class="container-wide">
-      {showSuccess && (
-        <div class="mb-12 rounded-xl border-2 border-forest-200 bg-forest-50 p-8 text-center">
-          <p class="font-serif text-2xl font-bold text-forest-700">Takk for din innmelding!</p>
-          <p class="mt-2 text-slate-600">Vi tar kontakt så snart som mulig.</p>
-        </div>
-      )}
+      <div id="membership-success" class="hidden mb-12 rounded-xl border-2 border-forest-200 bg-forest-50 p-8 text-center">
+        <p class="font-serif text-2xl font-bold text-forest-700">Takk for din innmelding!</p>
+        <p class="mt-2 text-slate-600">Vi tar kontakt så snart som mulig.</p>
+      </div>
 
       <div class="grid gap-12 lg:grid-cols-2">
         <div>
@@ -64,7 +60,7 @@ const showSuccess = Astro.url.searchParams.get("success") === "1";
           <p class="mt-2 text-slate-600">Fyll ut skjemaet så kontakter vi deg.</p>
 
           <form
-            action="https://formsubmit.co/${site.email}"
+            action={`https://formsubmit.co/${site.email}`}
             method="POST"
             class="mt-8 space-y-5"
           >
@@ -140,3 +136,11 @@ const showSuccess = Astro.url.searchParams.get("success") === "1";
     </div>
   </section>
 </Layout>
+
+<script is:inline>
+  // Static site: the success banner is hidden at build time and revealed
+  // client-side when FormSubmit redirects back with ?success=1.
+  if (new URLSearchParams(window.location.search).get("success") === "1") {
+    document.getElementById("membership-success")?.classList.remove("hidden");
+  }
+</script>

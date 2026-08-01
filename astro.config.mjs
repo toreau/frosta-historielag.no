@@ -4,7 +4,11 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes("/sok"),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
     build: {

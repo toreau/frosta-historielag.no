@@ -8,8 +8,21 @@ Static site for a Norwegian local history society. Deployed on Cloudflare Pages.
 npm run dev          # local dev server
 npm run build        # convert-webp.mjs → astro build → pagefind index → dist/
 npm run preview      # preview built site
+npm run check        # astro check (typecheck — OOMs on Node 26, use 22/24 LTS)
+npm run test         # vitest: unit + content + build (build tests need dist/)
+npm run test:unit    # vitest tests/unit — markdown.ts + site.json
+npm run test:content # vitest tests/content — image refs, links, frontmatter schemas
+npm run test:build   # build + vitest tests/build — sitemap, pagefind, HTML invariants
+npm run test:e2e     # playwright — builds dist, serves via wrangler pages dev (applies _headers/_redirects)
 npm run generate-types  # wrangler types (Cloudflare)
 ```
+
+## Testing
+
+- **Vitest** (`tests/`): unit tests for `src/lib/markdown.ts` + `site.json`; content-integrity tests that mirror the route model and check image/`.webp`/responsive-variant refs, internal links, frontmatter schemas; build tests asserting sitemap/pagefind/HTML invariants on `dist/`. Content-driven: expectations derive from `src/content/` + `src/data/site.json`, so editors adding content won't break tests.
+- **Playwright** (`e2e/`): chromium desktop + mobile projects; `webServer` runs `npm run build && npx wrangler pages dev dist --port 4321` (wrangler is required — `astro preview` omits `_headers`, breaking CSP tests). Covers nav/redirects/404, event listings, membership form (POST intercepted — no real email), products, search (Pagefind under CSP), admin/Decap boot (CSP regression), gallery lightbox, header dropdown, sitemap crawl, axe a11y scans.
+- **CI**: `.github/workflows/ci.yml` — Node 22, `npm ci` → check → unit/content → build → build tests → playwright. Runs on push + PRs; Cloudflare Pages auto-deploy unchanged.
+- Gotchas: `astro check` OOMs on Node 26 (use 22/24); a11y scans are default-on and fail on serious/critical axe violations only.
 
 ## Astro 6 content collections
 
@@ -77,14 +90,15 @@ npm run generate-types  # wrangler types (Cloudflare)
 ## Decap CMS (content editing for non-technical users)
 
 - Admin panel at `/admin/` — loads from `public/admin/index.html` + `public/admin/config.yml`.
+- The Decap bundle is **vendored** at `public/admin/decap-cms.js` (was unpkg CDN, blocked by CSP). Update: `curl -sL "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js" -o public/admin/decap-cms.js`.
 - Edits events (`src/content/events/`), products (`src/content/products/`), and site settings (`src/data/site.json`).
 - Changes committed via GitHub backend → Cloudflare auto-deploys.
 - Requires a GitHub OAuth App for login (one-time setup, instructions in `scripts/setup-decap.md`).
-- `functions/[[handler]].js` — Cloudflare Pages function that proxies GitHub OAuth (`/auth` → GitHub authorize → `/callback` → token exchange). Requires `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` env vars.
+- `functions/[[handler]].js` — Cloudflare Pages function that proxies GitHub OAuth (`/auth` → GitHub authorize → `/callback` → token exchange). Requires `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` env vars. Private repo → must also set `GITHUB_REPO_PRIVATE` (else OAuth asks only `public_repo` scope).
 
 ## Cloudflare static assets
 
-- `public/_headers` — Cache-Control: images/pagefind 1yr immutable, favicon 1wk, and `Content-Security-Policy` header.
+- `public/_headers` — Cache-Control: images/pagefind 1yr immutable, favicon 1wk, and `Content-Security-Policy` header. `/admin/*` gets a relaxed override (GitHub API in `connect-src`).
 - `public/_redirects` — Trailing-slash redirects for `/slekt`, `/historie`, `/produkter`.
 
 ## Images

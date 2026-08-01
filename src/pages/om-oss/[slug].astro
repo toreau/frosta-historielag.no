@@ -6,7 +6,7 @@ import { renderMarkdown, getExcerpt } from "../../lib/markdown";
 
 export async function getStaticPaths() {
   const allPages = await getCollection("pages");
-  const pages = allPages.filter((p) => p.data.section === "om-oss");
+  const pages = allPages.filter((p) => p.data.section === "om-oss" && p.data.published);
   return pages.map((p) => ({
     params: { slug: p.id.replace(/\.md$/, "") },
     props: { page: p },

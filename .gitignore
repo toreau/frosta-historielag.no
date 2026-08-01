@@ -2,6 +2,10 @@
 dist/
 .wrangler/
 
+# test artifacts
+test-results/
+playwright-report/
+
 # generated types
 .astro/
 

@@ -5,6 +5,7 @@ import EventCard from "../components/EventCard.astro";
 import CallToAction from "../components/CallToAction.astro";
 import site from "../data/site.json";
 import { getCollection } from "astro:content";
+import { getExcerpt } from "../lib/markdown";
 
 const today = new Date().toISOString().split("T")[0];
 
@@ -91,14 +92,14 @@ const upcomingEvents = allEvents
               date={event.data.date}
               time={event.data.time}
               location={event.data.location}
-              description={event.body?.substring(0, 180) + "..." || ""}
+              description={getExcerpt(event.body, 180)}
               image={event.data.image}
             />
           ))
         ) : (
           <div class="md:col-span-2 text-center py-8">
             <p class="text-lg text-slate-500 italic">Ingen kommende arrangementer akkurat nå.</p>
-            <p class="mt-1 text-slate-400">Følg med her for oppdateringer!</p>
+            <p class="mt-1 text-slate-500">Følg med her for oppdateringer!</p>
           </div>
         )}
       </div>

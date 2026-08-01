@@ -10,22 +10,33 @@
     "build": "node scripts/convert-webp.mjs && astro build && npx pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
+    "check": "astro check",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:content": "vitest run tests/content",
+    "test:build": "npm run build && vitest run tests/build",
+    "test:e2e": "playwright test",
     "generate-types": "wrangler types"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
-    "@tailwindcss/vite": "^4.3.0",
-    "astro": "^6.4.2",
-    "isomorphic-dompurify": "^3.16.0",
-    "marked": "^18.0.4",
-    "tailwindcss": "^4.3.0"
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^6.4.8",
+    "isomorphic-dompurify": "^3.21.0",
+    "marked": "^18.0.7",
+    "tailwindcss": "^4.3.3"
   },
   "overrides": {
     "vite": "^7"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.12.1",
+    "@playwright/test": "^1.62.1",
     "pagefind": "^1.5.2",
-    "sharp": "^0.34.5",
-    "wrangler": "^4.98.0"
+    "sharp": "^0.35.3",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10",
+    "wrangler": "^4.118.0"
   }
 }

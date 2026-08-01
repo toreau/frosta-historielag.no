@@ -37,15 +37,21 @@
     const results = document.getElementById("search-results") as HTMLElement;
     if (!input || !results) return;
 
-    input.addEventListener("input", async () => {
+    let debounceTimer: number | undefined;
+
+    input.addEventListener("input", () => {
+      clearTimeout(debounceTimer);
       const query = input.value.trim();
       if (query.length < 2) {
         results.innerHTML = "";
         results.classList.add("hidden");
         return;
       }
+      debounceTimer = window.setTimeout(() => runSearch(query), 200);
+    });
 
-      const items = await executeSearch(query);
+    async function runSearch(query: string) {
+      const items = await executeSearch(query, 8);
       if (!items.length) {
         results.innerHTML =
           '<p class="px-4 py-3 text-sm text-slate-500 italic">Ingen treff</p>';
@@ -70,7 +76,7 @@
         .join("");
 
       results.classList.remove("hidden");
-    });
+    }
 
     document.addEventListener("click", (e) => {
       const searchEl = document.getElementById("search");
