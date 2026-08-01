@@ -30,7 +30,10 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "npm run build && npx wrangler pages dev dist --port 4321",
+    // serve-dist.mjs applies _headers/_redirects like Cloudflare Pages —
+    // astro preview omits them (breaks CSP tests) and wrangler/workerd
+    // crashes under CI load.
+    command: "npm run build && node scripts/serve-dist.mjs --port 4321",
     url: "http://localhost:4321",
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,

@@ -13,14 +13,14 @@ npm run test         # vitest: unit + content + build (build tests need dist/)
 npm run test:unit    # vitest tests/unit — markdown.ts + site.json
 npm run test:content # vitest tests/content — image refs, links, frontmatter schemas
 npm run test:build   # build + vitest tests/build — sitemap, pagefind, HTML invariants
-npm run test:e2e     # playwright — builds dist, serves via wrangler pages dev (applies _headers/_redirects)
+npm run test:e2e     # playwright — builds dist, serves via scripts/serve-dist.mjs (applies _headers/_redirects)
 npm run generate-types  # wrangler types (Cloudflare)
 ```
 
 ## Testing
 
 - **Vitest** (`tests/`): unit tests for `src/lib/markdown.ts` + `site.json`; content-integrity tests that mirror the route model and check image/`.webp`/responsive-variant refs, internal links, frontmatter schemas; build tests asserting sitemap/pagefind/HTML invariants on `dist/`. Content-driven: expectations derive from `src/content/` + `src/data/site.json`, so editors adding content won't break tests.
-- **Playwright** (`e2e/`): chromium desktop + mobile projects; `webServer` runs `npm run build && npx wrangler pages dev dist --port 4321` (wrangler is required — `astro preview` omits `_headers`, breaking CSP tests). Covers nav/redirects/404, event listings, membership form (POST intercepted — no real email), products, search (Pagefind under CSP), admin/Decap boot (CSP regression), gallery lightbox, header dropdown, sitemap crawl, axe a11y scans.
+- **Playwright** (`e2e/`): chromium desktop + mobile projects; `webServer` runs `npm run build && node scripts/serve-dist.mjs` — a zero-dep static server that applies `_headers`/`_redirects` like Cloudflare Pages (use it, NOT `wrangler pages dev` — workerd crashes under CI load; `astro preview` omits `_headers`, breaking CSP tests). Covers nav/redirects/404, event listings, membership form (POST intercepted — no real email), products, search (Pagefind under CSP), admin/Decap boot (CSP regression), gallery lightbox, header dropdown, sitemap crawl, axe a11y scans.
 - **CI**: `.github/workflows/ci.yml` — Node 22, `npm ci` → check → unit/content → build → build tests → playwright. Runs on push + PRs; Cloudflare Pages auto-deploy unchanged.
 - Gotchas: `astro check` OOMs on Node 26 (use 22/24); a11y scans are default-on and fail on serious/critical axe violations only.
 
