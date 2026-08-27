@@ -120,3 +120,14 @@ jobs:
           gh attestation verify "oci://ghcr.io/toreau/frosta-historielag.no@${DIGEST}" -R toreau/frosta-historielag.no \
             --predicate-type https://spdx.dev/Document/v2.3
           echo "attestations verified for ${DIGEST}"
+
+  dispatch:
+    needs: attest
+    if: github.ref == 'refs/heads/main'
+    uses: toreau/gh-workflows/.github/workflows/dispatch.yml@v1
+    with:
+      target-repo: toreau/k8s-research
+      event-type: app-image-pushed
+      payload: '{"app":"frosta-historielag","sha":"${{ github.sha }}","digest":"${{ needs.attest.outputs.digest }}"}'
+    secrets:
+      token: ${{ secrets.K8S_RESEARCH_PAT }}
