@@ -16,6 +16,6 @@ permissions:
 
 jobs:
   call:
-    uses: toreau/gh-workflows/.github/workflows/attest-evidence.yml@f2dcae0dfdf1dfff82f23f920a465900be3d4a3f
+    uses: toreau/gh-workflows/.github/workflows/attest-evidence.yml@d31696bf041c1462f2b5fd6fcf9b557b6b1e7894
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}

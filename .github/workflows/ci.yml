@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -40,7 +40,7 @@ jobs:
 
       - name: Upload Playwright report on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-report
           path: test-results/
@@ -54,7 +54,7 @@ jobs:
       packages: write
       id-token: write
       attestations: write
-    uses: toreau/gh-workflows/.github/workflows/container-build-attest.yml@373df7517487bd20ac55a0986926677c0ddcbcf6
+    uses: toreau/gh-workflows/.github/workflows/container-build-attest.yml@d31696bf041c1462f2b5fd6fcf9b557b6b1e7894
 
   dispatch:
     needs: builder
