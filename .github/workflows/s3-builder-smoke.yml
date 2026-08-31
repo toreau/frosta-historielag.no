@@ -15,4 +15,4 @@ permissions:
 
 jobs:
   call:
-    uses: toreau/gh-workflows/.github/workflows/container-build-attest.yml@72afbe56d2d4eb32295e54249ebaa4882f5f19a7
+    uses: toreau/gh-workflows/.github/workflows/container-build-attest.yml@373df7517487bd20ac55a0986926677c0ddcbcf6
