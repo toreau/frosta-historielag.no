@@ -1,0 +1,6 @@
+{
+  "image": "ghcr.io/toreau/frosta-historielag.no",
+  "dockerfile": "Dockerfile",
+  "context": ".",
+  "platform": "linux/arm64"
+}

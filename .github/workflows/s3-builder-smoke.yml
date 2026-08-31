@@ -1,6 +1,7 @@
-# S3 verification (temporary): structural smoke of the trusted builder.
-# Calls container-build-attest.yml (pinned SHA). No dispatch, no promotion.
-# Will be replaced by the real caller migration (S7/S9) and S4 identity evidence.
+# S3.1 verification (temporary): structural smoke of the generic trusted builder.
+# Calls container-build-attest.yml (pinned SHA) with NO inputs and NO secrets;
+# build config comes from .github/container-build.json in this source revision.
+# No dispatch, no promotion.
 name: s3-builder-smoke
 
 on:
@@ -14,6 +15,4 @@ permissions:
 
 jobs:
   call:
-    uses: toreau/gh-workflows/.github/workflows/container-build-attest.yml@879facdc5f08b0ecda9f56ec1cbdce66a975ac4c
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
+    uses: toreau/gh-workflows/.github/workflows/container-build-attest.yml@72afbe56d2d4eb32295e54249ebaa4882f5f19a7
