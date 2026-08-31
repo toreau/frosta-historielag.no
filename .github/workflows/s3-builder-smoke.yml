@@ -1,0 +1,19 @@
+# S3 verification (temporary): structural smoke of the trusted builder.
+# Calls container-build-attest.yml (pinned SHA). No dispatch, no promotion.
+# Will be replaced by the real caller migration (S7/S9) and S4 identity evidence.
+name: s3-builder-smoke
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+  attestations: write
+
+jobs:
+  call:
+    uses: toreau/gh-workflows/.github/workflows/container-build-attest.yml@879facdc5f08b0ecda9f56ec1cbdce66a975ac4c
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
