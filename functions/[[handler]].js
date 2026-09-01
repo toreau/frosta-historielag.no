@@ -162,7 +162,7 @@ export function buildCallbackPage({ type, payload, expectedOrigin }) {
   const html = `<!doctype html>
 <html lang="no">
 <head><meta charset="UTF-8"><title>${heading}</title></head>
-<body style="font-family:system-ui,sans-serif;padding:2rem;text-align:center">
+<body>
   <h2>${heading}</h2>
   <p>${message}</p>
   <script nonce="${nonce}">
@@ -249,22 +249,27 @@ export async function onRequest({ request, env, next }) {
   }
 
   if (url.pathname === "/callback") {
-    if (!expectedOrigin) {
-      return new Response("OAuth is not configured", { status: 500 });
-    }
-
-    const code = url.searchParams.get("code");
-    if (!code) {
-      return new Response("Missing code", { status: 400 });
-    }
-
     const cookies = parseCookies(request.headers.get("cookie"));
     const rawCookie = cookies[COOKIE_NAME];
     const stateParam = url.searchParams.get("state");
+    const code = url.searchParams.get("code");
+
+    // Terminal outcomes retire an existing state cookie where present.
+    const clearCookieIfPresent = (res) => {
+      if (rawCookie) res.headers.set("Set-Cookie", cookieSet("", 0));
+      return res;
+    };
+
+    if (!expectedOrigin) {
+      return clearCookieIfPresent(new Response("OAuth is not configured", { status: 500 }));
+    }
+
+    if (!code) {
+      return clearCookieIfPresent(new Response("Missing code", { status: 400 }));
+    }
 
     const fail = (status) => {
-      const headers = { "Set-Cookie": cookieSet("", 0) };
-      if (rawCookie) return new Response("Invalid state", { status, headers });
+      if (rawCookie) return new Response("Invalid state", { status, headers: { "Set-Cookie": cookieSet("", 0) } });
       return new Response("Invalid state", { status });
     };
 
@@ -317,7 +322,7 @@ export async function onRequest({ request, env, next }) {
       payload: { token, provider: "github" },
       expectedOrigin,
     });
-    return callbackResponse(html, nonce);
+    return clearCookieIfPresent(callbackResponse(html, nonce));
   }
 
   return next();
