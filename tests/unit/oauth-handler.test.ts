@@ -227,6 +227,8 @@ describe("onRequest /callback", () => {
     expect(csp).not.toContain("unsafe-inline");
     expect(csp).not.toContain("unsafe-eval");
     expect(csp).not.toMatch(/script-src [^']*\*/);
+    expect(res.headers.get("set-cookie")).toContain("__Host-frosta-oauth-state=");
+    expect(res.headers.get("set-cookie")).toContain("Max-Age=0");
   });
 
   it("passes exact redirect_uri and code_verifier into the exchange", async () => {
@@ -263,6 +265,112 @@ describe("onRequest /callback", () => {
     const req = new Request(`https://frosta-historielag.pages.dev/callback?code=code123&state=abc`);
     const res = await onRequest({ request: req, env: makeEnv(), next });
     expect(res.status).toBe(400);
+  });
+
+  it("missing code consumes an existing state cookie and does not exchange", async () => {
+    const { cookie, state } = await beginAuth();
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ access_token: "gho_should_not_happen" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    globalThis.fetch = fetchMock;
+    const req = new Request(`https://frosta-historielag.pages.dev/callback?state=${state}`, {
+      headers: { cookie },
+    });
+    const res = await onRequest({ request: req, env: makeEnv(), next });
+    expect(res.status).toBe(400);
+    expect(res.headers.get("set-cookie")).toContain("Max-Age=0");
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("replay after successful callback fails closed without another exchange", async () => {
+    const { cookie, state } = await beginAuth();
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ access_token: "gho_token", token_type: "bearer" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    globalThis.fetch = fetchMock;
+    const req = new Request(`https://frosta-historielag.pages.dev/callback?code=code123&state=${state}`, {
+      headers: { cookie },
+    });
+    const res = await onRequest({ request: req, env: makeEnv(), next });
+    expect(res.status).toBe(200);
+    expect(res.headers.get("set-cookie")).toContain("Max-Age=0");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+
+    // Model the browser having applied the clearing Set-Cookie: no cookie in
+    // the follow-up request. The repeated callback must fail closed and must
+    // not perform a second token exchange.
+    const req2 = new Request(`https://frosta-historielag.pages.dev/callback?code=code123&state=${state}`);
+    const res2 = await onRequest({ request: req2, env: makeEnv(), next });
+    expect(res2.status).toBe(400);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("malformed state cookie fails closed and clears the cookie", async () => {
+    const req = new Request(
+      `https://frosta-historielag.pages.dev/callback?code=code123&state=abc`,
+      { headers: { cookie: `__Host-frosta-oauth-state=@@@not-base64url@@@` } },
+    );
+    const res = await onRequest({ request: req, env: makeEnv(), next });
+    expect(res.status).toBe(400);
+    expect(res.headers.get("set-cookie")).toContain("Max-Age=0");
+  });
+
+  it("callback configuration failure clears an existing state cookie", async () => {
+    const { cookie } = await beginAuth();
+    const req = new Request(`https://frosta-historielag.pages.dev/callback?code=code123&state=abc`, {
+      headers: { cookie },
+    });
+    const res = await onRequest({
+      request: req,
+      env: makeEnv({ DECAP_OAUTH_ORIGIN: undefined }),
+      next,
+    });
+    expect(res.status).toBe(500);
+    expect(res.headers.get("set-cookie")).toContain("Max-Age=0");
+  });
+
+  it("Decap error wire payload uses message-compatible format", async () => {
+    const { cookie, state } = await beginAuth();
+    globalThis.fetch = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ error: "bad_verification_code" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    const req = new Request(`https://frosta-historielag.pages.dev/callback?code=bad&state=${state}`, {
+      headers: { cookie },
+    });
+    const res = await onRequest({ request: req, env: makeEnv(), next });
+    const html = await res.text();
+    expect(html).toContain("authorization:github:error:");
+    // The error payload is embedded as a JS string literal (JSON.stringify
+    // escapes the inner quotes), message-compatible with Decap 3.15.1 which
+    // consumes the .message property. No "error" property is emitted.
+    expect(html).toContain('{\\"message\\":\\"authentication_failed\\"}');
+    expect(html).toContain("authentication_failed");
+    expect(html).not.toMatch(/"error"\s*:/);
+  });
+
+  it("callback HTML has no inline body style (CSP-compatible)", async () => {
+    const { cookie, state } = await beginAuth();
+    globalThis.fetch = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ access_token: "gho_token", token_type: "bearer" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    const req = new Request(`https://frosta-historielag.pages.dev/callback?code=code123&state=${state}`, {
+      headers: { cookie },
+    });
+    const res = await onRequest({ request: req, env: makeEnv(), next });
+    const html = await res.text();
+    expect(html).not.toMatch(/<body[^>]*style=/);
   });
 
   it("fails on state mismatch and clears the cookie", async () => {
@@ -307,6 +415,7 @@ describe("onRequest /callback", () => {
     );
     const res = await onRequest({ request: req, env: makeEnv(), next });
     expect(res.status).toBe(400);
+    expect(res.headers.get("set-cookie")).toContain("Max-Age=0");
   });
 });
 
