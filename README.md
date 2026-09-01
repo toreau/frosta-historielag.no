@@ -37,10 +37,13 @@ For oppsett av GitHub OAuth, se `scripts/setup-decap.md`.
 ## Klynge-kopi
 
 Statisk kopi deployes også til det lokale k8s-research-clusteret (kind + Skiperator +
-ArgoCD) som **referanseapp** for den sky-drevne GitOps-løypen: CI bygger ett arm64-bilde
-(`ghcr.io/toreau/frosta-historielag.no`, `main-<sha>`/`latest`), **SLSA-attesterer** det
-inline i `ci.yml`, og dispatcher `app-image-pushed` til k8s-research → gate → bump-PR →
-review → merge → ArgoCD auto-synker. In-kluster håndhever Sigstore Policy Controller
-attestasjonen ved admission (`policy.sigstore.dev/include=true`). Produksjonen (Cloudflare)
-er uendret; Cloudflare-`functions/` er ikke med i cluster-kopien (statisk kun, Decap-admin
-uten innlogging).
+ArgoCD) som **referanseapp** for den sky-drevne GitOps-løypen: CI tester og invokerer den
+sentrale trusted reusable builder (`container-build-attest.yml`), som bygger ett arm64-bilde
+(`ghcr.io/toreau/frosta-historielag.no`, `main-<sha>`), genererer SLSA-provenance + SPDX-SBOM,
+og returnerer digesten. CI dispatcher `app-image-pushed` til k8s-research → promotion
+(sterk provenance-gate) → bump-PR → review → merge → ArgoCD auto-synker. Cluster-kopien er
+admission-enforced som valgt referanseapp: Sigstore Policy Controller krever attestasjon
+signert av trusted central `container-build-attest`-workflowen ved en godtatt
+builder-revisjon for referanse-image-scope (`ghcr.io/toreau/frosta-historielag.no**`) i
+namespace `frosta-historielag`. Produksjonen (Cloudflare) er uendret; Cloudflare-`functions/`
+er ikke med i cluster-kopien (statisk kun, Decap-admin uten innlogging).
