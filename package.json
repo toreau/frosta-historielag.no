@@ -21,7 +21,7 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^6.4.8",
+    "astro": "^7.2.10",
     "isomorphic-dompurify": "^3.21.0",
     "marked": "^18.0.7",
     "tailwindcss": "^4.3.3"
