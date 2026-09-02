@@ -11,5 +11,8 @@ COPY . .
 RUN npm run build
 
 FROM nginxinc/nginx-unprivileged:stable-alpine
+USER root
+RUN apk add --no-cache --upgrade libexpat
+USER 101
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 8080
