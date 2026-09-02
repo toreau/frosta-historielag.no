@@ -11,3 +11,35 @@ updates:
       github-actions:
         patterns:
           - "*"
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      production-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - "@astrojs/sitemap"
+          - "astro"
+          - "marked"
+          - "isomorphic-dompurify"
+          - "tailwindcss"
+          - "@tailwindcss/*"
+        update-types:
+          - minor
+          - patch
+      dev-tooling:
+        applies-to: version-updates
+        patterns:
+          - "@astrojs/check"
+          - "@playwright/*"
+          - "@axe-core/*"
+          - "typescript"
+          - "vitest"
+          - "pagefind"
+          - "sharp"
+          - "wrangler"
+        update-types:
+          - minor
+          - patch
