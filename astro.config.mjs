@@ -13,7 +13,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
     build: {
       rollupOptions: {
-        external: (id) => id.startsWith("/pagefind/"),
+        external: /^\/pagefind\//,
       },
     },
   },
