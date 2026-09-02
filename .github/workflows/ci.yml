@@ -61,9 +61,19 @@ jobs:
       attestations: write
     uses: toreau/gh-workflows/.github/workflows/container-build-attest.yml@373df7517487bd20ac55a0986926677c0ddcbcf6
 
-  dispatch:
+  image-scan:
     needs: builder
     if: github.ref == 'refs/heads/main' && needs.builder.result == 'success'
+    permissions:
+      packages: read
+    uses: toreau/gh-workflows/.github/workflows/container-scan.yml@5de3d9440803452670476182508870b27d030962
+    with:
+      image: ghcr.io/toreau/frosta-historielag.no
+      digest: ${{ needs.builder.outputs.digest }}
+
+  dispatch:
+    needs: [builder, image-scan]
+    if: github.ref == 'refs/heads/main' && needs.builder.result == 'success' && needs.image-scan.result == 'success'
     permissions: {}
     uses: toreau/gh-workflows/.github/workflows/dispatch.yml@19c65c9683f649cab7d3831a3bbc66451e756ebe
     with:
