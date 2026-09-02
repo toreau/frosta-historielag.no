@@ -47,3 +47,5 @@ signert av trusted central `container-build-attest`-workflowen ved en godtatt
 builder-revisjon for referanse-image-scope (`ghcr.io/toreau/frosta-historielag.no**`) i
 namespace `frosta-historielag`. Produksjonen (Cloudflare) er uendret; Cloudflare-`functions/`
 er ikke med i cluster-kopien (statisk kun, Decap-admin uten innlogging).
+
+APPSEC-02.4 positive-enforcement probe marker (temporary, never merged).
