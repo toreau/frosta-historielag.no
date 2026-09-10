@@ -36,7 +36,7 @@
     "pagefind": "^1.5.2",
     "sharp": "^0.35.3",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.10",
+    "vitest": "^4.1.11",
     "wrangler": "^4.128.0"
   }
 }
